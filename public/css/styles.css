@@ -1,0 +1,54 @@
+.fa-xl {
+  font-size: 1.5rem;
+}
+
+.header button {
+  color: white!important;
+  font-weight: 500;
+}
+
+.nav-link.active {
+  color: #FF9142!important;
+  border: none!important;
+  border-bottom: 1px solid #FF9142!important;
+}
+
+.nav-link {
+  border: none!important;
+  color: rgba(0, 0, 0, 0.6)!important;
+  border-color: transparent!important;
+}
+
+.bgcolor-main {
+  background-color: #FF9142;
+  color: white;
+}
+
+.color-main {
+  color: #FF9142;
+}
+
+.color-sub {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin-bottom: 0;
+}
+
+.input-head {
+  font-size: 14px;
+  background-color: white;
+  padding: 0 8px;
+  top: -12px;
+  left: 8px;
+}
+
+.btn:hover {
+  color: white;
+}
+
+.section-package .card {
+  border-radius: 16px;
+}
+
