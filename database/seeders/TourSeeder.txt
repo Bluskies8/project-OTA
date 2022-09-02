@@ -1,0 +1,96 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Tour;
+
+class TourSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Tour::create([
+            'product_name' => '7 DAYS EXPLORE OSAKA - TOKYO',
+            'slug' => '7-days-explore-osaka-tokyo',
+            'img_url' => '/images/product/100012.jpg',
+            'handle_by' => 1,
+            'start_price' => 25000000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 7,
+            'nights_count' => 6,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+        Tour::create([
+            'product_name' => '5 DAYS BRISBANE- GOLD COAST - SYDNEY',
+            'slug' => '5-days-brisbane-gold-coast-sydney',
+            'img_url' => '/images/product/100022_13.jpg',
+            'handle_by' => 1,
+            'start_price' => 8950000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 5,
+            'nights_count' => 4,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+        Tour::create([
+            'product_name' => '9 DAYS WONDERFUL TURKEY',
+            'slug' => '9-days-wonderful-turkey',
+            'img_url' => '/images/product/100014.jpg',
+            'handle_by' => 1,
+            'start_price' => 12950000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 9,
+            'nights_count' => 9,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+        Tour::create([
+            'product_name' => '3 DAYS SINGAPORE FREE & EASY',
+            'slug' => '3-days-singapore-free-easy',
+            'img_url' => '/images/product/100015.jpg',
+            'handle_by' => 1,
+            'start_price' => 1850000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 3,
+            'nights_count' => 3,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+        Tour::create([
+            'product_name' => '6 DAYS GOLDEN TRIANGLE - KHASMIR TOUR',
+            'slug' => '6-days-golden-triangle-khasmir-tour',
+            'img_url' => '/images/product/100016.jpg',
+            'handle_by' => 1,
+            'start_price' => 7988000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 6,
+            'nights_count' => 5,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+        Tour::create([
+            'product_name' => '3 DAYS GOLD COAST FREE & EASY',
+            'slug' => '3-days-gold-coast-free-easy',
+            'img_url' => '/images/product/100017.jpg',
+            'handle_by' => 1,
+            'start_price' => 2454000,
+            'is_domestic' => true,
+            'include_flight' => true,
+            'days_count' => 3,
+            'nights_count' => 2,
+            'limit_passanger' => 10,
+            'contact_person' => '082212341213',
+        ]);
+    }
+}
