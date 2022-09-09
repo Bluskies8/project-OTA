@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', [HomeController::class,'home']);
+Route::post('/searchFlight',[HomeController::class,'searchFlight']);
+Route::get('/search',[HomeController::class,'searchFlight']);
+Route::prefix('tour')->group(function () {
+    Route::get('/imgh/{id}', [HomeController::class, 'showheader']);
+    Route::get('/imgt/{id}', [HomeController::class, 'showthumb']);
+    // Route::get('/Photo/getimg/{id}', [ProductTourPhotoController::class, 'show']);
+    // Route::get('/Thermcond/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
 });

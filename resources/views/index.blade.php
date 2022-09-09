@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body>
     <div class="header shadow-lg d-flex justify-content-between px-3 position-fixed" style="height: 64px;background-color: #FF9142;color: white;top: 0px;width: 100%;z-index: 10;">
         <div class="h-100 d-flex align-items-center"><i class="fas fa-bars fa-thin fa-lg p-4 me-3"></i><img class="h-75 py-2" src="assets/img/logoWhite.png"></div>
@@ -34,62 +33,68 @@
                     <div class="tab-pane active" role="tabpanel" id="tab-1">
                         <div class="d-flex align-items-center">
                             <h3 class="text-uppercase color-main me-3">book your flight<br></h3>
-                            <div class="form-check me-2 mb-0"><input class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
-                            <div class="form-check me-2 mb-0"><input class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type"class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type"class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
                         </div>
-                        <form class="mt-3">
+                        <form class="mt-3" action = "/searchFlight" method="POST">
                             <div class="row mb-4">
                                 <div class="col-4">
-                                    <div class="position-relative"><select class="form-select">
-                                            <optgroup label="This is a group">
-                                                <option value="12" selected="">This is item 1</option>
-                                                <option value="13">This is item 2</option>
-                                                <option value="14">This is item 3</option>
-                                            </optgroup>
+                                    <div class="position-relative">
+                                        {{-- <select class="selectpicker" data-live-search="true" data-width="fit" tabindex="-98">
+                                            @foreach ($airport as $item)
+                                                <option data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
+                                            @endforeach
+                                        </select> --}}
+                                        <select class=" form-select" name = "departure">
+                                            @foreach ($airport as $item)
+                                            <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
+                                            @endforeach
                                         </select>
                                         <p class="position-absolute color-sub input-head">Departure</p>
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="position-relative"><select class="form-select">
-                                            <optgroup label="This is a group">
-                                                <option value="12" selected="">This is item 1</option>
-                                                <option value="13">This is item 2</option>
-                                                <option value="14">This is item 3</option>
-                                            </optgroup>
+                                    <div class="position-relative" name="destination">
+                                        <select class=" form-select">
+                                            @foreach ($airport as $item)
+                                            <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
+                                            @endforeach
                                         </select>
                                         <p class="position-absolute color-sub input-head">Destination</p>
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <div class="position-relative"><input class="form-control" type="date">
+                                    <div class="position-relative">
+                                        <input class="form-control" type="date" name = "depart">
                                         <p class="position-absolute color-sub input-head">Depart</p>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="position-relative">
-                                        <p class="position-absolute color-sub input-head">Return</p><input class="form-control" type="date">
+                                        <input class="form-control" type="date" name = "return">
+                                        <p class="position-absolute color-sub input-head">Return</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="position-relative">
-                                        <p class="position-absolute color-sub input-head">Passenger</p><input class="form-control" type="text">
+                                        <input class="form-control" type="text" name = "passanger">
+                                        <p class="position-absolute color-sub input-head">Passenger</p>
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="position-relative"><select class="form-select">
-                                            <optgroup label="This is a group">
-                                                <option value="12" selected="">This is item 1</option>
-                                                <option value="13">This is item 2</option>
-                                                <option value="14">This is item 3</option>
-                                            </optgroup>
+                                    <div class="position-relative">
+                                        <select class="form-select" name = "class">
+                                                <option value="economy" selected="">Economy</option>
+                                                <option value="premium_economy">Premium Economy</option>
+                                                <option value="business">Business Class</option>
+                                                <option value="first">First Class</option>
                                         </select>
                                         <p class="position-absolute color-sub input-head">Class</p>
                                     </div>
                                 </div>
-                                <div class="col text-end"><button class="btn bgcolor-main" type="button">Search</button></div>
+                                <div class="col text-end"><button class="btn bgcolor-main" type="submit">Search</button></div>
                             </div>
                         </form>
                     </div>
@@ -126,6 +131,7 @@
                 </ol>
             </div>
         </section>
+        @isset($product)
         <section id="section-package-1" class="mt-5 text-center section-package">
             <h2 class="text-uppercase color-main">holiday package</h2>
             <h5 class="mb-3 color-sub">Travel to exciting destinations with flights, hotel, transfers and tours - all packaged up!<br></h5>
@@ -133,7 +139,29 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
+                            @foreach ($product->products as $item)
                             <div class="col px-4">
+                                <div style="background-color: #FF9142;border-radius: 16px;color: white;">
+                                    <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)); background-repeat: no-repeat;background-size: cover;background-position: center center;">
+                                        <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
+                                            <img src="{{url($item->thumbnail_img_url)}}">
+                                            <h3 class="text-uppercase card-title mt-3">{{$item->name}}</h3>
+                                            <div class="mb-3">
+                                                <div>
+                                                    <p>Starting from</p>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h2>Rp {{$item->start_price}}</h2>
+                                                    <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
+                                </div>
+                            </div>
+                            @endforeach
+                            {{-- <div class="col px-4">
                                 <div style="background-color: #FF9142;border-radius: 16px;color: white;">
                                     <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)),url(assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;">
                                         <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
@@ -170,26 +198,7 @@
                                     </div>
                                     <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
                                 </div>
-                            </div>
-                            <div class="col px-4">
-                                <div style="background-color: #FF9142;border-radius: 16px;color: white;">
-                                    <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)),url(assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;">
-                                        <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
-                                            <h3 class="text-uppercase card-title mt-3">7 days exploration osaka - tokyo</h3>
-                                            <div class="mb-3">
-                                                <div>
-                                                    <p>Starting from</p>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <h2>Rp 25.000.000</h2>
-                                                    <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
-                                </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -199,6 +208,7 @@
                 </ol>
             </div>
         </section>
+        @endisset
     </div>
     <section id="section-footer">
         <div class="py-3" style="background-image: linear-gradient(0deg, rgba(255, 206, 160, 0.6), rgba(255, 206, 160, 0.6)), url(assets/img/bg_footer.jpg);">
