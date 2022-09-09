@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function searchFlight(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         return view('welcome');
     }
     public function home()

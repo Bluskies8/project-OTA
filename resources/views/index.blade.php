@@ -33,10 +33,11 @@
                     <div class="tab-pane active" role="tabpanel" id="tab-1">
                         <div class="d-flex align-items-center">
                             <h3 class="text-uppercase color-main me-3">book your flight<br></h3>
-                            <div class="form-check me-2 mb-0"><input name = "type"class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
-                            <div class="form-check me-2 mb-0"><input name = "type"class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
                         </div>
                         <form class="mt-3" action = "/searchFlight" method="POST">
+                            @csrf
                             <div class="row mb-4">
                                 <div class="col-4">
                                     <div class="position-relative">
@@ -54,8 +55,8 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="position-relative" name="destination">
-                                        <select class=" form-select">
+                                    <div class="position-relative">
+                                        <select class=" form-select"  name="destination">
                                             @foreach ($airport as $item)
                                             <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                             @endforeach
