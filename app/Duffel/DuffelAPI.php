@@ -78,6 +78,37 @@ class DuffelAPI
         return $RESPONSE;
     }
 
+    public static function SearchFlight($data)
+    {
+        // $body = $REQUEST['data'];
+        // dd($body);
+        $targetPath = "/air/offer_requests";
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+            "data"=> [
+                "cabin_class"=> $data['cabin'],
+                "slices"=> [
+                  [
+                    "departure_date"=> $data['departure_date'],
+                    "destination"=> $data['destination'],
+                    "origin"=> $data['origin'],
+                    // "destination"=> 'KNO',
+                    // "origin"=> 'SUB',
+                  ]
+                ],
+                "passengers" => $data['pass'],
+            ]
+        ]));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
     // public static function DoJokulPayment($data){
     //     $REQUEST = [
     //         'order' => $data['order'],

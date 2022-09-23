@@ -6,6 +6,7 @@ use App\Duffel\DuffelAPI;
 use App\Models\Airport;
 use App\Models\DisplayBanner;
 use App\Models\ProductTour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,11 +14,39 @@ class HomeController extends Controller
 
     public function searchFlight(Request $request)
     {
-        dd($request->all());
-        return view('welcome');
+        $request->validate([
+            'passanger' => 'numeric|required',
+
+        ]);
+        for ($i=0; $i < $request->passanger; $i++) {
+            $pass[$i] =[
+                'type' => 'adult'
+            ];
+        }
+        $data = [
+            'type' =>$request->type,
+            'cabin' => $request->class,
+            'departure_date' => $request->depart,
+            'origin' => $request->departure,
+            'destination' => $request->destination,
+            'pass' => $pass
+        ];
+        // return $request->depart;
+        $day = Carbon::createFromFormat('Y-m-d', $request->depart)->format('l');
+        $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
+        // dd($day);
+        $res = DuffelAPI::SearchFlight($data);
+        // dd($res->data);
+        return view('pages.user.ticket',[
+            'data' => $res->data,
+            'pass_count' => $request->passanger,
+            'cabin' => $request->class,
+            'date' => $day.", ".$date
+        ]);
     }
     public function home()
     {
+        // return view('pages.user.index');
         $display = DisplayBanner::where('enabled',1)->orderBy('index', 'ASC')->first();
         $tour = ProductTour::get();
         $airport = DuffelAPI::getAirport();
@@ -51,7 +80,7 @@ class HomeController extends Controller
         }
         // }
         // dd($display);
-        return view('index',[
+        return view('pages.user.index',[
             'airport' => $airport->data,
             'product' => $display
         ]);
