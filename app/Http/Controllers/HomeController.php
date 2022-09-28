@@ -85,6 +85,38 @@ class HomeController extends Controller
             'product' => $display
         ]);
     }
+
+    public function DoBook(Request $request)
+    {
+        // foreach ($request->pass as $key ) {
+            $pass = [
+                "type"=> "adult",
+                "title"=> "mrs",
+                "phone_number"=> "+442080160509",
+                "infant_passenger_id"=> "pas_00009hj8USM8Ncg32aTGHL",
+                "identity_documents"=> [
+                    [
+                        "unique_identifier"=> "19KL56147",
+                        "type"=> "passport",
+                        "issuing_country_code"=> "GB",
+                        "expires_on"=> "2025-04-25"
+                    ]
+                ],
+                "id"=> "pas_00009hj8USM7Ncg31cBCLL",
+                "given_name"=> "Amelia",
+                "gender"=> "f",
+                "family_name"=> "Earhart",
+                "email"=> "amelia@duffel.com",
+                "born_on"=> "1987-07-24"
+            ];
+        // }
+        $data = [
+            'amount' => $request->amount,
+        ];
+        $res = DuffelAPI::DOBook($data);
+        dd($res);
+    }
+
     public function showheader($id)
     {
         $data = ProductTour::where('id',$id)->first();

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'home']);
 Route::post('/searchFlight',[HomeController::class,'searchFlight']);
+Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::get('/search',[HomeController::class,'searchFlight']);
 Route::prefix('tour')->group(function () {
     Route::get('/imgh/{id}', [HomeController::class, 'showheader']);

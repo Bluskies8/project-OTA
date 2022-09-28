@@ -1,4 +1,4 @@
-@extends('layouts.users')
+@extends('layout.users')
 
 @section('content')
 <div class="header shadow-lg d-flex justify-content-between px-3 position-fixed" style="height: 64px;background-color: #FF9142;color: white;top: 0px;width: 100%;z-index: 10;">
@@ -22,13 +22,13 @@
             </ul>
             <div class="tab-content mt-2">
                 <div class="tab-pane active" role="tabpanel" id="tab-1">
-                    <div class="d-flex align-items-center">
-                        <h3 class="text-uppercase color-main me-3">book your flight<br></h3>
-                        <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
-                        <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
-                    </div>
                     <form class="mt-3" action = "/searchFlight" method="POST">
                         @csrf
+                        <div class="d-flex align-items-center">
+                            <h3 class="text-uppercase color-main me-3">book your flight<br></h3>
+                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                        </div>
                         <div class="row mb-4">
                             <div class="col-4">
                                 <div class="position-relative">

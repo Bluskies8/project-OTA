@@ -62,62 +62,66 @@
                 ?>
             @endforeach
             @if ($count > 1)
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4 d-flex align-items-center"><img src="../assets/img/bruh.jpg" style="max-height: 64px;">
-                            <p class="ms-3 fs-4">{{$item->owner->name}}</p>
-                        </div>
-                        <div class="col-4 d-flex align-items-center justify-content-evenly">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
+                @if ($item->payment_requirements->requires_instant_payment == true)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center"><img src="{{$item->owner->logo_symbol_url}}" style="max-height: 64px;">
+                                    <p class="ms-3 fs-4">{{$item->owner->name}}</p>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-evenly">
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>
+                                            @for ($i = 0; $i < count($temp)-1; $i++)
+                                                <?php
+                                                    $total = gmdate('H:i', strtotime($temp[$i]) + strtotime($temp[$i+1]));
+                                                ?>
+                                            @endfor
+                                            {{$total}}
+                                        </p>
+                                        <p>Transit</p>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', strtotime($arriving[1]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->destination->iata_code}}</button>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                </div>
                             </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>
-                                    @for ($i = 0; $i < count($temp)-1; $i++)
-                                        <?php
-                                            $total = gmdate('H:i', strtotime($temp[$i]) + strtotime($temp[$i+1]));
-                                        ?>
-                                    @endfor
-                                    {{$total}}
-                                </p>
-                                <p>Transit</p>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', strtotime($arriving[1]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->destination->iata_code}}</button>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                         </div>
                     </div>
-                </div>
-            </div>
+                @endif
             @else
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4 d-flex align-items-center"><img src="../assets/img/bruh.jpg" style="max-height: 64px;">
-                            <p class="ms-3 fs-4">{{$item->owner->name}}</p>
-                        </div>
-                        <div class="col-4 d-flex align-items-center justify-content-evenly">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
+                @if ($item->payment_requirements->requires_instant_payment == true)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center"><img src="{{$item->owner->logo_symbol_url}}" style="max-height: 64px;">
+                                    <p class="ms-3 fs-4">{{$item->owner->name}}</p>
+                                </div>
+                                <div class="col-4 d-flex align-items-center justify-content-evenly">
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
+                                        <p>Langsung</p>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', strtotime($arriving[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->destination->iata_code}}</button>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button id = "{{$item->id}}" class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                </div>
                             </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
-                                <p>Langsung</p>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', strtotime($arriving[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->destination->iata_code}}</button>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button id = "{{$item->id}}" class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                         </div>
                     </div>
-                </div>
-            </div>
+                @endif
             @endif
             <?php $count = 0;?>
         @endforeach

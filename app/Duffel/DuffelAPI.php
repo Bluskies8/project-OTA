@@ -77,6 +77,20 @@ class DuffelAPI
         curl_close($curl);
         return $RESPONSE;
     }
+    public static function getOffer($id)
+    {
+        $targetPath = "/air/offers/".$id;
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
 
     public static function SearchFlight($data)
     {
@@ -95,14 +109,67 @@ class DuffelAPI
                 "cabin_class"=> $data['cabin'],
                 "slices"=> [
                   [
-                    "departure_date"=> $data['departure_date'],
-                    "destination"=> $data['destination'],
-                    "origin"=> $data['origin'],
-                    // "destination"=> 'KNO',
-                    // "origin"=> 'SUB',
+                    // "departure_date"=> $data['departure_date'],
+                    // "destination"=> $data['destination'],
+                    // "origin"=> $data['origin'],
+                    "departure_date"=> '2023-01-08',
+                    "destination"=> 'SUB',
+                    "origin"=> 'DPS',
                   ]
                 ],
                 "passengers" => $data['pass'],
+            ]
+        ]));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
+
+    public static function DOBook($data){
+        $targetPath = "/air/orders";
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+            "data"=> [
+                "type"=>"instant",
+                // "services"=> [
+                //     [
+                //       "quantity"=> 1,
+                //       "id"=> "orq_0000AO1bp8p1Oc6psUNCa1"
+                //     ]
+                // ],
+                "selected_offers"=> [
+                    "off_0000AO1goaIpaaG0NIFJnF"
+                ],
+                "payments"=> [
+                [
+                    "type"=> "balance",
+                    "currency"=> "USD",
+                    "amount"=> "221.10"
+                ]
+                ],
+                "passengers"=> [
+                [
+                    "type"=> "adult",
+                    "title"=> "mrs",
+                    "phone_number"=> "+442080160509",
+                    "infant_passenger_id"=> "",
+                    "id"=> "pas_0000AO1goTTYyHgNCYDI39",
+                    "given_name"=> "Amelia",
+                    "gender"=> "f",
+                    "family_name"=> "Earhart",
+                    "email"=> "amelia@duffel.com",
+                    "born_on"=> "1987-07-24"
+                ]
+                ],
+                // "metadata" => [
+                //     "payment_intent_id"=> "pit_00009htYpSCXrwaB9DnUm2"
+                // ],
             ]
         ]));
         $RESPONSE = json_decode(curl_exec($curl));
