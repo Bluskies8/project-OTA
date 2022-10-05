@@ -127,4 +127,9 @@ class HomeController extends Controller
         $data = ProductTour::where('id',$id)->first();
         return response()->file(storage_path('/app/public'.$data->thumbnail_img_url));
     }
+
+    public function tour()
+    {
+        return view('pages.user.tour');
+    }
 }

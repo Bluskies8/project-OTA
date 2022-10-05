@@ -13,6 +13,7 @@
     </div>
     <div class="h-100 d-flex align-items-center justify-content-end p-3"><i class="fas fa-thin fa-user-group"></i><button class="btn" type="button">Login</button><button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5);">Register</button></div>
 </div>
+
 <div class="container p-5 pb-0 mb-5">
     <section class="shadow pt-3 p-4 card mt-5" id="section-quick-action">
         <div>

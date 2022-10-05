@@ -112,3 +112,57 @@ header i {
   margin-bottom: 1rem;
 }
 
+.btn-detail {
+    color: black!important;
+    box-shadow: none!important;
+    border-radius: 0px;
+}
+
+#highlights li, #includes li, #excludes li, #terms-conditions li, #cancellation li {
+    font-size: 18px;
+}
+
+#itinetary i {
+    color: rgb(75, 0, 118);
+    font-size: 18px;
+}
+
+#excludes li i, #cancellation li i {
+    color: red;
+}
+
+#includes li i {
+    color: green;
+}
+
+#highlights li i {
+    color: #FF9142;
+}
+
+#terms-conditions li i {
+    color: #ffc107;
+}
+
+.social-icons {
+    color: #313437;
+    background-color: #fff;
+}
+
+.social-icons i {
+    font-size: 32px;
+    display: inline-block;
+    color: #757980;
+    margin: 0 10px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #c8ced7;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 60px;
+}
+
+.rounded-indicators {
+    width: 10px!important;
+    height: 10px!important;
+    border-radius: 100%!important;
+}
