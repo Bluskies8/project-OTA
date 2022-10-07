@@ -1,21 +1,8 @@
 @extends('layout.users')
 
 @section('content')
-<div class="header shadow-lg d-flex justify-content-between px-3 position-fixed" style="height: 64px;background-color: #FF9142;color: white;top: 0px;width: 100%;z-index: 10;">
-    <div class="h-100 d-flex align-items-center"><i class="fas fa-bars fa-thin fa-lg p-4 me-3"></i><img class="h-75 py-2" src="assets/img/logoWhite.png"></div>
-    <div class="h-100 d-none d-lg-flex justify-content-center align-items-center"><button class="btn" type="button">HOME</button>
-        <div class="dropdown"><button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">ACTIVITIES</button>
-            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-        </div><button class="btn" type="button">EVENT</button><button class="btn" type="button">PROMO</button>
-        <div class="dropdown"><button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">HELP DESK</button>
-            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-        </div>
-    </div>
-    <div class="h-100 d-flex align-items-center justify-content-end p-3"><i class="fas fa-thin fa-user-group"></i><button class="btn" type="button">Login</button><button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5);">Register</button></div>
-</div>
-
-<div class="container p-5 pb-0 mb-5">
-    <section class="shadow pt-3 p-4 card mt-5" id="section-quick-action">
+<div class="container py-5"  style="min-height: calc(100vh - 364px)">
+    <section class="shadow pt-3 p-4 card" id="section-quick-action">
         <div>
             <ul class="nav nav-tabs" role="tablist" style="border-bottom: none;">
                 <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1"><i class="fas fa-thin fa-plane-departure me-2"></i>FLIGHT<br></a></li>
@@ -204,7 +191,7 @@
     @endisset
 </div>
 <section id="section-footer">
-    <div class="py-3" style="background-image: linear-gradient(0deg, rgba(255, 206, 160, 0.6), rgba(255, 206, 160, 0.6)), url(assets/img/bg_footer.jpg);">
+    <div class="py-3" style="background-image: linear-gradient(0deg, rgba(255, 206, 160, 0.6), rgba(255, 206, 160, 0.6)), url(assets/img/bg_footer.jpg); height: 260px;">
         <div class="container">
             <div class="row">
                 <div class="col">

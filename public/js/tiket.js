@@ -49,15 +49,14 @@ $(document).ready(function() {
         }
     });
 
-    var sticky = $('#sticky').offsetTop;
-    console.log(sticky);
-    window.onscroll = function() {
-        if (window.pageYOffset >= sticky) {
-            alert();
-            $('#sticky').addClass("sticky")
+    $('.btn-detail').on('click', function() {
+        let detail = $(this).next().next();
+        if (detail.css('display') == 'none') {
+            detail.show();
+            $(this).css('border-bottom', '2px solid #FF9142');
         } else {
-            $('#sticky').removeClass("sticky");
+            detail.hide();
+            $(this).css('border-bottom', 'none');
         }
-    };
-
+    });
 });

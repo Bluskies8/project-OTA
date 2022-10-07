@@ -2,8 +2,8 @@
 
 @section('content')
 <?php $count = 0; ?>
-<div class="container position-relative" style="margin-top: 100px;padding-bottom: 2rem; overflow-y: auto;">
-    <div id="sticky">
+<div class="container pb-5">
+    <div class="sticky py-4">
         <div class="card mb-4" id="pencarian" style="background-color: inherit;">
             <div class="card-body p-0 d-flex" style="border-top-left-radius: inherit;border-bottom-left-radius: inherit;">
                 <div class="w-75 p-3" style="background-color: white;border-top-right-radius: 75px;border-bottom-right-radius: 75px;border-top-left-radius: inherit;border-bottom-left-radius: inherit;">
@@ -13,7 +13,7 @@
                 <div class="w-25 p-3 d-flex align-items-center justify-content-end"><button class="btn btn-primary" id="btn-pencarian" type="button">&nbsp;<i class="fas fa-search"></i>&nbsp;Ganti Pencarian</button></div>
             </div>
         </div>
-        <div id="filter" class="px-3 d-flex align-items-center mb-4">
+        <div id="filter" class="px-3 d-flex align-items-center">
             <p>Filter :&nbsp;</p>
             <div id="data-transit" class="position-relative ms-3"><button class="btn" id="btn-filter-transit" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Transit&nbsp;<i class="fas fa-caret-down"></i></button>
                 <div id="menu-transit" class="position-absolute" style="display: none;margin-top: 8px;width: 150px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
