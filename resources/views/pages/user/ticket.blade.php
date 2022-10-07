@@ -92,7 +92,14 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-end">
-                                        <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                        <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
+                                        @if($type == 2)
+                                        <a href="http://halaman ke 2">
+                                        @elseif($type == 1)
+                                        <a href="http://form data diri">
+                                        @endif
+                                            <button class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                        </a>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>

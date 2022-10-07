@@ -1,16 +1,21 @@
 @extends('layout.users')
 
 @section('content')
-<div style="margin-top: 64px;background: rgba(0, 0, 0, .25) url(../assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
+<div style="background: rgba(0, 0, 0, .25) url(../assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
     <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">7 hari 6 Malam</button>
         <h1 class="text-uppercase" style="margin-top: 5rem;color: white;">7 days explore osaka-tokyo</h1>
-        <div class="d-flex justify-content-between"><button class="btn btn-success d-flex align-items-center justify-content-center" type="button" style="border-radius: 50%;width: 36px;height: 36px;padding: 0;"><i class="fas fa-plane-departure" style="font-size: 14px;"></i></button><button class="btn btn-outline-secondary" type="button" style="background-color: white;"><i class="far fa-image"></i>&nbsp;Photos</button></div>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-success d-flex align-items-center justify-content-center" type="button" style="border-radius: 50%;width: 36px;height: 36px;padding: 0;">
+                <i class="fas fa-plane-departure" style="font-size: 14px;"></i>
+            </button>
+            <button id="to-photos" class="btn btn-outline-secondary" type="button" style="background-color: white; color: black!important;"><i class="far fa-image"></i>&nbsp;Photos</button>
+        </div>
     </div>
 </div>
 
 <div class="container mt-3" style="padding-bottom: 2rem;">
     <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-lg-8 order-2 order-lg-1">
             <section id="section-highlights" class="mb-4">
                 <div class="card" style="box-shadow: 1px 2px 6px gray, 1px 2px 6px gray;">
                     <div class="card-body p-0">
@@ -163,7 +168,7 @@
                 </div>
             </section>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-lg-4 order-1 order-lg-2">
             <section id="section-order" class="mb-4">
                 <div class="card" style="box-shadow: 1px 2px 6px gray, 1px 2px 6px gray;">
                     <div class="card-body p-0">
@@ -178,7 +183,7 @@
                                 <div class="d-flex align-items-center mb-3"><i class="fas fa-user me-2" style="font-size: 18px;color: rgb(75, 0, 118);"></i>
                                     <p>Participants</p>
                                 </div>
-                                <div class="card mb-3">
+                                <div class="card mb-3 room" id="room-1">
                                     <p class="fw-bold p-2">Room 1</p>
                                     <hr class="my-0">
                                     <div class="p-2">
@@ -187,14 +192,14 @@
                                                 <p>Adult(s)</p>
                                                 <p style="color: var(--bs-gray);">&gt; 11 years old</p>
                                             </div>
-                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3">1</span><i class="far fa-plus-square"></i></div>
+                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-adult">1</span><i class="far fa-plus-square"></i></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <p>Child(ren)</p>
                                                 <p style="color: var(--bs-gray);">2 - 11 years old</p>
                                             </div>
-                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3">0</span><i class="far fa-plus-square"></i></div>
+                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-child">0</span><i class="far fa-plus-square"></i></div>
                                         </div>
                                     </div>
                                 </div><button class="btn w-100" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
@@ -207,15 +212,8 @@
                     </div>
                 </div>
             </section>
-            <section id="section-share">
-                <div class="card" style="box-shadow: 1px 2px 6px gray, 1px 2px 6px gray;">
-                    <div class="card-body">
-                        <h4 class="card-title">Share this tour</h4>
-                        <div class="social-icons"><a href="#"><i class="icon ion-social-whatsapp"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-                    </div>
-                </div>
-            </section>
         </div>
     </div>
 </div>
+<script src="{{asset('js/tour.js')}}"></script>
 @endsection
