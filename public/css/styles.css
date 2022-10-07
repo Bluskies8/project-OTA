@@ -166,3 +166,8 @@ header i {
     height: 10px!important;
     border-radius: 100%!important;
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+}

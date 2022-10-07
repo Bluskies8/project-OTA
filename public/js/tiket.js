@@ -2,15 +2,15 @@ $(document).ready(function() {
     $('#btn-pencarian').on('click', function() {
         $('#modal-pencarian').modal('show');
     });
-    
+
     $('#input-kota-asal').on('click', function() {
         $('#menu-kota-asal').show();
     });
-    
+
     $('#input-kota-tujuan').on('click', function() {
         $('#menu-kota-tujuan').show();
     });
-    
+
     $('#modal-pencarian').on('click', function(e) {
         if (!e.target.closest('#data-kota-asal') && $('#menu-kota-asal').css('display') == 'block') {
             $('#menu-kota-asal').hide();
@@ -18,7 +18,7 @@ $(document).ready(function() {
             $('#menu-kota-tujuan').hide();
         }
     });
-    
+
     $('#btn-filter-transit').on('click', function() {
         if ($('#menu-transit').css('display') == 'none') {
             $('#menu-transit').show();
@@ -28,7 +28,7 @@ $(document).ready(function() {
             $(this).find('i').removeClass('fa-flip-vertical');
         }
     });
-    
+
     $('#btn-filter-waktu').on('click', function() {
         if ($('#menu-waktu').css('display') == 'none') {
             $('#menu-waktu').show();
@@ -38,7 +38,7 @@ $(document).ready(function() {
             $(this).find('i').removeClass('fa-flip-vertical');
         }
     });
-    
+
     $('#btn-filter-maskapai').on('click', function() {
         if ($('#menu-maskapai').css('display') == 'none') {
             $('#menu-maskapai').show();
@@ -48,4 +48,16 @@ $(document).ready(function() {
             $(this).find('i').removeClass('fa-flip-vertical');
         }
     });
-}); 
+
+    var sticky = $('#sticky').offsetTop;
+    console.log(sticky);
+    window.onscroll = function() {
+        if (window.pageYOffset >= sticky) {
+            alert();
+            $('#sticky').addClass("sticky")
+        } else {
+            $('#sticky').removeClass("sticky");
+        }
+    };
+
+});
