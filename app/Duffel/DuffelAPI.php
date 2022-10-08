@@ -112,15 +112,16 @@ class DuffelAPI
                     // "departure_date"=> $data['departure_date'],
                     // "destination"=> $data['destination'],
                     // "origin"=> $data['origin'],
-                    "departure_date"=> '2023-01-08',
+                    "departure_date"=> '2022-10-08',
                     "destination"=> 'SUB',
                     "origin"=> 'DPS',
-                  ]
+                  ],
                 ],
                 "passengers" => $data['pass'],
             ]
         ]));
         $RESPONSE = json_decode(curl_exec($curl));
+        // dd($RESPONSE->data->offers[0]);
         curl_close($curl);
         return $RESPONSE;
     }
@@ -137,20 +138,14 @@ class DuffelAPI
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
             "data"=> [
                 "type"=>"instant",
-                // "services"=> [
-                //     [
-                //       "quantity"=> 1,
-                //       "id"=> "orq_0000AO1bp8p1Oc6psUNCa1"
-                //     ]
-                // ],
                 "selected_offers"=> [
-                    "off_0000AO1goaIpaaG0NIFJnF"
+                    "off_0000AOKRl33vdL2bwrUbGj"
                 ],
                 "payments"=> [
                 [
                     "type"=> "balance",
                     "currency"=> "USD",
-                    "amount"=> "221.10"
+                    "amount"=> "442.10"
                 ]
                 ],
                 "passengers"=> [
@@ -159,7 +154,7 @@ class DuffelAPI
                     "title"=> "mrs",
                     "phone_number"=> "+442080160509",
                     "infant_passenger_id"=> "",
-                    "id"=> "pas_0000AO1goTTYyHgNCYDI39",
+                    "id"=> "pas_0000AOKRkk02VZdmpIWj4N",
                     "given_name"=> "Amelia",
                     "gender"=> "f",
                     "family_name"=> "Earhart",
@@ -167,82 +162,12 @@ class DuffelAPI
                     "born_on"=> "1987-07-24"
                 ]
                 ],
-                // "metadata" => [
-                //     "payment_intent_id"=> "pit_00009htYpSCXrwaB9DnUm2"
-                // ],
             ]
         ]));
         $RESPONSE = json_decode(curl_exec($curl));
         curl_close($curl);
         return $RESPONSE;
     }
-    // public static function DoJokulPayment($data){
-    //     $REQUEST = [
-    //         'order' => $data['order'],
-    //         'customer' => $data['customer'] ?: [],
-    //     ];
-
-    //     // $REQUEST['payment']['payment_due_date'] = 50;
-    //     $REQUEST['payment']['payment_due_date'] = $data['payment']['payment_due_date'] ?: 50;
-    //     $paymentConfig = JokulPaymentConfig::where('enabled', true)->get();
-    //     foreach ($paymentConfig as $config) {
-    //         $REQUEST['payment']['payment_method_types'][] = $config->key;
-    //     }
-
-    //     $REQUEST['order']['callback_url'] = self::$FrontendUrl.$data['callback_url'];
-
-    //     $requestId = self::generateRandomString(20);
-    //     $requestDate = date('Y-m-d\TH:i:s\Z', time());
-    //     $targetPath = "/checkout/v1/payment";
-    //     $digestValue = base64_encode(hash('sha256', json_encode($REQUEST), true));
-    //     $componentSignature = "Client-Id:" . self::$ClientID . "\n" .
-    //     "Request-Id:" . $requestId . "\n" .
-    //     "Request-Timestamp:" . $requestDate . "\n" .
-    //     "Request-Target:$targetPath\n" .
-    //     "Digest:" . $digestValue;
-    //     $signature = base64_encode(hash_hmac('sha256', $componentSignature, self::$SecretKey, true));
-
-    //     $curl = curl_init(self::$Endpoint.$targetPath);
-    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    //         'Content-Type: application/json',
-    //         'Client-Id:' . self::$ClientID,
-    //         'Request-Id:' . $requestId,
-    //         'Request-Timestamp:' . $requestDate,
-    //         'Signature:' . "HMACSHA256=" . $signature,
-    //     ));
-    //     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($REQUEST));
-    //     $RESPONSE = json_decode(curl_exec($curl));
-    //     curl_close($curl);
-
-    //     return $RESPONSE;
-    // }
-
-    // public static function CekPaymentStatus($data){
-    //     $requestId = self::generateRandomString(20);
-    //     $requestDate = date('Y-m-d\TH:i:s\Z', time());
-    //     $targetPath = "/orders/v1/status";
-    //     // $digestValue = base64_encode(hash('sha256', json_encode(['invoice_number'=>$data['invoice_number']]), true));
-    //     $componentSignature = "Client-Id:" . self::$ClientID . "\n" .
-    //     "Request-Id:" . $requestId . "\n" .
-    //     "Request-Timestamp:" . $requestDate . "\n" .
-    //     "Request-Target:$targetPath/".$data['invoice_number'];
-    //     $signature = base64_encode(hash_hmac('sha256', $componentSignature, self::$SecretKey, true));
-    //     //https://api-sandbox.doku.com/orders/v1/status/{{order.invoice_number OR Request-Id}}
-    //     $curl = curl_init(self::$Endpoint.$targetPath.'/'.$data['invoice_number']);
-    //     // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    //         'Content-Type: application/json',
-    //         'Client-Id:' . self::$ClientID,
-    //         'Request-Id:' . $requestId,
-    //         'Request-Timestamp:' . $requestDate,
-    //         'Signature:' . "HMACSHA256=" . $signature,
-    //     ));
-    //     // curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(['invoice_number'=>$data['invoice_number']]));
-    //     $RESPONSE = json_decode(curl_exec($curl));
-    //     curl_close($curl);
-    //     return $RESPONSE;
-    // }
 
     // public static function doPayment($req)
     // {

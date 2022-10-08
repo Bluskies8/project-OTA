@@ -1,9 +1,9 @@
 @extends('layout.users')
 
 @section('content')
-<div style="background: rgba(0, 0, 0, .25) url(../assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
+<div style="background: rgba(0, 0, 0, .25) url({{$data['data']['header_img_url']}});background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
     <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">7 hari 6 Malam</button>
-        <h1 class="text-uppercase" style="margin-top: 5rem;color: white;">7 days explore osaka-tokyo</h1>
+        <h1 class="text-uppercase" style="margin-top: 5rem;color: white;">{{$data['data']['name']}}</h1>
         <div class="d-flex justify-content-between">
             <button class="btn btn-success d-flex align-items-center justify-content-center" type="button" style="border-radius: 50%;width: 36px;height: 36px;padding: 0;">
                 <i class="fas fa-plane-departure" style="font-size: 14px;"></i>
@@ -21,11 +21,9 @@
                     <div class="card-body p-0">
                         <h2 class="card-title p-3" style="background-color: #FF9142;color: white;border-top-left-radius: .25rem;border-top-right-radius: .25rem;">Highlights</h2>
                         <ul class="list-unstyled mb-0 p-3" id="highlights">
-                            <li><i class="fas fa-chevron-circle-right me-2"></i>Bali</li>
-                            <li><i class="fas fa-chevron-circle-right me-2"></i>Osaka</li>
-                            <li><i class="fas fa-chevron-circle-right me-2"></i>Nara</li>
-                            <li><i class="fas fa-chevron-circle-right me-2"></i>Kyoto</li>
-                            <li><i class="fas fa-chevron-circle-right me-2"></i>Kobe sanda premium outlet</li>
+                            @foreach ($data['highlights'] as $item)
+                                <li><i class="fas fa-chevron-circle-right me-2"></i>{{$item->item}}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -38,51 +36,21 @@
                             <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
                                 <div class="d-flex flex-column">
                                     <p>Hari ke-1</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">bali - osaka</p>
+                                    <p class="text-uppercase" style="color: var(--bs-gray);">{{$data['itinenaries'][0]->label}}</p>
                                 </div>
                             </div>
+                            @foreach ($data['itinenaries'] as $item)
+                            @if ($loop->index !=0)
                             <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
                             <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
                                 <div class="d-flex flex-column">
-                                    <p>Hari ke-2</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">osaka - nara - osaka</p>
+                                    <p>Hari ke-{{$loop->index+1}}</p>
+                                    <p class="text-uppercase" style="color: var(--bs-gray);">{{$item->label}}</p>
                                 </div>
                             </div>
-                            <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
-                            <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
-                                <div class="d-flex flex-column">
-                                    <p>Hari ke-3</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">osaka - kyoto - osaka</p>
-                                </div>
-                            </div>
-                            <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
-                            <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
-                                <div class="d-flex flex-column">
-                                    <p>Hari ke-4</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">osaka -&nbsp;KOBE SANDA PREMIUM OUTLET&nbsp;- osaka</p>
-                                </div>
-                            </div>
-                            <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
-                            <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
-                                <div class="d-flex flex-column">
-                                    <p>Hari ke-5</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">OSAKA FREE TIME<br></p>
-                                </div>
-                            </div>
-                            <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
-                            <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
-                                <div class="d-flex flex-column">
-                                    <p>Hari ke-6</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">OSAKA CITY TOUR - BALI<br></p>
-                                </div>
-                            </div>
-                            <div class="vr ms-2" style="border-left: 1px solid lightgray;height: 22px;"></div>
-                            <div class="d-flex align-items-center" style="font-size: 14px;"><i class="fas fa-check-circle me-2"></i>
-                                <div class="d-flex flex-column">
-                                    <p>Hari ke-7</p>
-                                    <p class="text-uppercase" style="color: var(--bs-gray);">TIBA DI BALI<br></p>
-                                </div>
-                            </div>
+                            @endif
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -93,9 +61,11 @@
                         <h2 class="card-title p-3" style="border-top-left-radius: .25rem;border-top-right-radius: .25rem;">Photos</h2>
                         <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
                             <div class="carousel-inner">
-                                <div class="carousel-item active"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image"></div>
-                                <div class="carousel-item"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image"></div>
-                                <div class="carousel-item"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image"></div>
+                                @foreach ($data['photos'] as $item)
+                                <div class="carousel-item active"><img class="w-100 d-block" src="{{$item->img_url}}" alt="Slide Image"></div>
+                                @endforeach
+                                {{-- <div class="carousel-item"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image"></div>
+                                <div class="carousel-item"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image"></div> --}}
                             </div>
                             <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
                             <ol class="carousel-indicators">
@@ -118,20 +88,17 @@
                             <div class="tab-content">
                                 <div class="tab-pane active p-3" role="tabpanel" id="tab-1">
                                     <ul class="list-unstyled mb-2" id="includes">
-                                        <li><i class="fas fa-check me-2"></i>Tiket pesawat kelas ekonomi</li>
-                                        <li><i class="fas fa-check me-2"></i>Hotel bintang 4</li>
-                                        <li><i class="fas fa-check me-2"></i>Airport international tax</li>
-                                        <li><i class="fas fa-check me-2"></i>Tiket masuk object wisata &amp; tiket transportasi</li>
-                                        <li><i class="fas fa-check me-2"></i>Asuransi perjalanan</li>
+                                        @foreach ($data['includes'] as $item)
+                                            <li><i class="fas fa-check me-2"></i>{{$item->item}}</li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="tab-pane p-3" role="tabpanel" id="tab-2">
                                     <ul class="list-unstyled mb-2" id="excludes">
-                                        <li><i class="fas fa-times me-2"></i>Exclude 1</li>
-                                        <li><i class="fas fa-times me-2"></i>Exclude 2</li>
-                                        <li><i class="fas fa-times me-2"></i>Exclude 3</li>
-                                        <li><i class="fas fa-times me-2"></i>Exclude 4</li>
-                                        <li><i class="fas fa-times me-2"></i>Exclude 5</li>
+                                        @foreach ($data['excludes'] as $item)
+                                            <li><i class="fas fa-times me-2"></i>{{$item->item}}</li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
                             </div>
@@ -144,11 +111,13 @@
                     <div class="card-body p-0">
                         <h2 class="card-title p-3" style="color: white;background-color: rgb(75, 0, 118);border-top-left-radius: .25rem;border-top-right-radius: .25rem;">Terms &amp; Conditions</h2>
                         <ul class="list-unstyled mb-2 p-3" id="terms-conditions">
-                            <li><i class="fas fa-info-circle me-2"></i>Tiket pesawat kelas ekonomi</li>
-                            <li><i class="fas fa-info-circle me-2"></i>Hotel bintang 4</li>
-                            <li><i class="fas fa-info-circle me-2"></i>Airport international tax</li>
-                            <li><i class="fas fa-info-circle me-2"></i>Tiket masuk object wisata &amp; tiket transportasi</li>
-                            <li><i class="fas fa-info-circle me-2"></i>Asuransi perjalanan</li>
+                            @isset($data['thermsConds'])
+                            @foreach ($data['thermsConds'] as $item)
+                                @isset($item->item)
+                                <li><i class="fas fa-info-circle me-2"></i>{{$item->item}}</li>
+                                @endisset
+                            @endforeach
+                            @endisset
                         </ul>
                     </div>
                 </div>
@@ -158,11 +127,13 @@
                     <div class="card-body p-0">
                         <h2 class="card-title p-3" style="background-color: rgb(75, 0, 118);color: white;border-top-left-radius: .25rem;border-top-right-radius: .25rem;">Cancellation Policy</h2>
                         <ul class="list-unstyled mb-2 p-3" id="cancellation">
-                            <li><i class="fas fa-exclamation-circle me-2"></i>Tiket pesawat kelas ekonomi</li>
-                            <li><i class="fas fa-exclamation-circle me-2"></i>Hotel bintang 4</li>
-                            <li><i class="fas fa-exclamation-circle me-2"></i>Airport international tax</li>
-                            <li><i class="fas fa-exclamation-circle me-2"></i>Tiket masuk object wisata &amp; tiket transportasi</li>
-                            <li><i class="fas fa-exclamation-circle me-2"></i>Asuransi perjalanan</li>
+                            @isset($data['cancelPolicies'])
+                            @foreach ($data['cancelPolicies'] as $item)
+                            @isset($item->item)
+                            <li><i class="fas fa-info-circle me-2"></i>{{$item->item}}</li>
+                            @endisset
+                            @endforeach
+                            @endisset
                         </ul>
                     </div>
                 </div>

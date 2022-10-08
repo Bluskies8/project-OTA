@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         $request->validate([
             'passanger' => 'numeric|required',
+            'depart' => 'required'
 
         ]);
         for ($i=0; $i < $request->passanger; $i++) {
@@ -24,7 +25,6 @@ class HomeController extends Controller
             ];
         }
         $data = [
-            'type' =>$request->type,
             'cabin' => $request->class,
             'departure_date' => $request->depart,
             'origin' => $request->departure,
@@ -36,12 +36,13 @@ class HomeController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         // dd($day);
         $res = DuffelAPI::SearchFlight($data);
-        // dd($res->data);
+        // dd($res->data); 
         return view('pages.user.ticket',[
             'data' => $res->data,
             'pass_count' => $request->passanger,
             'cabin' => $request->class,
-            'date' => $day.", ".$date
+            'date' => $day.", ".$date,
+            'type' => $request->type,
         ]);
     }
     public function home()
@@ -94,14 +95,6 @@ class HomeController extends Controller
                 "title"=> "mrs",
                 "phone_number"=> "+442080160509",
                 "infant_passenger_id"=> "pas_00009hj8USM8Ncg32aTGHL",
-                "identity_documents"=> [
-                    [
-                        "unique_identifier"=> "19KL56147",
-                        "type"=> "passport",
-                        "issuing_country_code"=> "GB",
-                        "expires_on"=> "2025-04-25"
-                    ]
-                ],
                 "id"=> "pas_00009hj8USM7Ncg31cBCLL",
                 "given_name"=> "Amelia",
                 "gender"=> "f",

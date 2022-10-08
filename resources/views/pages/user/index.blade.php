@@ -10,12 +10,12 @@
             </ul>
             <div class="tab-content mt-2">
                 <div class="tab-pane active" role="tabpanel" id="tab-1">
-                    <form class="mt-3" action = "/searchFlight" method="POST">
+                    <form class="mt-3" action = "/Flight/search" method="POST">
                         @csrf
                         <div class="d-flex align-items-center">
                             <h3 class="text-uppercase color-main me-3 mb-3">book your flight</h3>
-                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
-                            <div class="form-check me-2 mb-0"><input name = "type" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "2" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-4">

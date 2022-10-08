@@ -59,4 +59,7 @@ $(document).ready(function() {
             $(this).css('border-bottom', 'none');
         }
     });
+    $('.btn-pilih').on('click', function(){
+        console.log($(this).attr('id'));
+    });
 });

@@ -98,27 +98,36 @@
                                         @elseif($type == 1)
                                         <a href="http://form data diri">
                                         @endif
-                                            <button class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                            <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                         </a>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
                                 <hr class="my-0" />
                                 <div class="p-3 detail-penerbangan" style="display: none;">
+                                    @foreach ($item->slices[0]->segments as $item2)
+                                    {{-- @dump($item2) --}}
                                     <div class="row">
                                         <div class="col-2">
                                             <div class="d-flex h-100">
                                                 <div class="d-flex flex-column justify-content-between" style="width: calc(100% - 16px);">
                                                     <div class="text-center" style="font-size: 14px;">
-                                                        <p>18:50</p>
-                                                        <p style="color: var(--bs-gray);">28 Sep</p>
+                                                        <?php
+                                                            $tempdeparting = strtotime($item2->departing_at);
+                                                            $depart = date('d M',$tempdeparting);
+                                                            $temparriving = strtotime($item2->arriving_at);
+                                                            $arrive = date('d M',$temparriving);
+                                                            $tempp = gmdate('H:i', $temparriving - $tempdeparting);
+                                                        ?>
+                                                        <p>{{gmdate('H:i', $tempdeparting)}}</p>
+                                                        <p style="color: var(--bs-gray);">{{$depart}}</p>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-center"><i class="fas fa-clock me-1" style="color: #FF9142;"></i>
-                                                        <p class="ms-1">1j 25m</p>
+                                                        <p class="ms-1">{{$tempp}}</p>
                                                     </div>
                                                     <div class="text-center" style="font-size: 14px;">
-                                                        <p>18:50</p>
-                                                        <p style="color: var(--bs-gray);">28 Sep</p>
+                                                        <p>{{gmdate('H:i', $temparriving)}}</p>
+                                                        <p style="color: var(--bs-gray);">{{$arrive}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-center py-3">
@@ -130,28 +139,28 @@
                                         </div>
                                         <div class="col-8">
                                             <div>
-                                                <p>Jakarta (<span>kode</span>)</p>
-                                                <p style="color: var(--bs-gray);font-size: 14px;">Nama Airport</p>
+                                                <p>{{$item2->origin->city_name}} (<span>{{$item2->origin->iata_code}}</span>)</p>
+                                                <p style="color: var(--bs-gray);font-size: 14px;">{{$item2->origin->name}}</p>
                                             </div>
                                             <div class="card my-2">
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="d-flex"><img class="me-2" src="bruh.jpg" style="max-height: 48px;" />
+                                                            <div class="d-flex"><img class="me-2" src="{{$item->owner->logo_symbol_url}}" style="max-height: 48px;" />
                                                                 <div>
-                                                                    <p>Nama Maskapai</p>
-                                                                    <p style="font-size: 14px;">Kode Pesawat</p>
-                                                                    <p style="font-size: 14px;">Kelas Pesawat</p>
+                                                                    <p>{{$item2->operating_carrier->name}}</p>
+                                                                    <p style="font-size: 14px;">{{$item2->operating_carrier_flight_number}}</p>
+                                                                    <p style="font-size: 14px;">{{$cabin}}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="d-flex" style="font-size: 14px;color: var(--bs-gray);"><i class="fas fa-suitcase me-2 text-center" style="font-size: 20px;width: 20px;color: #FF9142;"></i>
+                                                            {{-- <div class="d-flex" style="font-size: 14px;color: var(--bs-gray);"><i class="fas fa-suitcase me-2 text-center" style="font-size: 20px;width: 20px;color: #FF9142;"></i>
                                                                 <div>
                                                                     <p>Bagasi 20 kg</p>
                                                                     <p>Bagasi kabin 7 kg</p>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="d-flex" style="font-size: 14px;color: var(--bs-gray);"><i class="fas fa-utensils me-2 text-center" style="font-size: 20px;width: 20px;color: #FF9142;"></i>
                                                                 <p>Makan di pesawat</p>
                                                             </div>
@@ -159,9 +168,9 @@
                                                         <div class="col">
                                                             <div class="d-flex" style="font-size: 14px;color: var(--bs-gray);"><i class="fas fa-info-circle me-2 text-center" style="font-size: 20px;width: 20px;color: #FF9142;"></i>
                                                                 <div>
-                                                                    <p><span class="fw-bold">Pesawat</span> Airbus 320</p>
-                                                                    <p><span class="fw-bold">Tata kursi</span> 3-3</p>
-                                                                    <p><span class="fw-bold">Jarak antar kursi</span> 29 inch</p>
+                                                                    <p><span class="fw-bold">Pesawat</span> {{$item2->aircraft->name}}</p>
+                                                                    {{-- <p><span class="fw-bold">Tata kursi</span> 3-3</p>
+                                                                    <p><span class="fw-bold">Jarak antar kursi</span> 29 inch</p> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -169,12 +178,13 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <p>Surabaya (<span>kode</span>)</p>
-                                                <p style="color: var(--bs-gray);font-size: 14px;">Nama Airport</p>
+                                                <p>{{$item2->destination->city_name}} (<span>{{$item2->destination->iata_code}}</span>)</p>
+                                                <p style="color: var(--bs-gray);font-size: 14px;">{{$item2->destination->name}}</p>
                                             </div>
                                         </div>
                                         <div class="col"></div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -202,7 +212,17 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-end">
-                                        <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p><button id = "{{$item->id}}" class="btn btn-sm" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                        <div class="col-4 text-end">
+                                            <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
+                                            @if($type == 2)
+                                            <a href="http://halaman ke 2">
+                                            @elseif($type == 1)
+                                            <a href="http://form data diri">
+                                            @endif
+                                                <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                            </a>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
