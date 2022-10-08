@@ -112,7 +112,7 @@ class DuffelAPI
                     // "departure_date"=> $data['departure_date'],
                     // "destination"=> $data['destination'],
                     // "origin"=> $data['origin'],
-                    "departure_date"=> '2022-10-08',
+                    "departure_date"=> '2022-10-10',
                     "destination"=> 'SUB',
                     "origin"=> 'DPS',
                   ],

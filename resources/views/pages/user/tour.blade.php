@@ -2,7 +2,7 @@
 
 @section('content')
 <div style="background: rgba(0, 0, 0, .25) url({{$data['data']['header_img_url']}});background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
-    <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">7 hari 6 Malam</button>
+    <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">{{$data['data']['days_count']}} hari {{$data['data']['nights_count']}}Malam</button>
         <h1 class="text-uppercase" style="margin-top: 5rem;color: white;">{{$data['data']['name']}}</h1>
         <div class="d-flex justify-content-between">
             <button class="btn btn-success d-flex align-items-center justify-content-center" type="button" style="border-radius: 50%;width: 36px;height: 36px;padding: 0;">
@@ -145,7 +145,7 @@
                     <div class="card-body p-0">
                         <header class="p-3" style="background-color: #FF9142;border-top-left-radius: .25rem;border-top-right-radius: .25rem;">
                             <p>Start from</p>
-                            <h2 style="color: white;">Rp 25.000.000</h2>
+                            <h2 style="color: white;">Rp {{$data['data']['start_price']}}</h2>
                         </header>
                         <form>
                             <div class="p-3"><input class="form-control" type="text" placeholder="Choose Date" onfocus="(this.type = &#39;date&#39;)"></div>
@@ -173,7 +173,8 @@
                                             <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-child">0</span><i class="far fa-plus-square"></i></div>
                                         </div>
                                     </div>
-                                </div><button class="btn w-100" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
+                                </div>
+                                <button class="btn w-100" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
                             </div>
                         </form>
                         <hr class="my-0">
