@@ -147,15 +147,17 @@
                             <p>Start from</p>
                             <h2 style="color: white;">Rp {{$data['data']['start_price']}}</h2>
                         </header>
-                        <form>
+                        {{-- <form> --}}
+                            <input type="hidden" name="id-tour" value="{{$data['data']['id']}}">
                             <div class="p-3"><input class="form-control" type="text" placeholder="Choose Date" onfocus="(this.type = &#39;date&#39;)"></div>
                             <hr class="my-0">
-                            <div class="p-3">
+                            <div class="p-3 room">
                                 <div class="d-flex align-items-center mb-3"><i class="fas fa-user me-2" style="font-size: 18px;color: rgb(75, 0, 118);"></i>
                                     <p>Participants</p>
                                 </div>
-                                <div class="card mb-3 room" id="room-1">
-                                    <p class="fw-bold p-2">Room 1</p>
+                                <div class="card mb-3 room-temp" id="room-1">
+                                    <p class="fw-bold p-2 roomcount">Room 1</p>
+                                    <button type="button" class="btn-close btn-remove-room position-absolute" style="top: -2px; right: -2px; box-shadow: none; display: none; aria-label="Close"></button>
                                     <hr class="my-0">
                                     <div class="p-2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -163,22 +165,23 @@
                                                 <p>Adult(s)</p>
                                                 <p style="color: var(--bs-gray);">&gt; 11 years old</p>
                                             </div>
-                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-adult">1</span><i class="far fa-plus-square"></i></div>
+                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-adult" id = "adult">1</span><i class="far fa-plus-square"></i></div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <p>Child(ren)</p>
                                                 <p style="color: var(--bs-gray);">2 - 11 years old</p>
                                             </div>
-                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-child">0</span><i class="far fa-plus-square"></i></div>
+                                            <div class="me-3" style="font-size: 22px;"><i class="far fa-minus-square"></i><span class="mx-3 number-child" id = "child">0</span><i class="far fa-plus-square"></i></div>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn w-100" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
                             </div>
-                        </form>
-                        <hr class="my-0">
-                        <div class="p-3"><button class="btn w-100" type="button" style="color: white;background-color: rgb(75, 0, 118);">Quote Now</button>
+                            {{-- </form> --}}
+                            <div class="p-3">
+                                <button class="mb-3 btn w-100 add-room" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
+                                <hr class="my-0">
+                            <button class="btn w-100" id = 'quote' type="button" style="color: white;background-color: rgb(75, 0, 118);">Quote Now</button>
                             <p>Terms &amp; Conditions</p>
                         </div>
                     </div>

@@ -49,7 +49,10 @@ class ProductTourController extends Controller
             'data' => $data,
         ]);
     }
-
+    public function quote(ProductTour $tour,Request $request)
+    {
+        return $request->all();
+    }
     public function showPhoto($id)
     {
         $data = ProductTourPhoto::where('id',$id)->first();

@@ -24,6 +24,7 @@ Route::prefix('Flight')->group(function () {
 
 });
 Route::prefix('tour')->group(function () {
+    Route::get('quote/{productTour:id}',[productTourController::class,'quote']);
     Route::get('/{productTour:slug}', [ProductTourController::class, 'show']);
     Route::get('/imgh/{id}', [HomeController::class, 'showheader']);
     Route::get('/imgt/{id}', [HomeController::class, 'showthumb']);
