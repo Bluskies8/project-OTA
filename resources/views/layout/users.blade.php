@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    @include('includes.head')
+    @include('includes.user.head')
 </head>
 <body style="background-color: rgba(245,245,245);">
     @include('includes.header')

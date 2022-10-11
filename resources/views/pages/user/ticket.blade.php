@@ -412,5 +412,5 @@
         </div>
     </div>
 </div>
-<script src="{{asset('js/tiket.js')}}"></script>
+<script src="{{asset('js/user/tiket.js')}}"></script>
 @endsection

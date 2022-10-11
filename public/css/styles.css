@@ -54,6 +54,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 #back-office .btn.btn-primary {
   background-color: rgb(75, 0, 118);
+  border-color: rgb(75, 0, 118);
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 }
@@ -173,4 +174,29 @@ header i {
     top: 0;
     z-index: 1;
     background-color: rgba(245,245,245);
+}
+
+#back-office form input.spesial:not([type="checkbox"]) {
+    border-bottom: none;
+}
+
+#back-office form div.spesial {
+    border-bottom: 1px solid lightgray;
+}
+
+#back-office form input[type="text"], #back-office form input[type="date"], #back-office form select, #back-office form textarea {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    border-radius: 0;
+    padding: 6px 0;
+}
+
+.tiny {
+    font-size: .75rem;
+}
+
+.content-header a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 18px;
 }

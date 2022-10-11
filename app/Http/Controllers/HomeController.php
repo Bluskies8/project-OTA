@@ -125,4 +125,10 @@ class HomeController extends Controller
     {
         return view('pages.user.tour');
     }
+
+
+    public function adminTour()
+    {
+        return view('pages.backoffice.tour');
+    }
 }

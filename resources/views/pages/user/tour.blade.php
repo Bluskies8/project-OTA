@@ -190,5 +190,5 @@
         </div>
     </div>
 </div>
-<script src="{{asset('js/tour.js')}}"></script>
+<script src="{{asset('js/user/tour.js')}}"></script>
 @endsection

@@ -42,3 +42,4 @@ Route::prefix('tour')->group(function () {
     // Route::get('/Thermcond/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
 });
 
+Route::get('/backoffice/tour',[HomeController::class,'adminTour']);
