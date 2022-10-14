@@ -11,7 +11,7 @@
         <a class="me-3" href="#">Tour</a>
         <i class="fas fa-chevron-right me-3"></i>
         <a class="me-3" href="#">Details</a></div>
-    <section id="section-tour-detail">
+    <section id="section-tour-detail" class="mb-5">
         <h4 class="mb-2">Tour Details</h4>
         <div class="card">
             <div class="card-body">
@@ -144,7 +144,200 @@
             </div>
         </div>
     </section>
-
+    <section id="section-tour-highlight" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Hightlight<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-highlight">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Content</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="highlight-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-highlight" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-tour-itinetary" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Itinetary<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-itinetary">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Content</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="highlight-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-itinetary" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-tour-inclusion" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Inclusion<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-inclusion">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Content</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="itinetary-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-inclusion" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-tour-exclusion" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Exclusion<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-exclusion">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Content</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="exclusion-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-exclusion" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-terms-conditions" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Terms &amp; Conditions<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-terms-conditions">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Content</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="terms-conditions-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-terms-conditions" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-photo" class="mb-5">
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Photos<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table-photo">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">No</th>
+                                <th>Photo</th>
+                                <th>Content</th>
+                                <th>Upload</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="photo-clone" style="display: none;">
+                                <td class="text-center">0.<div></div>
+                                </td>
+                                <td><img /></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-primary btn-sm" type="button">Upload Image</button></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">1.<div></div>
+                                </td>
+                                <td><img /></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-primary btn-sm" type="button">Upload Image</button></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center"><button class="btn btn-primary" id="add-photo" type="button"><i class="fas fa-plus"></i></button></div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script src="{{asset('js/backoffice/tour.js')}}"></script>
