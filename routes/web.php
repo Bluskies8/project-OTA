@@ -48,6 +48,7 @@ Route::prefix('tour')->group(function () {
 
 Route::prefix('backoffice')->group(function () {
     Route::prefix('tour')->group(function () {
+        Route::get('/',[productTourController::class,'index']);
         // Route::get('/Thermcond/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
         Route::get('/{productTour:id}', [ProductTourController::class, 'showbyId']);
         Route::post('/create',[ProductTourController::class,'create']);

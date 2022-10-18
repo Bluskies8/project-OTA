@@ -200,3 +200,36 @@ header i {
     text-decoration: none;
     font-size: 18px;
 }
+
+.cell-action {
+    text-align: end;
+    padding: 4px 8px!important;
+}
+
+#list-action {
+    width: 150px;
+    padding: 6px 0;
+    z-index: 1000;
+    position: absolute;
+    display: none;
+    cursor: default;
+    top: 0;
+    left: 0;
+}
+
+#list-action i {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#list-action li {
+    display: flex;
+    padding: 0 .5rem;
+}
+
+#list-action li:hover {
+    color: #fff;
+    background-color: rgb(75, 0, 118);
+}

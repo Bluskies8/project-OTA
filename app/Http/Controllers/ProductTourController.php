@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 
 class ProductTourController extends Controller
 {
+    public function index()
+    {
+        return view(
+            'pages.backoffice.tour'
+        );
+    }
     public function show(ProductTour $productTour)
     {
         if ($productTour->enabled==0) return response()->json(['message' => "Tour cannot be accessed!"], 404);
@@ -93,7 +99,7 @@ class ProductTourController extends Controller
         $data->tagsObject = $tempTags;
         $data->countryTagsObject = $tempCountryTags;
         // dd($data);
-        return view('pages.backoffice.tour',[
+        return view('pages.backoffice.tourDetail',[
             'data' => $data,
             'tag' => tag::get(),
             'country' => country::get(),
