@@ -1,5 +1,6 @@
 @extends('layout.users')
 
+@section('title'){{'HOME'}}@endsection
 @section('content')
 <div class="container py-5"  style="min-height: calc(100vh - 364px)">
     <section class="shadow pt-3 p-4 card" id="section-quick-action">
@@ -14,8 +15,13 @@
                         @csrf
                         <div class="d-flex align-items-center">
                             <h3 class="text-uppercase color-main me-3 mb-3">book your flight</h3>
+                            @if (old('type') == 2)
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "2" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);" checked><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            @else
                             <div class="form-check me-2 mb-0"><input name = "type" value = "2" class="form-check-input" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
-                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);" checked><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"checked><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            @endif
                         </div>
                         <div class="row mb-4">
                             <div class="col-4">
@@ -31,6 +37,9 @@
                                         @endforeach
                                     </select>
                                     <p class="position-absolute color-sub input-head">Departure</p>
+                                    @error('departure')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-4">
@@ -41,26 +50,42 @@
                                         @endforeach
                                     </select>
                                     <p class="position-absolute color-sub input-head">Destination</p>
+                                    @error('destination')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="position-relative">
-                                    <input class="form-control" type="date" name = "depart">
+                                    <input class="form-control" type="date" name = "depart" value = {{old('depart')}}>
                                     <p class="position-absolute color-sub input-head">Depart</p>
+                                    @error('depart')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="position-relative">
+                                    @if (old('type') == 2)
+                                    <input class="form-control" id = 'return-date'type="date" name = "return" value = {{old('return')}}>
+                                    @else
                                     <input class="form-control" id = 'return-date'type="date" name = "return" disabled>
+                                    @endif
                                     <p class="position-absolute color-sub input-head">Return</p>
+                                    @error('return')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-4">
                                 <div class="position-relative">
-                                    <input class="form-control" type="text" name = "passanger">
+                                    <input class="form-control" type="text" name = "passanger" value = "{{old('passanger')}}">
                                     <p class="position-absolute color-sub input-head">Passenger</p>
+                                    @error('passanger')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-4">

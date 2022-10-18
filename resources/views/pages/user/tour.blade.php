@@ -1,5 +1,5 @@
 @extends('layout.users')
-
+@section('title'){{$data['data']['name']}}@endsection
 @section('content')
 <div style="background: rgba(0, 0, 0, .25) url({{$data['data']['header_img_url']}});background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
     <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">{{$data['data']['days_count']}} hari {{$data['data']['nights_count']}}Malam</button>

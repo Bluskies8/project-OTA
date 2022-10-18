@@ -62,6 +62,7 @@ $(document).ready(function() {
         }
         console.log(room);
         $.ajax({
+
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
@@ -70,22 +71,26 @@ $(document).ready(function() {
             data: {
                 room:room
             },
+            statusCode: {
+                404: function() {
+                    alert( "page not found" );
+                },
+                200: function(data){
+                    console.log(data);
+                }
+            },
             beforeSend: function(){
                 // console.log(this.data);
             },
-            success: function(data) {
-                console.log(data)
+            success: function(data,xhr) {
+
                 //pindah ke halaman stock dan data masuk ke tabel
-                if(data == "Success") {
-                    window.location.href = 'stock';
-                }else{
-                    $('.alert-confirm').html(data);
-                    $('#check-confirm').show();
-                }
-                // $('#tambah-barang').hide();
-                // $('#save-detail').hide();
-                // $('#pelapak').hide();
-                // $('#nama-pelapak').text($('#pelapak').val());
+                // if(data == "Success") {
+                //     window.location.href = 'stock';
+                // }else{
+                //     $('.alert-confirm').html(data);
+                //     $('#check-confirm').show();
+                // }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

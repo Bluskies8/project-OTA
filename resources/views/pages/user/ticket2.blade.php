@@ -1,28 +1,20 @@
 @extends('layout.users')
 
 @section('content')
-<meta name="type" content="{{ $type }}">
-<meta name="passid" content="{{ $passid }}">
-<meta name="pass_count" content="{{ $pass_count }}">
-<meta name="cabin" content="{{ $cabin }}">
-<meta name="depart_date" content="{{ $depart_date }}">
-<meta name="return_date" content="{{ $return_date }}">
-<meta name="departure" content="{{ $data->slices[0]->origin->iata_code }}">
-<meta name="destination" content="{{ $data->slices[0]->destination->iata_code }}">
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <?php $count = 0; ?>
-<div class="container pb-5" id = "maincount">
+<div class="container pb-5">
     <div class="sticky py-4">
         <div class="card mb-4" id="pencarian" style="background-color: inherit;">
             <div class="card-body p-0 d-flex" style="border-top-left-radius: inherit;border-bottom-left-radius: inherit;">
                 <div class="w-75 p-3" style="background-color: white;border-top-right-radius: 75px;border-bottom-right-radius: 75px;border-top-left-radius: inherit;border-bottom-left-radius: inherit;">
                     <p class="fw-bold">{{$data->slices[0]->origin->city_name}}({{$data->slices[0]->origin->iata_code}})<i class="fas fa-long-arrow-alt-right mx-2"></i>&nbsp;{{$data->slices[0]->destination->city_name}}({{$data->slices[0]->destination->iata_code}})</p>
-                    <p>{{$days}}<i class="fas fa-minus mx-2 fa-rotate-90"></i>&nbsp;{{$pass_count}}&nbsp;<i class="fas fa-minus mx-2 fa-rotate-90"></i>&nbsp;{{$cabin}}</p>
+                    <p>{{$date}}<i class="fas fa-minus mx-2 fa-rotate-90"></i>&nbsp;{{$pass_count}}&nbsp;<i class="fas fa-minus mx-2 fa-rotate-90"></i>&nbsp;{{$cabin}}</p>
                 </div>
                 <div class="w-25 p-3 d-flex align-items-center justify-content-end"><button class="btn btn-primary" id="btn-pencarian" type="button">&nbsp;<i class="fas fa-search"></i>&nbsp;Ganti Pencarian</button></div>
             </div>
         </div>
-        <div id="filter" class="px-3 d-flex align-items-center">
+        {{-- <div id="filter" class="px-3 d-flex align-items-center">
             <p>Filter :&nbsp;</p>
             <div id="data-transit" class="position-relative ms-3"><button class="btn" id="btn-filter-transit" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Transit&nbsp;<i class="fas fa-caret-down"></i></button>
                 <div id="menu-transit" class="position-absolute" style="display: none;margin-top: 8px;width: 150px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
@@ -55,7 +47,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div id="list">
         @foreach ($data->offers as $item)
@@ -107,7 +99,7 @@
                                         @elseif($type == 1)
                                         <a href="http://form data diri">
                                         @endif --}}
-                                            <button id = "{{$item->id}}" class="btn btn-sm btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                            <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                         {{-- </a> --}}
                                     </div>
                                 </div>
@@ -228,7 +220,7 @@
                                             @elseif($type == 1)
                                             <a href="http://form data diri">
                                             @endif --}}
-                                                <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                                <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                             {{-- </a> --}}
                                         </div>
 
@@ -325,123 +317,6 @@
             @endif
             <?php $count = 0;?>
         @endforeach
-    </div>
-</div>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-pencarian">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Pencarian Tiket</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <div id="data-kota-asal" class="position-relative">
-                                <p>Kota Asal</p>
-                                {{-- <input class="form-control" type="text" id="input-kota-asal"> --}}
-                                <select class=" form-select" name = "departure">
-                                    @foreach ($airport as $item)
-                                    <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
-                                    @endforeach
-                                </select>
-                                {{-- <div id="menu-kota-asal" class="position-absolute" style="display: none;margin-top: 8px;width: 200px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;">
-                                    <div style="background-color: rgba(0,0,0,.125);border-top-left-radius: 4px;border-top-right-radius: 4px;">
-                                        <p class="px-2">Data Kota Asal</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <div id="data-kota-tujuan" class="position-relative">
-                                <p>Kota Tujuan</p>
-                                <select class=" form-select" name = "departure">
-                                    @foreach ($airport as $item)
-                                    <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
-                                    @endforeach
-                                </select>
-                                {{-- <input class="form-control" type="text" id="input-kota-tujuan">
-                                <div id="menu-kota-tujuan" class="position-absolute" style="display: none;margin-top: 8px;width: 200px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;">
-                                    <div style="background-color: rgba(0,0,0,.125);border-top-left-radius: 4px;border-top-right-radius: 4px;">
-                                        <p class="px-2">Data Kota Tujuan</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">Jakarta, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                    <div class="pb-1">
-                                        <hr class="my-0">
-                                        <p class="mx-2" style="font-size: 14px;">surabaya, Indonesia</p>
-                                        <p class="mx-2" style="font-size: 12px;">JKTA - All Airports in Jakarta</p>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <p>Jumlah Penumpang</p><input class="form-control pass_count" type="text" value = "{{$pass_count}}">
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <p>Tanggal Pergi</p><input class="form-control" type="date" value = "{{$depart_date}}">
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <p>Tanggal Pulang</p><input class="form-control" type="date">
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <p>Kelas Penerbangan</p>
-                            <select class="form-select" name = "class">
-                                <option value="economy" selected="">Economy</option>
-                                <option value="premium_economy">Premium Economy</option>
-                                <option value="business">Business Class</option>
-                                <option value="first">First Class</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer"><button class="btn btn-primary" type="submit"><i class="fas fa-search"></i>&nbsp;Save</button></div>
-            </form>
-        </div>
     </div>
 </div>
 <script src="{{asset('js/user/tiket.js')}}"></script>

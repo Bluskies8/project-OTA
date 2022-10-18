@@ -95,7 +95,7 @@ class DuffelAPI
     public static function SearchFlight($data)
     {
         // $body = $REQUEST['data'];
-        // dd($body);
+        // dd($data);
         $targetPath = "/air/offer_requests";
         $curl = curl_init(self::$Endpoint.$targetPath);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -109,12 +109,12 @@ class DuffelAPI
                 "cabin_class"=> $data['cabin'],
                 "slices"=> [
                   [
-                    // "departure_date"=> $data['departure_date'],
-                    // "destination"=> $data['destination'],
-                    // "origin"=> $data['origin'],
-                    "departure_date"=> '2022-10-10',
-                    "destination"=> 'SUB',
-                    "origin"=> 'DPS',
+                    "departure_date"=> $data['departure_date'],
+                    "destination"=> $data['destination'],
+                    "origin"=> $data['origin'],
+                    // "departure_date"=> '2023-01-08',
+                    // "destination"=> 'DXB',
+                    // "origin"=> 'LHR',
                   ],
                 ],
                 "passengers" => $data['pass'],

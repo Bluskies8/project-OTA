@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Duffel\DuffelAPI;
-use App\Models\Airport;
 use App\Models\DisplayBanner;
 use App\Models\ProductTour;
 use Carbon\Carbon;
@@ -14,37 +13,103 @@ class HomeController extends Controller
 
     public function searchFlight(Request $request)
     {
-        $request->validate([
-            'passanger' => 'numeric|required',
-            'depart' => 'required'
-
-        ]);
+        $passid = '';
         for ($i=0; $i < $request->passanger; $i++) {
             $pass[$i] =[
                 'type' => 'adult'
             ];
         }
-        $data = [
-            'cabin' => $request->class,
-            'departure_date' => $request->depart,
-            'origin' => $request->departure,
-            'destination' => $request->destination,
-            'pass' => $pass
-        ];
-        // return $request->depart;
+        if($request->type == 2){
+            $request->validate([
+                'passanger' => 'numeric|required',
+                'depart' => 'required|date',
+                'departure' => 'required',
+                'destination' => 'required|different:departure',
+                'return' => 'required|date|after:depart',
+            ]);
+        }else{
+            $request->validate([
+                'passanger' => 'numeric|required',
+                'depart' => 'required|date',
+                'departure' => 'required',
+                'destination' => 'required|different:departure',
+            ]);
+        }
+        $airport = DuffelAPI::getAirport();
+        if($request->type == 2){
+            $data = [
+                'cabin' => $request->class,
+                'departure_date' => $request->depart,
+                'return_date' => $request->return,
+                'origin' => $request->departure,
+                'destination' => $request->destination,
+                'pass' => $pass
+            ];
+        }else{
+            $data = [
+                'cabin' => $request->class,
+                'departure_date' => $request->depart,
+                'origin' => $request->departure,
+                'destination' => $request->destination,
+                'pass' => $pass
+            ];
+        }
+        // dd($airport);
         $day = Carbon::createFromFormat('Y-m-d', $request->depart)->format('l');
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
-        // dd($day);
         $res = DuffelAPI::SearchFlight($data);
-        // dd($res->data); 
+        foreach ($res->data->passengers as $key => $value) {
+            if($passid == ''){
+                $passid = $value->id;
+            }else{
+                $passid = ','.$value->id;
+            }
+        }
+        // dd($passid);
         return view('pages.user.ticket',[
+            'airport' => $airport->data,
             'data' => $res->data,
             'pass_count' => $request->passanger,
             'cabin' => $request->class,
-            'date' => $day.", ".$date,
+            'days' => $day.", ".$date,
+            'depart_date' => $date,
+            'return_date' => ($request->return)?$request->return:"",
+            'type' => $request->type,
+            'passid' => $passid
+        ]);
+    }
+
+    public function searchFlight2(Request $request)
+    {
+        // return $request->all();
+        for ($i=0; $i < $request->pass_count; $i++) {
+            $pass[$i] =[
+                'type' => 'adult'
+            ];
+        }
+        $data = [
+            'cabin' => $request->cabin,
+            'departure_date' => $request->return_date,
+            'origin' => $request->destination,
+            'destination' => $request->departure,
+            'pass' => $pass
+        ];
+        $day = Carbon::createFromFormat('Y-m-d', $request->return_date)->format('l');
+        // return $day;
+        $date = Carbon::createFromFormat('Y-m-d', $request->return_date)->format('d-m-Y');
+        $res = DuffelAPI::SearchFlight($data);
+        // dd($res->data);
+        // return $res->data;
+        return view('pages.user.ticket2',[
+            'data' => $res->data,
+            'pass_count' => $request->pass_count,
+            'cabin' => $request->cabin,
+            'days' => $day.", ".$date,
+            'date' => $date,
             'type' => $request->type,
         ]);
     }
+
     public function home()
     {
         // return view('pages.user.index');
@@ -121,14 +186,4 @@ class HomeController extends Controller
         return response()->file(storage_path('/app/public'.$data->thumbnail_img_url));
     }
 
-    public function tour()
-    {
-        return view('pages.user.tour');
-    }
-
-
-    public function adminTour()
-    {
-        return view('pages.backoffice.tour');
-    }
 }

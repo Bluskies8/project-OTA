@@ -59,7 +59,42 @@ $(document).ready(function() {
             $(this).css('border-bottom', 'none');
         }
     });
+
+    var type = $('meta[name="type"]').attr('content');
+    var depart_date = $('meta[name="depart_date"]').attr('content');
+    var return_date = $('meta[name="return_date"]').attr('content');
+    var cabin = $('meta[name="cabin"]').attr('content');
+    var pass_count = $('meta[name="pass_count"]').attr('content');
+    var departure = $('meta[name="departure"]').attr('content');
+    var destination = $('meta[name="destination"]').attr('content');
+    var passid = $('meta[name="passid"]').attr('content');
     $('.btn-pilih').on('click', function(){
+        console.log(departure);
+        var data = {
+            'type' : type,
+            'depart_date' : depart_date,
+            'return_date' : return_date,
+            'cabin' : cabin,
+            'pass_count' : pass_count,
+            'departure' : departure,
+            'destination' : destination,
+            'flight1' : $(this).attr('id'),
+            'passid1' : passid
+        };
+        console.log(data);
+        if(type == 1){
+            window.location.href = "data diri";
+        }else if(type == 2){
+            window.location.href = "/Flight/searchFlight2?type="+data['type']+"&flight1="+data['flight1']+"&departure="+data['departure']+"&return_date="+data['return_date']+"&cabin="+data['cabin']+"&pass_count="+data['pass_count']+"&destination="+data['destination']+"&passid1="+data['passid1'];
+        }
+        console.log($(this).attr('id'));
+    });
+    $('.btn-pilih2').on('click', function(){
+        if(type == 1){
+            window.location.href = "data diri";
+        }else if(type == 2){
+            window.location.href = "/Flight/searchFlight2?type="+data['type']+"&flight1="+data['flight1']+"&departure="+data['departure']+"&return_date="+data['return_date']+"&cabin="+data['cabin']+"&pass_count="+data['pass_count']+"&destination="+data['destination']+"&passid1="+data['passid1'];
+        }
         console.log($(this).attr('id'));
     });
 });

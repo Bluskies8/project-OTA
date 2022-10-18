@@ -1,10 +1,11 @@
+@section('title')Backoffice - {{$data->name}}@endsection
 @extends('layout.admins')
 
 @section('content')
 <div class="container">
     <div class="my-3 content-header d-flex align-items-center">
         <i class="fas fa-arrow-left color-main me-4"></i>
-        <a class="me-3" href="#">CMS</a>
+        <a class="me-3" href="#">Backoffice</a>
         <i class="fas fa-chevron-right me-3"></i>
         <a class="me-3" href="#">Product Management</a>
         <i class="fas fa-chevron-right me-3"></i>
@@ -15,137 +16,185 @@
         <h4 class="mb-2">Tour Details</h4>
         <div class="card">
             <div class="card-body">
-                <form>
+                <form action = "/backoffice/tour/update" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value = "{{$data->id}}">
                     <div class="row">
-                        <div class="col-6 d-flex flex-column justify-content-end mb-4"><input class="form-control" type="text" placeholder="Nama Tour"></div>
+                        <div class="col-6 d-flex flex-column justify-content-end mb-4"><input class="form-control" name = "name" type="text" placeholder="Nama Tour" value = "{{$data->name}}"></div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Slug</p><input class="form-control" type="text" placeholder="lila.co.id/tours/">
+                            <p class="tiny">Slug</p><input class="form-control" type="text" placeholder="xyz.co.id/tours/" name = "slug" value = "{{$data->slug}}">
                         </div>
                         <div class="col-3 d-flex flex-column justify-content-end mb-4">
-                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" type="text" placeholder="Minumum Passanger">
+                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" name = "pass_minim" type="text" value = "{{$data->pass_minim}}" placeholder="Minumum Passanger">
                                 <p>person</p>
                             </div>
                         </div>
                         <div class="col-3 d-flex flex-column justify-content-end mb-4">
-                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" type="text" placeholder="Passanger Limit">
+                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" name = "pass_limit" type="text" value = "{{$data->pass_limit}}" placeholder="Passanger Limit">
                                 <p>person</p>
                             </div>
                         </div>
                         <div class="col-3 d-flex flex-column justify-content-end mb-4">
-                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" type="text" placeholder="Days Count">
+                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" name = "days_count" type="text" value = "{{$data->days_count}}" placeholder="Days Count">
                                 <p>day(s)</p>
                             </div>
                         </div>
                         <div class="col-3 d-flex flex-column justify-content-end mb-4">
-                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" type="text" placeholder="Night Count">
+                            <div class="d-flex align-items-center spesial"><input class="form-control spesial" name = "nights_count" type="text" value = "{{$data->nights_count}}" placeholder="Night Count">
                                 <p>night(s)</p>
                             </div>
                         </div>
                         <div class="col-4 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Start Price</p>
                             <div class="d-flex align-items-center spesial">
-                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text">
+                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text" name = "start_price" value = "{{$data->start_price}}">
                             </div>
                         </div>
                         <div class="col-4 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Gimmic Price</p>
                             <div class="d-flex align-items-center spesial">
-                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text">
+                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text" name = "gimmic_price" value = "{{$data->gimmic_price}}">
                             </div>
                         </div>
                         <div class="col-4 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Down Payment</p>
                             <div class="d-flex align-items-center spesial">
-                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text">
+                                <p>Rp.&nbsp;</p><input class="form-control spesial" type="text" name = "downpayment" value = "{{$data->downpayment}}">
                             </div>
                         </div>
                         <div class="col d-flex align-items-center mb-4">
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Require Visa</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Is Domestic</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Include Hotel</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Include Flight</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Include Ride</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Include Ticket</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-7"><label class="form-check-label" for="formCheck-7">Include Boat</label></div>
-                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-8"><label class="form-check-label" for="formCheck-8">Include Guide</label></div>
+                            @if($data->include_visa == 1)
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-1" name = "include_visa" checked><label class="form-check-label" for="formCheck-1">Require Visa</label></div>
+                            @else
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-1" name = "include_visa"><label class="form-check-label" for="formCheck-1">Require Visa</label></div>
+                            @endif
+                            @if($data->is_domestic == 1)
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-2" name = "is_domestic" checked><label class="form-check-label" for="formCheck-2" >Is Domestic</label></div>
+                            @else
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-2" name = "is_domestic"><label class="form-check-label" for="formCheck-2">Is Domestic</label></div>
+                            @endif
+                            @if ($data->include_hotel == 1)
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-3" name = "include_hotel"checked><label class="form-check-label" for="formCheck-3">Include Hotel</label></div>
+                            @else
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-3" name = "include_hotel"><label class="form-check-label" for="formCheck-3">Include Hotel</label></div>
+                            @endif
+                            @if ($data->include_flight == 1)
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-4" name = "include_flight" checked><label class="form-check-label" for="formCheck-4">Include Flight</label></div>
+                            @else
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-4" name = "include_flight"><label class="form-check-label" for="formCheck-4">Include Flight</label></div>
+                            @endif
+                            {{-- <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-5" name = ""><label class="form-check-label" for="formCheck-5">Include Ride</label></div>
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-6" name = ""><label class="form-check-label" for="formCheck-6">Include Ticket</label></div>
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-7" name = ""><label class="form-check-label" for="formCheck-7">Include Boat</label></div>
+                            <div class="form-check me-3"><input class="form-check-input" type="checkbox" id="formCheck-8" name = ""><label class="form-check-label" for="formCheck-8">Include Guide</label></div> --}}
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Supplier</p><select class="form-select">
-                                <option value="" selected="" hidden="" disabled="">Supplier</option>
-                            </select>
-                        </div>
-                        <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Kategori Tour</p><select class="form-select">
-                                <option value="" selected="" hidden="" disabled="">Normal</option>
+                            <p class="tiny">Supplier</p><select class="form-select" name = "supplier_id">
+                                @foreach ($supplier as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-12 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Description</p><textarea class="form-control" style="resize: none;"></textarea>
+                            <p class="tiny">Description</p><textarea class="form-control" style="resize: none;" name="description">{{$data->description}}</textarea>
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Tags</p>
-                            <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-tags" readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
+                            <?php
+                                $tags = '';
+                                $tagid = '';
+                                foreach ($data->tagsObject as $key) {
+                                    if($tags == ""){
+                                        $tags = $key->name;
+                                        $tagid = $key->id;
+                                        // echo $key->name;
+                                    }else{
+                                        $tags = $tags.','.$key->name;
+                                        $tagid = $tagid.','.$key->id;
+                                    }
+                                }
+                            ?>
+                            <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-tags" value = "{{$tags}}" readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
                                 <div id="tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">
                                     <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                     <div class="row" style="max-height: 200px;overflow-y: auto;">
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-9" value="tag 1"><label class="form-check-label" for="formCheck-9">Tag 1</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-10" value="tag 2"><label class="form-check-label" for="formCheck-10">Tag 2</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-11" value="tag 3"><label class="form-check-label" for="formCheck-11" value="tag 2">Tag 3</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-12" value="tag 4"><label class="form-check-label" for="formCheck-12">Tag 4</label></div>
-                                        </div>
+                                        @foreach ($tag as $item)
+                                            @foreach (explode(',',$data->tags) as $item2)
+                                                @if ($item->id == $item2)
+                                                <input type="hidden" name="tags" id="tag" value = "{{$tagid}}">
+                                                <div class="col-4 mb-1">
+                                                    <div class="form-check"><input checked class="form-check-input" type="checkbox" id="tag-{{$item->id}}" value="{{$item->name}}"><label class="form-check-label" for="tag-{{$item->id}}">{{$item->name}}</label></div>
+                                                </div>
+                                                @else
+                                                <div class="col-4 mb-1">
+                                                    <div class="form-check"><input class="form-check-input" type="checkbox" id="tag-{{$item->id}}" value="{{$item->name}}"><label class="form-check-label" for="tag-{{$item->id}}">{{$item->name}}</label></div>
+                                                </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <?php
+                                $ctags = '';
+                                $ctagid = '';
+                                foreach ($data->countryTagsObject as $key) {
+                                    if($ctags == ""){
+                                        $ctags = $key->label;
+                                        $ctagid = $key->id;
+                                    }else{
+                                        $ctags = $ctags.','.$key->label;
+                                        $ctagid = $ctagid.','.$key->id;
+                                    }
+                                }
+                            ?>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Country Tags</p>
-                            <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-country-tags" readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
+                            <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-country-tags" value = "{{$ctags}}" readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
                                 <div id="country-tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">
                                     <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                    <input type="hidden" name="countrytag" id="countrytag" value = "{{$ctagid}}">
                                     <div class="row" style="max-height: 200px;overflow-y: auto;">
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-13" value="country tag 1"><label class="form-check-label" for="formCheck-13">Country Tag 1</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-14" value="country tag 2"><label class="form-check-label" for="formCheck-14">Country Tag 2</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-15" value="country tag 3"><label class="form-check-label" for="formCheck-15" value="tag 2">Country Tag 3</label></div>
-                                        </div>
-                                        <div class="col-4 mb-1">
-                                            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-16" value="country tag 4"><label class="form-check-label" for="formCheck-16">Country Tag 4</label></div>
-                                        </div>
+                                        @foreach ($country as $item)
+                                            @foreach (explode(',',$data->countrytag) as $item2)
+                                                @if ($item->id == $item2)
+                                                <div class="col-4 mb-1">
+                                                    <div class="form-check"><input checked class="form-check-input" type="checkbox" id="country-{{$item->id}}" value="{{$item->label}}"><label class="form-check-label" for="country-{{$item->id}}">{{$item->label}}</label></div>
+                                                </div>
+                                                @else
+                                                <div class="col-4 mb-1">
+                                                    <div class="form-check"><input class="form-check-input" type="checkbox" id="country-{{$item->id}}" value="{{$item->label}}"><label class="form-check-label" for="country-{{$item->id}}">{{$item->label}}</label></div>
+                                                </div>
+                                                @endif
+                                            @endforeach
+
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Valid Date Start</p><input class="form-control" type="date">
+                            <p class="tiny">Valid Date Start</p><input class="form-control" type="date" name = "valid_date_start">
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Valid Date End</p><input class="form-control" type="date">
+                            <p class="tiny">Valid Date End</p><input class="form-control" type="date" name = "valid_date_end">
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Header Image</p><input class="form-control" type="file" style="padding: 6px 12px;">
+                            <p class="tiny">Header Image</p><input class="form-control" type="file" name = "header_img" style="padding: 6px 12px;">
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Thumbnail Image</p><input class="form-control" type="file" style="padding: 6px 12px;">
+                            <p class="tiny">Thumbnail Image</p><input class="form-control" type="file" name = "thumbnail_img" style="padding: 6px 12px;">
                         </div>
                     </div>
-                    <div class="text-end"><button class="btn btn-primary" type="submit"><i class="fas fa-save me-2"></i>Create</button></div>
+                    <div class="text-end"><button class="btn btn-primary" type="submit"><i class="fas fa-save me-2"></i>Update</button></div>
                 </form>
             </div>
         </div>
     </section>
     <section id="section-tour-highlight" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Hightlight<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Hightlight<button class="btn btn-primary save-highlight" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -158,16 +207,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($data['Highlights'] as $item)
+                            <tr>
+                                <td class="text-center">{{$loop->index+1}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" name = "highlight" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id = {{$item->id}} value = "{{$item->item}}"/></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                            @endforeach
                             <tr id="highlight-clone" style="display: none;">
                                 <td class="text-center">0.</td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
-                            <tr>
+                            {{--<tr>
                                 <td class="text-center">1.</td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -176,7 +232,7 @@
         </div>
     </section>
     <section id="section-tour-itinetary" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Itinetary<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Itinetary<button class="btn btn-primary save-itinetary" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -194,11 +250,13 @@
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @foreach ($data['itinenaries'] as $item)
                             <tr>
-                                <td class="text-center">1.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center">{{$loop->index+1}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value = "{{$item->label}}"/></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -207,7 +265,7 @@
         </div>
     </section>
     <section id="section-tour-inclusion" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Inclusion<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Inclusion<button class="btn btn-primary save-include" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -225,11 +283,13 @@
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @foreach ($data['includes'] as $item)
                             <tr>
-                                <td class="text-center">1.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center">{{$loop->index+1}}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -238,7 +298,7 @@
         </div>
     </section>
     <section id="section-tour-exclusion" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Exclusion<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Exclusion<button class="btn btn-primary save-exclude" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -256,11 +316,13 @@
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @foreach ($data['excludes'] as $item)
                             <tr>
-                                <td class="text-center">1.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center">{{$loop->index+1}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value= "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -269,7 +331,7 @@
         </div>
     </section>
     <section id="section-terms-conditions" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Terms &amp; Conditions<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Terms &amp; Conditions<button class="btn btn-primary save-thermcond" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -287,11 +349,13 @@
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            {{-- @foreach ($data['thermsConds'] as $item)
                             <tr>
-                                <td class="text-center">1.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center">{{$loop->index+1}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -300,7 +364,7 @@
         </div>
     </section>
     <section id="section-photo" class="mb-5">
-        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Photos<button class="btn btn-primary" type="button"><i class="fas fa-save"></i> Save</button></h3>
+        <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Photos<button class="btn btn-primary save-photo" type="button"><i class="fas fa-save"></i> Save</button></h3>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">

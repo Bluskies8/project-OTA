@@ -10,8 +10,10 @@ $(document).ready(function() {
     });
 
     var tags = '';
+    var idtags = '';
     $('#tag-list input[type="checkbox"]').on('change', function() {
         tags = '';
+        idtags = '';
         $('#tag-list input[type="checkbox"]').each(function() {
             if ($(this).is(':checked')) {
                 if (tags == '') {
@@ -19,14 +21,19 @@ $(document).ready(function() {
                 } else {
                     tags += ', ' + $(this).val();
                 }
+                if(idtags == '') {idtags += $(this).attr('id').split('-')[1];}
+                else{idtags += ', ' + $(this).attr('id').split('-')[1];}
             }
         });
         $('#input-tags').val(tags);
+        $('#tag').val(idtags);
     });
 
     var countryTags = '';
+    var idcountryTags = '';
     $('#country-tag-list input[type="checkbox"]').on('change', function() {
         countryTags = '';
+        idcountryTags = '';
         $('#country-tag-list input[type="checkbox"]').each(function() {
             if ($(this).is(':checked')) {
                 if (countryTags == '') {
@@ -34,9 +41,12 @@ $(document).ready(function() {
                 } else {
                     countryTags += ', ' + $(this).val();
                 }
+                if(idcountryTags == '') {idcountryTags += $(this).attr('id').split('-')[1];}
+                else{idcountryTags += ', ' + $(this).attr('id').split('-')[1];}
             }
         });
-        $('#input-country-tags').val(tags);
+        $('#input-country-tags').val(countryTags);
+        $('#countrytag').val(idcountryTags);
     });
 
     $('#add-highlight').on('click', function() {
@@ -45,6 +55,13 @@ $(document).ready(function() {
         temp.children().eq(0).html(count + '.');
         temp.appendTo($('#table-highlight tbody'));
         temp.show();
+    });
+
+    $('.save-highlight').on('click', function() {
+        console.log($('input[name="highlight"]').val());
+        $('input[name="highlight"]').each(function() {
+            console.log($(this).attr('id'));
+        });
     });
 
     $('#add-itinetary').on('click', function() {
