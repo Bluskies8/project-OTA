@@ -100,7 +100,8 @@
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Tags</p>
-                                <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-tags" readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
+                                <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-tags" readonly="" style="background-color: inherit;">
+                                    <button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
                                     <div id="tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">
                                         <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                         <div class="row" style="max-height: 200px;overflow-y: auto;">
@@ -110,7 +111,8 @@
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Country Tags</p>
-                                <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-country-tags"  readonly="" style="background-color: inherit;"><button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
+                                <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-country-tags"  readonly="" style="background-color: inherit;">
+                                    <button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
                                     <div id="country-tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">
                                         <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                         <input type="hidden" name="countrytag" id="countrytag">
@@ -132,7 +134,7 @@
                                 <p class="tiny">Thumbnail Image</p><input class="form-control" type="file" name = "thumbnail_img" style="padding: 6px 12px;">
                             </div>
                         </div>
-                        <div class="text-end"><button class="btn btn-primary" type="submit"><i class="fas fa-save me-2"></i>Update</button></div>
+                        <div class="text-end"><button class="btn btn-primary" type="submit"><i class="fas fa-save me-2"></i>Simpan</button></div>
                     </form>
                 </div>
             </div>

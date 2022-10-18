@@ -8,7 +8,7 @@ $(document).ready(function() {
     // Tour
 
     $('#add-tour').on('click', function() {
-        $(this).parent().next().show('fast');
+        $(this).parent().next().toggle('fast');
     });
 
     $('#table-tours').DataTable({
