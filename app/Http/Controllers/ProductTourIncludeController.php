@@ -77,12 +77,21 @@ class ProductTourIncludeController extends Controller
      * @param  \App\Models\ProductTourInclude  $productTourInclude
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $data = ProductTourInclude::where('id',$request->id)->first();
-        $data->item = $request->item;
-        $data->save();
-        return response()->json($data,200);
+        foreach($request->data as $key => $value){
+            if($value['id'] != null){
+                $data = ProductTourInclude::where('tour_id',$id)->where('id',$value['id'])->first();
+                $data->item = $value['value'];
+                $data->save();
+            }else{
+                ProductTourInclude::create([
+                    'tour_id' => $id,
+                    'item' => $value['value'],
+                ]);
+            }
+        }
+        return response()->json("success",200);
     }
 
     /**

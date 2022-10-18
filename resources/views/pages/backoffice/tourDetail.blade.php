@@ -2,6 +2,7 @@
 @extends('layout.admins')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="my-3 content-header d-flex align-items-center">
         <i class="fas fa-arrow-left color-main me-4"></i>
@@ -17,7 +18,7 @@
         <h4 class="mb-2">Tour Details</h4>
         <div class="card">
             <div class="card-body">
-                <form action = "/backoffice/tour/update" method="post">
+                <form action = "/cms/tour/update" method="post">
                     @csrf
                     <input type="hidden" name="id" value = "{{$data->id}}">
                     <div class="row">
@@ -177,10 +178,10 @@
                             </div>
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Valid Date Start</p><input class="form-control" type="date" name = "valid_date_start">
+                            <p class="tiny">Valid Date Start</p><input class="form-control" type="date" name = "valid_date_start" value = "{{$data->valid_date_start}}">
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Valid Date End</p><input class="form-control" type="date" name = "valid_date_end">
+                            <p class="tiny">Valid Date End</p><input class="form-control" type="date" name = "valid_date_end" value = "{{$data->valid_date_end}}">
                         </div>
                         <div class="col-6 d-flex flex-column justify-content-end mb-4">
                             <p class="tiny">Header Image</p><input class="form-control" type="file" name = "header_img" style="padding: 6px 12px;">
@@ -208,18 +209,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr id="highlight-clone" style="display: none;">
+                                <td class="text-center">0.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" name = "highlight" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id =""  value = ""/></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-highlight" type="button"><i class="fas fa-trash"></i></button></td>
+                            </tr>
                             @foreach ($data['Highlights'] as $item)
                             <tr>
                                 <td class="text-center">{{$loop->index+1}}.</td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" name = "highlight" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id = {{$item->id}} value = "{{$item->item}}"/></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-highlight" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @endforeach
-                            <tr id="highlight-clone" style="display: none;">
-                                <td class="text-center">0.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
-                            </tr>
                             {{--<tr>
                                 <td class="text-center">1.</td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
@@ -246,16 +247,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="highlight-clone" style="display: none;">
+                            <tr id="itinetary-clone" style="display: none;">
                                 <td class="text-center">0.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" name = "itinetary" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id = "" value = "" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-itinetary" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @foreach ($data['itinenaries'] as $item)
                             <tr>
                                 <td class="text-center">{{$loop->index+1}}.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value = "{{$item->label}}"/></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" name = "itinetary" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id = "{{$item->id}}" value = "{{$item->label}}"/></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-itinetary" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -279,16 +280,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="itinetary-clone" style="display: none;">
+                            <tr id="inclusion-clone" style="display: none;">
                                 <td class="text-center">0.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "include" id = "" value = "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-include" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @foreach ($data['includes'] as $item)
                             <tr>
-                                <td class="text-center">{{$loop->index+1}}}.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td class="text-center">{{$loop->index+1}}.</td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "include" id = "{{$item->id}}" value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-include" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -314,14 +315,14 @@
                         <tbody>
                             <tr id="exclusion-clone" style="display: none;">
                                 <td class="text-center">0.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "exclude" id = "" value= "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-exclude" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @foreach ($data['excludes'] as $item)
                             <tr>
                                 <td class="text-center">{{$loop->index+1}}.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value= "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "exclude" id = "{{$item->id}}" value= "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-exclude" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -388,14 +389,20 @@
                                 <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-primary btn-sm" type="button">Upload Image</button></td>
                                 <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @foreach ($data->photos as $item)
                             <tr>
                                 <td class="text-center">1.<div></div>
                                 </td>
-                                <td><img /></td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-primary btn-sm" type="button">Upload Image</button></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                {{-- <td><img class="w-100 h-100" style="object-fit: contain;" src = {{$item->img_url}}/></td> --}}
+                                <td><div class="preview-img form-control p-0" ><img class="w-100 h-100" src="{{$item->img_url}}" style="object-fit: contain;" /></div></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "{{$item->title}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
+                                    <input type="file" name="img" class="form-control" />
+                                    <input type="hidden" name="id" value = "{{$item->id}}">
+                                    {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
+                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-photo" type="button"><i class="fas fa-save"></i></button><button class="btn btn-sm text-danger delete-photo" type="button"><i class="fas fa-trash"></i></button></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -405,5 +412,5 @@
     </section>
 </div>
 
-<script src="{{asset('js/backoffice/tour.js')}}"></script>
+<script src="{{asset('js/backoffice/tourDetail.js')}}"></script>
 @endsection

@@ -77,12 +77,21 @@ class ProductTourExcludeController extends Controller
      * @param  \App\Models\ProductTourExclude  $productTourExclude
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $data = ProductTourExclude::where('id',$request->id)->first();
-        $data->item = $request->item;
-        $data->save();
-        return response()->json($data,200);
+        foreach($request->data as $key => $value){
+            if($value['id'] != null){
+                $data = ProductTourExclude::where('tour_id',$id)->where('id',$value['id'])->first();
+                $data->item = $value['value'];
+                $data->save();
+            }else{
+                ProductTourExclude::create([
+                    'tour_id' => $id,
+                    'item' => $value['value'],
+                ]);
+            }
+        }
+        return response()->json("success",200);
     }
 
     /**

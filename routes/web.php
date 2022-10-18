@@ -46,101 +46,101 @@ Route::prefix('tour')->group(function () {
     // Route::post('availDate',[ProductTourController::class, 'availDate']);
 });
 
-Route::prefix('backoffice')->group(function () {
+Route::prefix('cms')->group(function () {
     Route::prefix('tour')->group(function () {
         Route::get('/',[productTourController::class,'index']);
         // Route::get('/Thermcond/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
         Route::get('/{productTour:id}', [ProductTourController::class, 'showbyId']);
         Route::post('/create',[ProductTourController::class,'create']);
         Route::post('/update',[ProductTourController::class,'update']);
+        // Route::prefix('CancelPolicy')->group(function () {
+        //     Route::post('create', [ProductTourCancelpolicyController::class, 'create']);
+        //     Route::get('/get/{id}', [ProductTourCancelpolicyController::class, 'show']);
+        //     Route::get('/trash', [ProductTourCancelpolicyController::class, 'getTrash']);
+        //     Route::post('update', [ProductTourCancelpolicyController::class, 'update']);
+        //     Route::delete('delete/{id}', [ProductTourCancelpolicyController::class, 'destroy']);
+        //     Route::patch('restore/{id}', [ProductTourCancelpolicyController::class, 'restore']);
+        // });
+        Route::prefix('CountryTag')->group(function () {
+            Route::post('create', [ProductTourCountrytagController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourCountrytagController::class, 'show']);
+            Route::get('/trash', [ProductTourCountrytagController::class, 'getTrash']);
+            Route::post('update', [ProductTourCountrytagController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourCountrytagController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourCountrytagController::class, 'restore']);
+        });
+        Route::prefix('Exclude')->group(function () {
+            Route::post('create', [ProductTourExcludeController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourExcludeController::class, 'show']);
+            Route::get('/getAll/{id}', [ProductTourExcludeController::class, 'showAll']);
+            Route::get('/trash', [ProductTourExcludeController::class, 'getTrash']);
+            Route::post('update/{id}', [ProductTourExcludeController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourExcludeController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourExcludeController::class, 'restore']);
+        });
+        Route::prefix('Include')->group(function () {
+            Route::post('create', [ProductTourIncludeController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourIncludeController::class, 'show']);
+            Route::get('/getAll/{id}', [ProductTourIncludeController::class, 'showAll']);
+            Route::get('/trash', [ProductTourIncludeController::class, 'getTrash']);
+            Route::post('update/{id}', [ProductTourIncludeController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourIncludeController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourIncludeController::class, 'restore']);
+        });
+        Route::prefix('Highlight')->group(function () {
+            Route::post('create', [ProductTourHighlightController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourHighlightController::class, 'show']);
+            Route::get('/getAll/{id}', [ProductTourHighlightController::class, 'showAll']);
+            Route::get('/trash', [ProductTourHighlightController::class, 'getTrash']);
+            Route::post('update/{id}', [ProductTourHighlightController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourHighlightController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourHighlightController::class, 'restore']);
+        });
+        Route::prefix('Itinetary')->group(function () {
+            Route::post('create', [ProductTourItinenaryController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourItinenaryController::class, 'show']);
+            Route::get('getAll/{id}', [ProductTourItinenaryController::class, 'showAll']);
+            // Route::get('/getAll/{id}', [ProductTourItinenaryController::class, 'showAll']);
+            Route::get('/trash', [ProductTourItinenaryController::class, 'getTrash']);
+            Route::post('update/{id}', [ProductTourItinenaryController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourItinenaryController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourItinenaryController::class, 'restore']);
+        });
+        Route::prefix('Passgroup')->group(function () {
+            Route::post('create', [ProductTourPassGroupController::class, 'create']);
+            Route::get('/getall/{id}', [ProductTourPassGroupController::class, 'showAll']);
+            Route::get('/get/{id}', [ProductTourPassGroupController::class, 'show']);
+            Route::get('/trash', [ProductTourPassGroupController::class, 'getTrash']);
+            Route::post('update', [ProductTourPassGroupController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourPassGroupController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourPassGroupController::class, 'restore']);
+        });
+        Route::prefix('Photo')->group(function () {
+            Route::post('create', [ProductTourPhotoController::class, 'create']);
+            Route::get('/getall/{id}', [ProductTourPhotoController::class, 'showAll']);
+            Route::get('/getimg/{id}', [ProductTourPhotoController::class, 'show']);
+            Route::get('/trash', [ProductTourPhotoController::class, 'getTrash']);
+            Route::post('update', [ProductTourPhotoController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourPhotoController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourPhotoController::class, 'restore']);
+        });
+        Route::prefix('Thermcond')->group(function () {
+            Route::post('create', [ProductTourThermcondController::class, 'create']);
+            Route::get('/get/{id}', [ProductTourThermcondController::class, 'show']);
+            Route::get('/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
+            Route::get('/trash', [ProductTourThermcondController::class, 'getTrash']);
+            Route::post('update', [ProductTourThermcondController::class, 'update']);
+            Route::delete('delete/{id}', [ProductTourThermcondController::class, 'destroy']);
+            Route::patch('restore/{id}', [ProductTourThermcondController::class, 'restore']);
+        });
+        // Route::prefix('Passanger')->group(function () {
+        //     Route::post('create', [TourPassangerController::class, 'create']);
+        //     Route::get('/get/{id}', [TourPassangerController::class, 'show']);
+        //     Route::get('/trash', [TourPassangerController::class, 'getTrash']);
+        //     Route::post('update', [TourPassangerController::class, 'update']);
+        //     Route::delete('delete/{id}', [TourPassangerController::class, 'destroy']);
+        //     Route::patch('restore/{id}', [TourPassangerController::class, 'restore']);
+        // });
     });
-    // Route::prefix('CancelPolicy')->group(function () {
-    //     Route::post('create', [ProductTourCancelpolicyController::class, 'create']);
-    //     Route::get('/get/{id}', [ProductTourCancelpolicyController::class, 'show']);
-    //     Route::get('/trash', [ProductTourCancelpolicyController::class, 'getTrash']);
-    //     Route::post('update', [ProductTourCancelpolicyController::class, 'update']);
-    //     Route::delete('delete/{id}', [ProductTourCancelpolicyController::class, 'destroy']);
-    //     Route::patch('restore/{id}', [ProductTourCancelpolicyController::class, 'restore']);
-    // });
-    Route::prefix('CountryTag')->group(function () {
-        Route::post('create', [ProductTourCountrytagController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourCountrytagController::class, 'show']);
-        Route::get('/trash', [ProductTourCountrytagController::class, 'getTrash']);
-        Route::post('update', [ProductTourCountrytagController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourCountrytagController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourCountrytagController::class, 'restore']);
-    });
-    Route::prefix('Exclude')->group(function () {
-        Route::post('create', [ProductTourExcludeController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourExcludeController::class, 'show']);
-        Route::get('/getAll/{id}', [ProductTourExcludeController::class, 'showAll']);
-        Route::get('/trash', [ProductTourExcludeController::class, 'getTrash']);
-        Route::post('update', [ProductTourExcludeController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourExcludeController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourExcludeController::class, 'restore']);
-    });
-    Route::prefix('Include')->group(function () {
-        Route::post('create', [ProductTourIncludeController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourIncludeController::class, 'show']);
-        Route::get('/getAll/{id}', [ProductTourIncludeController::class, 'showAll']);
-        Route::get('/trash', [ProductTourIncludeController::class, 'getTrash']);
-        Route::post('update', [ProductTourIncludeController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourIncludeController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourIncludeController::class, 'restore']);
-    });
-    Route::prefix('Highlight')->group(function () {
-        Route::post('create', [ProductTourHighlightController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourHighlightController::class, 'show']);
-        Route::get('/getAll/{id}', [ProductTourHighlightController::class, 'showAll']);
-        Route::get('/trash', [ProductTourHighlightController::class, 'getTrash']);
-        Route::post('update', [ProductTourHighlightController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourHighlightController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourHighlightController::class, 'restore']);
-    });
-    Route::prefix('Itinenary')->group(function () {
-        Route::post('create', [ProductTourItinenaryController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourItinenaryController::class, 'show']);
-        Route::get('getAll/{id}', [ProductTourItinenaryController::class, 'showAll']);
-        // Route::get('/getAll/{id}', [ProductTourItinenaryController::class, 'showAll']);
-        Route::get('/trash', [ProductTourItinenaryController::class, 'getTrash']);
-        Route::post('update', [ProductTourItinenaryController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourItinenaryController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourItinenaryController::class, 'restore']);
-    });
-    Route::prefix('Passgroup')->group(function () {
-        Route::post('create', [ProductTourPassGroupController::class, 'create']);
-        Route::get('/getall/{id}', [ProductTourPassGroupController::class, 'showAll']);
-        Route::get('/get/{id}', [ProductTourPassGroupController::class, 'show']);
-        Route::get('/trash', [ProductTourPassGroupController::class, 'getTrash']);
-        Route::post('update', [ProductTourPassGroupController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourPassGroupController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourPassGroupController::class, 'restore']);
-    });
-    Route::prefix('Photo')->group(function () {
-        Route::post('create', [ProductTourPhotoController::class, 'create']);
-        Route::get('/getall/{id}', [ProductTourPhotoController::class, 'showAll']);
-        Route::get('/getimg/{id}', [ProductTourPhotoController::class, 'show']);
-        Route::get('/trash', [ProductTourPhotoController::class, 'getTrash']);
-        Route::post('update', [ProductTourPhotoController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourPhotoController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourPhotoController::class, 'restore']);
-    });
-    Route::prefix('Thermcond')->group(function () {
-        Route::post('create', [ProductTourThermcondController::class, 'create']);
-        Route::get('/get/{id}', [ProductTourThermcondController::class, 'show']);
-        Route::get('/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
-        Route::get('/trash', [ProductTourThermcondController::class, 'getTrash']);
-        Route::post('update', [ProductTourThermcondController::class, 'update']);
-        Route::delete('delete/{id}', [ProductTourThermcondController::class, 'destroy']);
-        Route::patch('restore/{id}', [ProductTourThermcondController::class, 'restore']);
-    });
-    // Route::prefix('Passanger')->group(function () {
-    //     Route::post('create', [TourPassangerController::class, 'create']);
-    //     Route::get('/get/{id}', [TourPassangerController::class, 'show']);
-    //     Route::get('/trash', [TourPassangerController::class, 'getTrash']);
-    //     Route::post('update', [TourPassangerController::class, 'update']);
-    //     Route::delete('delete/{id}', [TourPassangerController::class, 'destroy']);
-    //     Route::patch('restore/{id}', [TourPassangerController::class, 'restore']);
-    // });
 });
 

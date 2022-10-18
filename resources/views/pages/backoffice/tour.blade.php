@@ -2,6 +2,7 @@
 @section('content')
 @include('includes.datatables')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="my-3 content-header d-flex align-items-center">
         <i class="fas fa-arrow-left color-main me-4"></i>
@@ -17,7 +18,7 @@
             <h4 class="mb-2">New Tour</h4>
             <div class="card">
                 <div class="card-body">
-                    <form action = "/backoffice/tour/update" method="post">
+                    <form action = "/cms/tour/create" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">

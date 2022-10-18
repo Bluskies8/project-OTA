@@ -8,6 +8,7 @@ use App\Models\ProductTourPhoto;
 use App\Models\ProductTourThermcond;
 use App\Models\Supplier;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductTourController extends Controller
@@ -74,18 +75,25 @@ class ProductTourController extends Controller
         $find = ProductTourPhoto::where('tour_id',$id)->get();
         if(!$find) return response()->json([],200);
         foreach ($find as $key) {
-            $data[] = [
-                'id' => $key->id,
-                'title' => $key->title,
-                'img_url' => env('APP_URL').'/api/tour/Photo/getimg/'.$key->id
-            ];
+            $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+            // $data[] = [
+            //     'id' => $key->id,
+            //     'title' => $key->title,
+            //     'img_url' => env('APP_URL').'/tour/Photo/getimg/'.$key->id
+            // ];
         }
-        return response()->json($data,200);
+        dd($find);
+        return response()->json($find,200);
     }
 
     public function showbyId($id)
     {
-        $data = ProductTour::where('slug',$id)->first();
+        $data = ProductTour::with('photos')->where('slug',$id)->first();
+        foreach ($data->photos as $key) {
+            $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+        }
+        $start = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_start)->format('Y-m-d');
+        $end = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_end)->format('Y-m-d');
         $tempTags = [];
         foreach (explode(",", $data->tags) as $tag) {
             $tempTags[] = Tag::find($tag);
@@ -98,6 +106,8 @@ class ProductTourController extends Controller
         $data->thumbnail_img_url = env('APP_URL').'/api/tour/imgt/'.$data->id;
         $data->tagsObject = $tempTags;
         $data->countryTagsObject = $tempCountryTags;
+        $data->valid_date_end = $end;
+        $data->valid_date_start = $start;
         // dd($data);
         return view('pages.backoffice.tourDetail',[
             'data' => $data,
@@ -109,7 +119,6 @@ class ProductTourController extends Controller
 
     public function create(Request $request)
     {
-        dd($request->all());
         $count = ProductTour::max('id');
         $temp = $count+1;
         if($request->hasFile('header_img')){
@@ -184,16 +193,16 @@ class ProductTourController extends Controller
     }
     public function update(Request $request)
     {
+        // dd($request->all());
         $data = ProductTour::where('id',$request->id)->first();
-        // dd($data);
         if($request->has('slug'))$data->slug = $request->slug;
         if($request->has('name'))$data->name = $request->name;
         if($request->has('pass_minim'))$data->pass_minim = $request->pass_minim;
         if($request->has('start_price'))$data->start_price = $request->start_price;
-        if($request->has('is_domestic'))$data->is_domestic = ($request->is_domestic)?1:0;
-        if($request->has('include_hotel'))$data->include_hotel = ($request->include_hotel)?1:0;
-        if($request->has('include_flight'))$data->include_flight = ($request->include_flight)?1:0;
-        if($request->has('include_visa'))$data->include_visa = ($request->include_visa)?1:0;
+        $data->is_domestic = ($request->is_domestic)?1:0;
+        $data->include_hotel = ($request->include_hotel)?1:0;
+        $data->include_flight = ($request->include_flight)?1:0;
+        $data->include_visa = ($request->include_visa)?1:0;
         if($request->has('include_ride'))$data->include_ride = ($request->include_ride)?1:0;
         if($request->has('include_ticket'))$data->include_ticket = ($request->include_ticket)?1:0;
         if($request->has('include_boat'))$data->include_boat = ($request->include_boat)?1:0;
@@ -211,7 +220,7 @@ class ProductTourController extends Controller
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('img')->getClientOriginalExtension();
             $saveFile = 'header_img_'.$request->id.'.jpg';
-            $path = $request->file('header_img')->storeAs('public/Tour/Tour'.$request->id, $saveFile);
+            $path = $request->file('header_img')->storeAs('public/Tour/Tour'.$request->id.'/imgh', $saveFile);
             // dd($path);
             $data->header_img_url = $path;
         }
@@ -220,7 +229,7 @@ class ProductTourController extends Controller
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('img')->getClientOriginalExtension();
             $saveFile = 'thumbnail_img_'.$request->id.'.jpg';
-            $path = $request->file('thumbnail_img')->storeAs('public/Tour/Tour'.$request->id, $saveFile);
+            $path = $request->file('thumbnail_img')->storeAs('public/Tour/Tour'.$request->id.'/imgt', $saveFile);
             $data->thumbnail_img_url = $path;
         }
         // env('APP_URL').'/api/getimg/'

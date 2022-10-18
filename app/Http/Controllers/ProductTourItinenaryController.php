@@ -82,18 +82,40 @@ class ProductTourItinenaryController extends Controller
      * @param  \App\Models\ProductTourItinenary  $productTourItinenary
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $data = ProductTourItinenary::where('id', $request->id)->first();
-        $data->label = $request->label;
-        $data->description = $request->description;
-        $data->breakfast = $request->breakfast;
-        $data->lunch = $request->lunch;
-        $data->dinner = $request->dinner;
-        $data->transport = $request->transport;
-        $data->save();
-        return response()->json($data,200);
+        foreach($request->data as $key => $value){
+            if($value['id'] != null){
+                $data = ProductTourItinenary::where('tour_id',$id)->where('id',$value['id'])->first();
+                $data->label = $value['value'];
+                $data->breakfast = 0;
+                $data->lunch = 0;
+                $data->dinner = 0;
+                $data->save();
+            }else{
+                ProductTourItinenary::create([
+                    'tour_id' => $id,
+                    'label'=>  $value['value'],
+                    'breakfast'=> '0',
+                    'lunch'=> '0',
+                    'dinner'=> '0',
+                ]);
+            }
+        }
+        return response()->json("success",200);
     }
+    // public function update(Request $request)
+    // {
+    //     $data = ProductTourItinenary::where('id', $request->id)->first();
+    //     $data->label = $request->label;
+    //     $data->description = $request->description;
+    //     $data->breakfast = $request->breakfast;
+    //     $data->lunch = $request->lunch;
+    //     $data->dinner = $request->dinner;
+    //     $data->transport = $request->transport;
+    //     $data->save();
+    //     return response()->json($data,200);
+    // }
 
     /**
      * Remove the specified resource from storage.
