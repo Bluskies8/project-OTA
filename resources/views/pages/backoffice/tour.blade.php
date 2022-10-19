@@ -1,7 +1,7 @@
 @extends('layout.admins')
+
 @section('content')
 @include('includes.datatables')
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="my-3 content-header d-flex align-items-center">

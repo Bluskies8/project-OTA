@@ -412,5 +412,5 @@
     </section>
 </div>
 
-<script src="{{asset('js/backoffice/tourDetail.js')}}"></script>
+<script src="{{asset('js/backoffice/tour.js')}}"></script>
 @endsection
