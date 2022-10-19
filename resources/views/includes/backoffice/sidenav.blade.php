@@ -47,14 +47,7 @@
             <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-shopping-basket me-3"></i>
                 <p>User Wishlist</p>
             </div>
-            <div class="py-2 px-3 menu-item disabled" data-open="false">
-                <div class="d-flex"><i class="fas fa-shopping-bag me-3"></i>
-                    <p>Product Management</p>
-                </div><i class="fas fa-angle-down"></i>
-            </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-flag me-3"></i>
-                <p>Tour</p>
-            </div>
+
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-database me-3"></i>
                     <p>Master</p>
@@ -84,6 +77,14 @@
             </div>
             <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-money-bill me-3"></i>
                 <p>Carousel</p>
+            </div>
+            <div class="py-2 px-3 menu-item disabled" data-open="false">
+                <div class="d-flex"><i class="fas fa-shopping-bag me-3"></i>
+                    <p>Product Management</p>
+                </div><i class="fas fa-angle-down"></i>
+            </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-flag me-3"></i>
+                <p><a href="/cms/tour">Tour</a></p>
             </div>
         </li>
     </ul>

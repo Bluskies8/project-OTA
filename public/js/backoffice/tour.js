@@ -3,6 +3,7 @@ $(document).ready(function() {
     var btnID = 0;
     $('.btn-show-action').on('click', function() {
         btnIndex = $(this).index('.btn-show-action') + 1;
+        btnId = $(this).parent().parent().attr('id');
     });
 
     // Tour
@@ -16,7 +17,7 @@ $(document).ready(function() {
     // });
 
     $('#section-tour #action-detail').on('click', function() {
-
+        window.location.href = "/cms/tour/" + btnId;
     });
 
 

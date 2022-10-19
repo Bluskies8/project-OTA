@@ -13,12 +13,18 @@ use Illuminate\Http\Request;
 
 class ProductTourController extends Controller
 {
-    public function index()
+    public function bulk(Request $request)
     {
-        return view(
-            'pages.backoffice.tour'
-        );
+        $opt = $request->opt;
+        foreach ($request->id as $key ) {
+            $data = ProductTour::where('id',$key)->first();
+            if($opt == 'enabled')$data->enabled = 1;
+            if($opt == 'disabled')$data->enabled = 0;
+            $data->save();
+        }
+        return response()->json(['message' => ' Updated']);
     }
+
     public function show(ProductTour $productTour)
     {
         if ($productTour->enabled==0) return response()->json(['message' => "Tour cannot be accessed!"], 404);
@@ -89,8 +95,10 @@ class ProductTourController extends Controller
     public function showbyId($id)
     {
         $data = ProductTour::with('photos')->where('slug',$id)->first();
-        foreach ($data->photos as $key) {
-            $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+        if(isset($data->photos)) {
+            foreach ($data->photos as $key) {
+                $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+            }
         }
         $start = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_start)->format('Y-m-d');
         $end = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_end)->format('Y-m-d');
@@ -119,8 +127,11 @@ class ProductTourController extends Controller
 
     public function create(Request $request)
     {
+        dd($request->all());
         $count = ProductTour::max('id');
         $temp = $count+1;
+        $path = "";
+        $path2 = "";
         if($request->hasFile('header_img')){
             $saveFile = 'header_img_'.$temp.'.jpg';
             $path = $request->file('header_img')->storeAs('public/Tour/Tour'.$temp, $saveFile);

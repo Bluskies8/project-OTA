@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackofficeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductTourController;
 use App\Http\Controllers\ProductTourCountrytagController;
@@ -47,10 +48,16 @@ Route::prefix('tour')->group(function () {
 });
 
 Route::prefix('cms')->group(function () {
+    Route::prefix('bulk')->group(function () {
+        Route::post('tour',[ProductTourController::class,'bulk']);
+        // Route::post('event',[EventController::class,'bulk']);
+        // Route::post('user',[UserController::class,'upgradetoCorp']);
+        // Route::post('promo',[PromoController::class,'bulk']);
+    });
     Route::prefix('tour')->group(function () {
-        Route::get('/',[productTourController::class,'index']);
+        Route::get('/',[BackofficeController::class,'showAlltour']);
         // Route::get('/Thermcond/getFile/{id}', [ProductTourThermcondController::class, 'getFile']);
-        Route::get('/{productTour:id}', [ProductTourController::class, 'showbyId']);
+        Route::get('/{productTour:slug}', [ProductTourController::class, 'showbyId']);
         Route::post('/create',[ProductTourController::class,'create']);
         Route::post('/update',[ProductTourController::class,'update']);
         // Route::prefix('CancelPolicy')->group(function () {

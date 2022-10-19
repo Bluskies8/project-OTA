@@ -93,6 +93,9 @@
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Supplier</p>
                                 <select class="form-select" name = "supplier_id">
+                                    @foreach ($supplier as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-12 d-flex flex-column justify-content-end mb-4">
@@ -106,6 +109,11 @@
                                     <div id="tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">
                                         <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                         <div class="row" style="max-height: 200px;overflow-y: auto;">
+                                        @foreach ($tag as $item)
+                                            <div class="col-4 mb-1">
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="tag-{{$item->id}}" value="{{$item->name}}"><label class="form-check-label" for="tag-{{$item->id}}">{{$item->name}}</label></div>
+                                            </div>
+                                        @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -118,6 +126,11 @@
                                         <div class="d-flex mb-2"><input class="form-control me-3" type="search" placeholder="Cari tag"><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
                                         <input type="hidden" name="countrytag" id="countrytag">
                                         <div class="row" style="max-height: 200px;overflow-y: auto;">
+                                        @foreach ($country as $item)
+                                            <div class="col-4 mb-1">
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="country-{{$item->id}}" value="{{$item->label}}"><label class="form-check-label" for="country-{{$item->id}}">{{$item->label}}</label></div>
+                                            </div>
+                                        @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -144,11 +157,11 @@
     <div class="mb-4">
         <h5>Bulk Action</h5>
         <div class="d-flex"><select class="form-control me-3" style="width: 200px;">
-                <option value selected hidden>-</option>
+                <option value selected hidden>Select Action</option>
                 <option value="publish">Publish</option>
                 <option value="unpublish">Unpublish</option>
             </select>
-            <button class="btn btn-primary" type="button">Apply</button>
+            <button class="btn btn-primary bulk-tour" type="button">Apply</button>
         </div>
     </div>
     <div class="card" id="section-tour">
@@ -172,26 +185,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        @foreach ($data as $item)
+                        <tr id = "{{$item->slug}}">
                             <td class="text-center"><input type="checkbox" /></td>
-                            <td class="text-center"><i class="fa fa-check"></i></td>
-                            <td>7 days to Japan</td>
-                            <td>9/2/2022</td>
-                            <td>11/20/2022</td>
-                            <td>12/20/2022</td>
-                            <td class="text-end">25.000.000</td>
+                            @if ($item->enabled == 1)
+                                <td class="text-center"><i class="fa fa-check"></i></td>
+                            @else
+                                <td class="text-center"><i class="fa fa-times"></i></td>
+                            @endif
+                            <td>{{$item->name}}</td>
+                            <td>{{date('d-m-Y', strtotime($item->created_at))}}</td>
+                            <td>{{date('d-m-Y', strtotime($item->valid_date_start))}}</td>
+                            <td>{{date('d-m-Y', strtotime($item->valid_date_end))}}</td>
+                            <td class="text-end">{{$item->start_price}}</td>
                             <td class="cell-action"><button class="btn btn-primary btn-sm btn-show-action" type="button"><i class="fas fa-bars"></i></button></td>
                         </tr>
-                        <tr>
-                            <td class="text-center"><input type="checkbox" /></td>
-                            <td class="text-center"><i class="fas fa-times"></i></td>
-                            <td>3 days to America</td>
-                            <td>9/2/2022</td>
-                            <td>11/20/2022</td>
-                            <td>12/20/2022</td>
-                            <td class="text-end">8.950.000</td>
-                            <td class="cell-action"><button class="btn btn-primary btn-sm btn-show-action" type="button"><i class="fas fa-bars"></i></button></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <ul class="list-unstyled form-control" id="list-action">
