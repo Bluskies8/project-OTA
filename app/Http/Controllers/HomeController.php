@@ -186,4 +186,8 @@ class HomeController extends Controller
         return response()->file(storage_path('/app/public'.$data->thumbnail_img_url));
     }
 
+    public function datadiri() {
+        return view('pages.user.datadiri');
+    }
+
 }

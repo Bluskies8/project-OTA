@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'home']);
 Route::get('/tour',[HomeController::class,'tour']);
+Route::get('/datadiri',[HomeController::class,'datadiri']);
 Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
