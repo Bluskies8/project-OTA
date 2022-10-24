@@ -127,7 +127,19 @@ class ProductTourController extends Controller
 
     public function create(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'slug' => 'required',
+            'name' => 'required',
+            'pass_minim' => 'required|numeric',
+            'pass_limit' => 'required|numeric',
+            'days_count' => 'required|numeric',
+            'nights_count' => 'required|numeric',
+            'start_price' => 'required|numeric',
+            'downpayment' => 'required|numeric',
+            'valid_date_start' => 'required|date',
+            'valid_date_end' => 'required|date',
+        ]);
+        // dd($request->all());
         $count = ProductTour::max('id');
         $temp = $count+1;
         $path = "";
@@ -142,23 +154,31 @@ class ProductTourController extends Controller
         }
         if($request->is_domestic == 1){
             $isdom = 'is domestic';
+            $dom = 1;
         }else{
             $isdom = 'is international';
+            $dom = 0;
         }
         if($request->include_hotel ==1){
             $hotel = 'include hotel';
+            $ho = 1;
         }else{
             $hotel = 'not included hotel';
+            $ho = 0;
         }
         if($request->include_flight == 1){
             $flight = 'include flight';
+            $fl = 1;
         }else{
             $flight = 'not include flight';
+            $fl = 0;
         }
         if($request->include_visa == 1){
             $visa = 'include visa';
+            $vi = 1;
         }else{
             $visa = 'not include visa';
+            $vi = 0;
         }
         $keyword = $request->name.', '.$isdom.', '.$flight.', '.$hotel.', '.$visa.', '.$request->days_count.' days, '.$request->nights_count.' nights, limit '.$request->pass_limit.', '.$request->description;
 
@@ -170,14 +190,14 @@ class ProductTourController extends Controller
             'thumbnail_img_url' => $path2,
             'pass_minim' => $request->pass_minim,
             'start_price' => $request->start_price,
-            'is_domestic' => ($request->is_domestic)?1:0,
-            'include_hotel' => ($request->include_hotel)?1:0,
-            'include_flight' => ($request->include_flight)?1:0,
-            'include_visa' => ($request->include_visa)?1:0,
-            'include_ride'=> ($request->include_ride)?1:0,
-            'include_ticket' => ($request->include_ticket)?1:0,
-            'include_boat' => ($request->include_boat)?1:0,
-            'include_guide' => ($request->include_guide)?1:0,
+            'is_domestic' => $dom,
+            'include_hotel' => $ho,
+            'include_flight' => $fl,
+            'include_visa' => $vi,
+            'include_ride'=> 0,
+            'include_ticket' => 0,
+            'include_boat' => 0,
+            'include_guide' => 0,
             'days_count' => $request->days_count,
             'nights_count' => $request->nights_count,
             'pass_limit' => $request->pass_limit,
@@ -189,7 +209,7 @@ class ProductTourController extends Controller
             'downpayment' => $request->downpayment,
             'include_visa' => $request->include_visa,
             'supplier_id' => $request->supplier_id,
-            'type' => $request->type,
+            'type' => 0,
             'countrytag' => $request->countrytag,
             'tags' => $request->tags,
         ]);

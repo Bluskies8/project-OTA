@@ -109,12 +109,12 @@ class DuffelAPI
                 "cabin_class"=> $data['cabin'],
                 "slices"=> [
                   [
-                    "departure_date"=> $data['departure_date'],
-                    "destination"=> $data['destination'],
-                    "origin"=> $data['origin'],
-                    // "departure_date"=> '2023-01-08',
-                    // "destination"=> 'DXB',
-                    // "origin"=> 'LHR',
+                    // "departure_date"=> $data['departure_date'],
+                    // "destination"=> $data['destination'],
+                    // "origin"=> $data['origin'],
+                    "departure_date"=> '2023-01-08',
+                    "destination"=> 'DXB',
+                    "origin"=> 'LHR',
                   ],
                 ],
                 "passengers" => $data['pass'],

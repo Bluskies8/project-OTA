@@ -7,9 +7,16 @@ use App\Models\DisplayBanner;
 use App\Models\ProductTour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
+    public function setCookie(Request $request)
+    {
+        Cookie::queue($request->name, json_encode($request->data), '20');
+        // return redirect('/Flight/searchFlight2')->withCookie(cookie($request->name, json_encode($request->data), '20'));
+        return "success";
+    }
 
     public function searchFlight(Request $request)
     {
@@ -54,10 +61,11 @@ class HomeController extends Controller
                 'pass' => $pass
             ];
         }
-        // dd($airport);
+        // dd($data);
         $day = Carbon::createFromFormat('Y-m-d', $request->depart)->format('l');
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($data);
+        // dd($res->data);
         foreach ($res->data->passengers as $key => $value) {
             if($passid == ''){
                 $passid = $value->id;
@@ -65,6 +73,10 @@ class HomeController extends Controller
                 $passid = ','.$value->id;
             }
         }
+        $minutes = 1;
+        // Cookie::queue('data_flight1',json_encode($temp),60);
+        // $response->withCookie(cookie('name', 'virat', $minutes));
+        // return $response;
         // dd($passid);
         return view('pages.user.ticket',[
             'airport' => $airport->data,
@@ -81,32 +93,33 @@ class HomeController extends Controller
 
     public function searchFlight2(Request $request)
     {
-        // return $request->all();
-        for ($i=0; $i < $request->pass_count; $i++) {
+        $flight1 = json_decode($request->cookie('dataFlight1'));
+        // dd($flight1);
+        for ($i=0; $i < $flight1->pass_count; $i++) {
             $pass[$i] =[
                 'type' => 'adult'
             ];
         }
         $data = [
-            'cabin' => $request->cabin,
-            'departure_date' => $request->return_date,
-            'origin' => $request->destination,
-            'destination' => $request->departure,
+            'cabin' => $flight1->cabin,
+            'departure_date' => $flight1->return_date,
+            'origin' => $flight1->destination,
+            'destination' => $flight1->departure,
             'pass' => $pass
         ];
-        $day = Carbon::createFromFormat('Y-m-d', $request->return_date)->format('l');
+        $day = Carbon::createFromFormat('Y-m-d', $flight1->return_date)->format('l');
         // return $day;
-        $date = Carbon::createFromFormat('Y-m-d', $request->return_date)->format('d-m-Y');
+        $date = Carbon::createFromFormat('Y-m-d', $flight1->return_date)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($data);
         // dd($res->data);
         // return $res->data;
         return view('pages.user.ticket2',[
             'data' => $res->data,
-            'pass_count' => $request->pass_count,
-            'cabin' => $request->cabin,
+            'pass_count' => $flight1->pass_count,
+            'cabin' => $flight1->cabin,
             'days' => $day.", ".$date,
             'date' => $date,
-            'type' => $request->type,
+            'type' => $flight1->type,
         ]);
     }
 

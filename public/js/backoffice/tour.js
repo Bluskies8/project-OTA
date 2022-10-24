@@ -378,4 +378,47 @@ $(document).ready(function() {
         temp.appendTo($('#table-photo tbody'));
         temp.show();
     });
+    $("#submitBtn").click(function(){
+        var form = $(this).parent().parent().children().closest("form");
+        console.log(form);
+        // $("#myForm").submit();
+    });
+    $('.delete-photo').on('click', function() {
+        var thiss = $(this);
+        var td = $(this).parent().parent().children()[1];
+        var id = $(td).children().attr('id');
+        console.log(id)
+        if(id == ''){
+            $(this).parent().parent().detach();
+        }else{
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "delete",
+                url: "/cms/tour/Exclude/delete/"+id,
+                beforeSend: function(){
+                    // console.log(this.data);
+                },
+                success: function(res) {
+                    console.log(res);
+                    thiss.parent().parent().detach();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+    });
+    for (let index = 1; index < 5; index++) {
+        $('#formCheck-'+index).on('change', function() {
+            if($(this).is(':checked')) {
+                $(this).val('1');
+            }else{
+                $(this).val('0');
+            }
+            console.log($(this).val());
+        });
+    }
 });

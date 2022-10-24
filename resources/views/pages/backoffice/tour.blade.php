@@ -14,7 +14,9 @@
     </div>
     <div id="container-add-tour" class="mb-2">
         <div class="text-end"><button class="btn btn-primary btn-sm" id="add-tour" type="button"><i class="fas fa-plus"></i> Add</button></div>
+        @if(!$errors->any())
         <div style="display: none">
+        @endif
             <h4 class="mb-2">New Tour</h4>
             <div class="card">
                 <div class="card-body">
@@ -23,33 +25,51 @@
                         <div class="row">
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <input class="form-control" name = "name" type="text" placeholder="Nama Tour"></div>
+                                @error('name')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Slug</p>
-                                <input class="form-control" type="text" placeholder="xyz.co.id/tours/">
+                                <input class="form-control" name = "slug" type="text" placeholder="xyz.co.id/tours/">
+                                @error('slug')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-end mb-4">
                                 <div class="d-flex align-items-center spesial">
                                     <input class="form-control spesial" name = "pass_minim" type="text" value placeholder="Minumum Passanger">
                                     <p>person</p>
                                 </div>
+                                @error('pass_minim')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-end mb-4">
                                 <div class="d-flex align-items-center spesial">
                                     <input class="form-control spesial" name = "pass_limit" type="text" placeholder="Passanger Limit">
                                     <p>person</p>
                                 </div>
+                                @error('pass_limit')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-end mb-4">
                                 <div class="d-flex align-items-center spesial">
                                     <input class="form-control spesial" name = "days_count" type="text" placeholder="Days Count">
                                     <p>day(s)</p>
                                 </div>
+                                @error('days_count')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-3 d-flex flex-column justify-content-end mb-4">
                                 <div class="d-flex align-items-center spesial">
                                     <input class="form-control spesial" name = "nights_count" type="text" placeholder="Night Count">
                                     <p>night(s)</p>
                                 </div>
+                                @error('nights_count')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-4 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Start Price</p>
@@ -57,6 +77,9 @@
                                     <p>Rp.&nbsp;</p>
                                     <input class="form-control spesial" type="text" name = "start_price">
                                 </div>
+                                @error('start_price')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-4 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Gimmic Price</p>
@@ -71,22 +94,25 @@
                                     <p>Rp.&nbsp;</p>
                                     <input class="form-control spesial" type="text" name = "downpayment">
                                 </div>
+                                @error('downpayment')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col d-flex align-items-center mb-4">
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" id="formCheck-1" name = "include_visa">
+                                    <input class="form-check-input" type="checkbox" id="formCheck-1" name = "include_visa" value = "0">
                                     <label class="form-check-label" for="formCheck-1">Require Visa</label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" id="formCheck-2" name = "is_domestic">
+                                    <input class="form-check-input" type="checkbox" id="formCheck-2" name = "is_domestic" value = "0">
                                     <label class="form-check-label" for="formCheck-2">Is Domestic</label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" id="formCheck-3" name = "include_hotel">
+                                    <input class="form-check-input" type="checkbox" id="formCheck-3" name = "include_hotel" value = "0">
                                     <label class="form-check-label" for="formCheck-3">Include Hotel</label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="checkbox" id="formCheck-4" name = "include_flight">
+                                    <input class="form-check-input" type="checkbox" id="formCheck-4" name = "include_flight" value = "0">
                                     <label class="form-check-label" for="formCheck-4">Include Flight</label>
                                 </div>
                             </div>
@@ -137,9 +163,15 @@
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Valid Date Start</p><input class="form-control" type="date" name = "valid_date_start">
+                                @error('valid_date_start')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Valid Date End</p><input class="form-control" type="date" name = "valid_date_end">
+                                @error('valid_date_end')
+                                    <div style="color:red; font-weight:bold"> {{$message}}</div>
+                                @enderror
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Header Image</p><input class="form-control" type="file" name = "header_img" style="padding: 6px 12px;">

@@ -384,10 +384,22 @@
                             <tr id="photo-clone" style="display: none;">
                                 <td class="text-center">0.<div></div>
                                 </td>
-                                <td><img /></td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-primary btn-sm" type="button">Upload Image</button></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                <td><div class="preview-img form-control p-0" ><img class="w-100 h-100" src="" style="object-fit: contain;" /></div></td>
+                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                <form action="/cms/tour/Photo/create" method="post">
+                                    @csrf
+                                    <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
+                                        <input type="file" name="img" class="form-control" />
+                                        <input type="hidden" name="id" value = "">
+                                        {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
+                                    </td>
+                                    <td style="width: 100px;padding-top: 4px;padding-bottom: 4px;">
+                                        <button class="btn btn-sm text-danger" type="button" id = "submitBtn"><i class="fas fa-save"></i></button>
+                                        <button class="btn btn-sm text-danger delete-photo" type="button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </form>
                             </tr>
                             @foreach ($data->photos as $item)
                             <tr>
@@ -396,11 +408,20 @@
                                 {{-- <td><img class="w-100 h-100" style="object-fit: contain;" src = {{$item->img_url}}/></td> --}}
                                 <td><div class="preview-img form-control p-0" ><img class="w-100 h-100" src="{{$item->img_url}}" style="object-fit: contain;" /></div></td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "{{$item->title}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
-                                    <input type="file" name="img" class="form-control" />
-                                    <input type="hidden" name="id" value = "{{$item->id}}">
-                                    {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger delete-photo" type="button"><i class="fas fa-save"></i></button><button class="btn btn-sm text-danger delete-photo" type="button"><i class="fas fa-trash"></i></button></td>
+                                <form action="/cms/tour/Photo/update" method="post">
+                                    @csrf
+                                    <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
+                                        <input type="file" name="img" class="form-control" />
+                                        <input type="hidden" name="id" value = "{{$item->id}}">
+                                        {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
+                                    </td>
+                                    <td style="width: 100px;padding-top: 4px;padding-bottom: 4px;">
+                                        <button class="btn btn-sm text-danger" type="submit "><i class="fas fa-save"></i></button>
+                                        <button class="btn btn-sm text-danger delete-photo" type="button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </form>
                             </tr>
                             @endforeach
                         </tbody>

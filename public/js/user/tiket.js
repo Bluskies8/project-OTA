@@ -60,6 +60,28 @@ $(document).ready(function() {
         }
     });
 
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        console.log(document.cookie)
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
     var type = $('meta[name="type"]').attr('content');
     var depart_date = $('meta[name="depart_date"]').attr('content');
     var return_date = $('meta[name="return_date"]').attr('content');
@@ -81,20 +103,40 @@ $(document).ready(function() {
             'flight1' : $(this).attr('id'),
             'passid1' : passid
         };
-        console.log(data);
-        if(type == 1){
-            window.location.href = "data diri";
-        }else if(type == 2){
-            window.location.href = "/Flight/searchFlight2?type="+data['type']+"&flight1="+data['flight1']+"&departure="+data['departure']+"&return_date="+data['return_date']+"&cabin="+data['cabin']+"&pass_count="+data['pass_count']+"&destination="+data['destination']+"&passid1="+data['passid1'];
-        }
-        console.log($(this).attr('id'));
+
+        // console.log(data);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "post",
+            url: "/setCookie",
+            data:{
+                data:data,
+                name: "dataFlight1"
+            },
+            beforeSend: function(){
+                // console.log(this.data);
+            },
+            success: function(res) {
+                if(res == 'success'){
+                    // if(type == 1){
+                    //     window.location.href = "data diri";
+                    // }else if(type == 2){
+                        window.location.href = "/Flight/searchFlight2";
+                    // }
+                }
+                console.log(res);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
     });
+
     $('.btn-pilih2').on('click', function(){
-        if(type == 1){
-            window.location.href = "data diri";
-        }else if(type == 2){
-            window.location.href = "/Flight/searchFlight2?type="+data['type']+"&flight1="+data['flight1']+"&departure="+data['departure']+"&return_date="+data['return_date']+"&cabin="+data['cabin']+"&pass_count="+data['pass_count']+"&destination="+data['destination']+"&passid1="+data['passid1'];
-        }
+        window.location.href = "data diri";
         console.log($(this).attr('id'));
     });
 });

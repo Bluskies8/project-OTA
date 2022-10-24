@@ -15,8 +15,7 @@ class CreateUserFlightBooksTable extends Migration
     {
         Schema::create('user_flight_books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id');
-            $table->foreignId('airlines_id')->nullable();
+            // $table->foreignId('group_id');
             $table->string('transaction_id')->nullable();
             $table->string('booking_code')->nullable();
             $table->dateTime('book_date')->nullable();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackofficeController;
+use App\Http\Controllers\FlightController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductTourController;
 use App\Http\Controllers\ProductTourCountrytagController;
@@ -25,13 +26,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'home']);
+Route::post('/setCookie', [HomeController::class,'setCookie']);
 Route::get('/tour',[HomeController::class,'tour']);
 Route::get('/datadiri',[HomeController::class,'datadiri']);
-Route::get('/DoBooking',[HomeController::class,'DoBook']);
+// Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
-    Route::post('/book',[HomeController::class,'']);
+    Route::post('/book',[FlightController::class,'']);
 });
 Route::prefix('tour')->group(function () {
     Route::get('quote/{productTour:id}',[productTourController::class,'quote']);
@@ -128,7 +130,7 @@ Route::prefix('cms')->group(function () {
             Route::get('/getall/{id}', [ProductTourPhotoController::class, 'showAll']);
             Route::get('/getimg/{id}', [ProductTourPhotoController::class, 'show']);
             Route::get('/trash', [ProductTourPhotoController::class, 'getTrash']);
-            Route::post('update', [ProductTourPhotoController::class, 'update']);
+            Route::post('update/', [ProductTourPhotoController::class, 'update']);
             Route::delete('delete/{id}', [ProductTourPhotoController::class, 'destroy']);
             Route::patch('restore/{id}', [ProductTourPhotoController::class, 'restore']);
         });

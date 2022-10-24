@@ -104,6 +104,7 @@ class ProductTourPhotoController extends Controller
      */
     public function update(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'img' => 'mimes:jpeg,jpg,png'
         ]);
@@ -115,7 +116,7 @@ class ProductTourPhotoController extends Controller
         }
         $data->title = $request->title;
         $data->save();
-        return response($data,200);
+        return redirect()->back()->with('msg',"foto berhasil tersimpan");
     }
 
     /**
