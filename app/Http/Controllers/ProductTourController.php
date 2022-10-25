@@ -75,7 +75,8 @@ class ProductTourController extends Controller
     public function showPhoto($id)
     {
         $data = ProductTourPhoto::where('id',$id)->first();
-        return response()->file(storage_path('/app/public'.$data->img_url));
+        // return $data;
+        return response()->file(storage_path('/app/public/'.$data->img_url));
     }
     public function showAllPhoto($id)
     {
@@ -248,24 +249,23 @@ class ProductTourController extends Controller
         if($request->has('tags'))$data->tags = $request->tags;
         if($request->has('countrytag'))$data->countrytag = $request->countrytag;
         if($request->has('enabled'))$data->enabled = $request->enabled;
-        if($request->hasFile('header_img')){
+        if($request->hasFile('himg')){
             // $filenameWithExt = $request->file('img')->getClientOriginalName();
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('img')->getClientOriginalExtension();
-            $saveFile = 'header_img_'.$request->id.'.jpg';
-            $path = $request->file('header_img')->storeAs('public/Tour/Tour'.$request->id.'/imgh', $saveFile);
-            // dd($path);
+            $saveFile = 'tour'.$request->id.'.jpg';
+            $path = $request->file('header_img')->storeAs('Tour/Tour'.$request->id.'/imgh', $saveFile);
+            dd($path);
             $data->header_img_url = $path;
         }
         if($request->hasFile('thumbnail_img')){
             // $filenameWithExt = $request->file('img')->getClientOriginalName();
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             // $extension = $request->file('img')->getClientOriginalExtension();
-            $saveFile = 'thumbnail_img_'.$request->id.'.jpg';
-            $path = $request->file('thumbnail_img')->storeAs('public/Tour/Tour'.$request->id.'/imgt', $saveFile);
+            $saveFile = 'tour'.$request->id.'.jpg';
+            $path = $request->file('thumbnail_img')->storeAs('Tour/Tour'.$request->id.'/imgt', $saveFile);
             $data->thumbnail_img_url = $path;
         }
-        // env('APP_URL').'/api/getimg/'
         $data->save();
         return redirect()->back();
         // return response()->json(['data' => $data],200);

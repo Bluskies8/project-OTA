@@ -112,7 +112,6 @@ $(document).ready(function() {
     });
     $('#btn-submit').on('click', function(){
         var fd = new FormData();
-        var data = [];
         var room = [];
         var cp_nama = $('input[name="cp-nama"]').val();
         var cp_email = $('input[name="cp-email"]').val();
@@ -161,34 +160,29 @@ $(document).ready(function() {
             });
             console.log(room);
         }
-
-        data.push({
-            "cp":{
+        var data = {
+            'cp':{
                 'nama':cp_nama,
                 'email':cp_email,
                 'birth':cp_birth,
                 'nohp':cp_nohp,
             },
             'room' : room
-        });
-        console.log(data);
-        // Append data
-        fd.append('data',"data");
-        fd.append('_token',$('meta[name="csrf-token"]').attr('content'));
-        console.log(fd)
+        };
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             url: "/tour/cp-submit",
             method: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
+            data: {
+                'data': data,
+            },
+            beforeSend: function(){
+                console.log(data)
+            },
             success: function(response){
                 console.log(response)
-
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

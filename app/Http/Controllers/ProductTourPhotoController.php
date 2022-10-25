@@ -104,14 +104,14 @@ class ProductTourPhotoController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'img' => 'mimes:jpeg,jpg,png'
         ]);
         $data = ProductTourPhoto::where('id', $request->id)->first();
         if($request->hasFile('img')){
             $saveFile = 'Tour'.$data->tour_id.'_photo_'.$data->id.'.jpg';
-            $path = $request->file('img')->storeAs('public/Tour/Tour'.$data->tour_id, $saveFile);
+            $path = $request->file('img')->storeAs('/Tour/Tour'.$data->tour_id, $saveFile);
             $data->img_url = $path;
         }
         $data->title = $request->title;

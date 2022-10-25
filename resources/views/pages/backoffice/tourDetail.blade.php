@@ -18,7 +18,7 @@
         <h4 class="mb-2">Tour Details</h4>
         <div class="card">
             <div class="card-body">
-                <form action = "/cms/tour/update" method="post">
+                <form action = "/cms/tour/update" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" value = "{{$data->id}}">
                     <div class="row">
@@ -406,12 +406,12 @@
                                 <td class="text-center">1.<div></div>
                                 </td>
                                 {{-- <td><img class="w-100 h-100" style="object-fit: contain;" src = {{$item->img_url}}/></td> --}}
-                                <td><div class="preview-img form-control p-0" ><img src="{{$item->img_url}}" style="object-fit: contain; max-width: 300px;" /></div></td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "{{$item->title}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <form action="/cms/tour/Photo/update" method="post">
+                                <td><div class="preview-img form-control p-0" ><img id = "preview-img" src="{{$item->img_url}}" style="object-fit: contain; max-width: 300px;" /></div></td>
+                                <form action="/cms/tour/Photo/update" method="post" enctype="multipart/form-data">
                                     @csrf
+                                    <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "title" value = "{{$item->title}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                     <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
-                                        <input type="file" name="img" class="form-control" />
+                                        <input type="file" name="img" class="form-control" onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
                                         <input type="hidden" name="id" value = "{{$item->id}}">
                                         {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
                                     </td>
