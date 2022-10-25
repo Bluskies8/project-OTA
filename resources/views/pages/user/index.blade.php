@@ -145,7 +145,7 @@
                 <div class="carousel-item active">
                     <div class="row">
                         @foreach ($product->products as $item)
-                        <div class="col px-4">
+                        <div class="col-4 px-4">
                             <div style="background-color: #FF9142;border-radius: 16px;color: white;">
                                 <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)); background-repeat: no-repeat;background-size: cover;background-position: center center;">
                                     <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
