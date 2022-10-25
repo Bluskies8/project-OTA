@@ -145,11 +145,10 @@
                 <div class="carousel-item active">
                     <div class="row">
                         @foreach ($product->products as $item)
-                        <div class="col-4 px-4">
+                        <div class="col-4 px-4 mb-3">
                             <div style="background-color: #FF9142;border-radius: 16px;color: white;">
-                                <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)); background-repeat: no-repeat;background-size: cover;background-position: center center;">
+                                <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)), url({{url($item->thumbnail_img_url)}}); background-repeat: no-repeat;background-size: cover;background-position: center center;">
                                     <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
-                                        <img src="{{url($item->thumbnail_img_url)}}">
                                         <h3 class="text-uppercase card-title mt-3">{{$item->name}}</h3>
                                         <div class="mb-3">
                                             <div>
@@ -207,7 +206,6 @@
                     </div>
                 </div>
             </div>
-            <div class="d-none"><a class="carousel-control-prev" href="#carousel-2" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-2" role="button" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
             <ol class="carousel-indicators" style="margin-bottom: 0;bottom: -22px;">
                 <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active"></li>
             </ol>
@@ -216,7 +214,7 @@
     @endisset
 </div>
 <section id="section-footer">
-    <div class="py-3" style="background-image: linear-gradient(0deg, rgba(255, 206, 160, 0.6), rgba(255, 206, 160, 0.6)), url(assets/img/bg_footer.jpg); height: 260px;">
+    <div class="py-3" style="background-image: linear-gradient(0deg, rgba(255, 206, 160, 0.6), rgba(255, 206, 160, 0.6)), url({{asset('img/bg_footer.jpg')}}); height: 260px;">
         <div class="container">
             <div class="row">
                 <div class="col">

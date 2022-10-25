@@ -159,6 +159,7 @@ class HomeController extends Controller
         }
         // }
         // dd($display);
+        
         return view('pages.user.index',[
             'airport' => $airport->data,
             'product' => $display

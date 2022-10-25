@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between px-3" style="height: 64px;background-color: #FF9142;color: white;width: 100%;">
     <div class="h-100 d-flex align-items-center">
         <i class="fas fa-bars fa-thin fa-lg p-4 me-3"></i>
-        <img class="h-75 py-2" src="../assets/img/logoWhite.png">
+        <img class="h-75 py-2" src="{{asset('img/logoWhite.png')}}">
     </div>
     <div class="h-100 d-none d-lg-flex justify-content-center align-items-center">
         <button class="btn" type="button" style="color: inherit">HOME</button>
