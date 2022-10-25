@@ -16,7 +16,7 @@ class CreateProductTourPhotosTable extends Migration
         Schema::create('product_tour_photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('img_url');
             $table->timestamps();
             $table->softDeletes();

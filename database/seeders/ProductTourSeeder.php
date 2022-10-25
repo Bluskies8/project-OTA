@@ -34,6 +34,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '7-days-explore-osaka-tokyo,is domestic,include flight, 7 days, 6 nights, limit 10',
             'tags' => '2',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
         ProductTour::create([
             'supplier_id' => 1,
@@ -55,6 +56,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '5 days brisbane gold coast sydney,is domestic,include flight, 5 days, 4 nights, limit 10',
             'tags' => '1',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
         ProductTour::create([
             'supplier_id' => 1,
@@ -76,6 +78,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '9 days wonderful turkey,is domestic,include flight, 9 days, 9 nights, limit 10',
             'tags' => '2',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
         ProductTour::create([
             'supplier_id' => 1,
@@ -97,6 +100,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '3 days singapore free easy,is domestic,include flight, 7 days, 6 nights, limit 10',
             'tags' => '1,2',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
         ProductTour::create([
             'supplier_id' => 1,
@@ -118,6 +122,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '6 days golden triangle khasmir tour,is domestic,include flight, 6 days, 5 nights, limit 10',
             'tags' => '1',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
         ProductTour::create([
             'supplier_id' => 1,
@@ -139,6 +144,7 @@ class ProductTourSeeder extends Seeder
             'keyword' => '3 days gold coast free easy,is domestic,include flight, 3 days, 2 nights, limit 10',
             'tags' => '2',
             'countrytag' => "95",
+            'enabled' => 1
         ]);
     }
 }
