@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
+                                <a href="/#" style="color: inherit; text-decoration: none;"><p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p></a>
                             </div>
                         </div>
                         @endforeach
