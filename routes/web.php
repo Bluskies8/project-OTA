@@ -27,8 +27,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'home']);
 Route::post('/setCookie', [HomeController::class,'setCookie']);
-Route::get('/tour',[HomeController::class,'tour']);
-Route::get('/datadiri',[HomeController::class,'datadiri']);
 // Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
@@ -36,7 +34,9 @@ Route::prefix('Flight')->group(function () {
     Route::post('/book',[FlightController::class,'']);
 });
 Route::prefix('tour')->group(function () {
-    Route::get('quote/{productTour:id}',[productTourController::class,'quote']);
+    Route::get('/datadiri',[HomeController::class,'datadiriTour']);
+    Route::post('/cp-submit',[HomeController::class,'datasubmit']);
+    Route::get('/quote',[productTourController::class,'quote']);
     Route::get('/{productTour:slug}', [ProductTourController::class, 'show']);
     Route::get('/imgh/{id}', [HomeController::class, 'showheader']);
     Route::get('/imgt/{id}', [HomeController::class, 'showthumb']);

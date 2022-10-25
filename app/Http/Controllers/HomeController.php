@@ -199,8 +199,14 @@ class HomeController extends Controller
         return response()->file(storage_path('/app/public'.$data->thumbnail_img_url));
     }
 
-    public function datadiri() {
-        return view('pages.user.datadiri');
+    public function datadiriTour(Request $request) {
+        $data = json_decode($request->cookie('QuoteTour'));
+        // dd($data);
+        return view('pages.user.datadiri',[
+            'room' => $data->room
+        ]);
     }
-
+    public function datasubmit(Request $request) {
+        return $request->all();
+    }
 }

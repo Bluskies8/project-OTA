@@ -1,6 +1,7 @@
 @extends('layout.users')
 @section('title'){{$data['data']['name']}}@endsection
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div style="background: rgba(0, 0, 0, .25) url({{$data['data']['header_img_url']}});background-repeat: no-repeat;background-size: cover;background-position: center;background-blend-mode: darken;">
     <div class="container py-3"><button class="btn" type="button" style="background-color: #FF9142;color: white;">{{$data['data']['days_count']}} hari {{$data['data']['nights_count']}}Malam</button>
         <h1 class="text-uppercase" style="margin-top: 5rem;color: white;">{{$data['data']['name']}}</h1>
@@ -149,7 +150,15 @@
                         </header>
                         {{-- <form> --}}
                             <input type="hidden" name="id-tour" value="{{$data['data']['id']}}">
-                            <div class="p-3"><input class="form-control" type="text" placeholder="Choose Date" onfocus="(this.type = &#39;date&#39;)"></div>
+                            <div class="p-3">
+                                {{-- @dump($data['availableDates']) --}}
+                                {{-- <input class="form-control" type="text" placeholder="Choose Date" onfocus="(this.type = &#39;date&#39;)"> --}}
+                                <select class=" form-select" name = "availdate">
+                                    @foreach ($data['availableDates'] as $item)
+                                    <option value="{{$item->id}}" data-tokens="{{$item->date_start}} - {{$item->date_end}}">{{$item->date_start}} Sampai {{$item->date_end}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <hr class="my-0">
                             <div class="p-3 room">
                                 <div class="d-flex align-items-center mb-3"><i class="fas fa-user me-2" style="font-size: 18px;color: rgb(75, 0, 118);"></i>

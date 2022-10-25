@@ -21,6 +21,7 @@ $(document).ready(function() {
                 }
             }
             $(e.target).prev().text(temp);
+            console.log(temp)
         }
     });
 
@@ -48,11 +49,15 @@ $(document).ready(function() {
         temp.show();
     });
 
+    var pathh = window.location.pathname;
     $('#quote').on('click', function(){
         // console.log($('#adult'))
+        path = pathh.split('/');
+
         var adult = $('span[id="adult"]');
         var child = $('span[id="child"]');
         var tour = $('input[name="id-tour"]').val();
+        var date = $('select[name="availdate"]').val();
         var room = [];
         for (let index = 0; index < adult.length; index++) {
             room.push({
@@ -60,22 +65,27 @@ $(document).ready(function() {
                 child: child[index].innerHTML
             })
         }
-        console.log(room);
+        var data = {
+            'id':tour,
+            'room': room,
+            'date':date
+        }
         $.ajax({
-
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            type: "get",
-            url: "/tour/quote/"+tour,
+            type: "post",
+            url: "/setCookie",
             data: {
-                room:room
+                data:data,
+                name:"QuoteTour"
             },
             statusCode: {
                 404: function() {
                     alert( "page not found" );
                 },
                 200: function(data){
+                    window.location.href = "/tour/datadiri";
                     console.log(data);
                 }
             },
@@ -99,6 +109,84 @@ $(document).ready(function() {
                 // console.log(ajaxOptions);
             }
         });
+    });
+    $('#btn-submit').on('click', function(){
+        var fd = new FormData();
+        var data = [];
+        var room = [];
+        var child = [];
+        var cp_nama = $('input[name="cp-nama"]').val();
+        var cp_email = $('input[name="cp-email"]').val();
+        var cp_nohp = $('input[name="cp-nohp"]').val();
+        var cp_birth = $('input[name="cp-birth"]').val();
+        for (let index = 0; index < $('#dataroom').children('div').length; index++) {
+            var adult = [];
+            // var thiss =$('#droom-'+(index+1));
+            var adult_nama = $('input[name="adult-nama'+(index+1)+'"]');
+            var adult_email = $('input[name="adult-email'+(index+1)+'"]');
+            var adult_nohp = $('input[name="adult-nohp'+(index+1)+'"]');
+            var adult_birth = $('input[name="adult-birth'+(index+1)+'"]');
+            var child_nama = $('input[name="child-nama'+(index+1)+'"]');
+            var child_email = $('input[name="child-email'+(index+1)+'"]');
+            var child_nohp = $('input[name="child-nohp'+(index+1)+'"]');
+            var child_birth = $('input[name="child-birth'+(index+1)+'"]');
+            for (let j = 0; j < $('#container-form-dewasa'+(index+1)).children('div').children().length; j++) {
+                    adult.push({
+                        'nama':adult_nama[j].value,
+                        'email':adult_email[j].value,
+                        'birth':adult_birth[j].value,
+                        'nohp':adult_nohp[j].value,
+                    });
+            }
+            console.log($('#container-form-anak'+(index+1)).children('div').children())
+            for (let j = 0; j < $('#container-form-anak'+(index+1)).children('div').children().length; j++) {
+                    child.push({
+                        'nama':child_nama[j].value,
+                        'email':child_email[j].value,
+                        'birth':child_birth[j].value,
+                        'nohp':child_nohp[j].value,
+                    })
+            }
+            room.push({
+                'adult':adult,
+                'child':child
+            });
+            console.log(room);
+        }
+        data.push({
+            "cp":{
+                'nama':cp_nama,
+                'email':cp_email,
+                'birth':cp_birth,
+                'nohp':cp_nohp,
+            },
+            'room' : room
+        });
+        console.log(data);
+        // Append data
+        fd.append('data',"data");
+        fd.append('_token',$('meta[name="csrf-token"]').attr('content'));
+        console.log(fd)
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "/tour/cp-submit",
+            method: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response){
+                console.log(response)
 
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
     });
 });

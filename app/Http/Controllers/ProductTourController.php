@@ -66,9 +66,11 @@ class ProductTourController extends Controller
             'data' => $data,
         ]);
     }
-    public function quote(ProductTour $tour,Request $request)
+    public function quote(Request $request)
     {
-        return response()->json($request->all(),201);
+        $data = ProductTour::find($request->id);
+        return view('pages.user.datadiri');
+        return response()->json($data,200);
     }
     public function showPhoto($id)
     {
