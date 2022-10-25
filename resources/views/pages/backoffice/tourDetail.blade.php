@@ -384,7 +384,7 @@
                             <tr id="photo-clone" style="display: none;">
                                 <td class="text-center">0.<div></div>
                                 </td>
-                                <td><div class="preview-img form-control p-0" ><img class="w-100 h-100" src="" style="object-fit: contain;" /></div></td>
+                                <td><div class="preview-img form-control p-0" ><img src="" style="object-fit: contain; max-width: 300px;" /></div></td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <form action="/cms/tour/Photo/create" method="post">
                                     @csrf
@@ -406,7 +406,7 @@
                                 <td class="text-center">1.<div></div>
                                 </td>
                                 {{-- <td><img class="w-100 h-100" style="object-fit: contain;" src = {{$item->img_url}}/></td> --}}
-                                <td><div class="preview-img form-control p-0" ><img class="w-100 h-100" src="{{$item->img_url}}" style="object-fit: contain;" /></div></td>
+                                <td><div class="preview-img form-control p-0" ><img src="{{$item->img_url}}" style="object-fit: contain; max-width: 300px;" /></div></td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "{{$item->title}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <form action="/cms/tour/Photo/update" method="post">
                                     @csrf
