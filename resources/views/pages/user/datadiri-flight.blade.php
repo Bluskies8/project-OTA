@@ -37,8 +37,6 @@
                 </div>
                 <div id = "dataflight">
                     <hr style="margin: 1rem -1rem;" />
-                    <input type="hidden" name="room" value = "{{$loop->index+1}}">
-                    <h2> Room {{$loop->index+1}}</h2>
                     <hr />
                     <div id="container-form-dewasa{{$loop->index+1}}" class="mb-4">
                         <h4>Dewasa</h4>
@@ -110,7 +108,7 @@
         <div class="vol-4">
             <div class="card">
                 <div class="card-body">
-                    
+
                 </div>
             </div>
         </div>
