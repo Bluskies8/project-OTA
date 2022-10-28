@@ -396,7 +396,7 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: "delete",
-                url: "/cms/tour/Exclude/delete/"+id,
+                url: "/cms/tour/Photo/delete/"+id,
                 beforeSend: function(){
                     // console.log(this.data);
                 },

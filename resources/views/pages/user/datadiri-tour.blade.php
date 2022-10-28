@@ -1,3 +1,4 @@
+@section('title')Data Diri Tour @endsection
 @extends('layout.users')
 
 @section('content')

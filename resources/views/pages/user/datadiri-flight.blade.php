@@ -1,3 +1,4 @@
+@section('title')Data Diri Flight @endsection
 @extends('layout.users')
 
 @section('content')

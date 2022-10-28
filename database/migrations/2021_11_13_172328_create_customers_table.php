@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('guest_name');
             $table->string('title');
             $table->string('paxtype');
-            $table->foreignId('passport_id')->constrained();
+            $table->foreignId('passport_id')->nullable();
             $table->string('nik')->nullable();
             $table->string('phone_number');
             $table->string('address')->nullable();

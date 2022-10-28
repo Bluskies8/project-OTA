@@ -9,6 +9,7 @@ use App\Models\Passport;
 use App\Models\ProductsConfig;
 use App\Models\ProductTour;
 use App\Models\TourBooking;
+use App\Models\TourBookingRoom;
 use App\Models\TourPassanger;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -164,7 +165,7 @@ class HomeController extends Controller
         }
         // }
         // dd($display);
-        
+
         return view('pages.user.index',[
             'airport' => $airport->data,
             'product' => $display
@@ -207,8 +208,9 @@ class HomeController extends Controller
 
     public function datadiriTour(Request $request) {
         $data = json_decode($request->cookie('QuoteTour'));
+        if(!$data)return redirect()->back();
         // dd($data);
-        return view('pages.user.datadiri',[
+        return view('pages.user.datadiri-tour',[
             'room' => $data->room
         ]);
     }
@@ -226,73 +228,97 @@ class HomeController extends Controller
         $date = $cookie->date;
         $product = $cookie->id;
         $paymentUrl = '';
-        $tour = ProductTour::where('id',$request->product_id)->first();
+        $tour = ProductTour::where('id',$product)->first();
         $bookingCode = self::GenerateBooking("Tour");
-        $phonenumber = $request->contacts['phonePrefix']['phone'].$request->contacts['phoneNumber'];
+        $phonenumber = $request->data['cp']['nohp'];
+        $email = $request->data['cp']['email'];
+        $cpname = explode(' ',$request->data['cp']['nama']);
+        if(count($cpname) > 2) {
+            $firstName = $cpname[0];
+            $middleName = $cpname[1];
+            $lastName = "";
+            foreach ($cpname as $key => $value) {
+                if($key>1){
+                    $lastName .= $value.' ';
+                }
+            }
+        }else if(count($cpname) == 2){
+            $firstName = $cpname[0];
+            $middleName = "";
+            $lastName = $cpname[1];
+        }else{
+            $firstName = $cpname[0];
+            $middleName = "";
+            $lastName = "";
+        }
         $trans = TourBooking::create([
-            'user_id' => '',
+            'user_id' => 0,
             'bookingCode' => $bookingCode,
-            'product_tour_id' => $request->product_id,
-            'product_tour_date_id' => $request->product_date_id,
-            'title' => $request->contacts['title'],
-            'firstName' => $request->contacts['firstName'],
-            'middleName' => $request->contacts['middleName'],
-            'lastName' => $request->contacts['lastName'],
-            'email' => $request->contacts['email'],
+            'product_tour_id' => $tour->id,
+            'product_tour_date_id' => $date,
+            'title' => "mrs",
+            'firstName' => $firstName,
+            'middleName' => $middleName,
+            'lastName' => $lastName,
+            'email' => $email,
             'phoneNumber' => $phonenumber,
             'payment_url' => $paymentUrl,
             'payment_status' => 0
         ]);
-        foreach ($request->room as $key) {
+        foreach ($request->data['room'] as $index => $key) {
             // $room = TourBookingRoom::create([
-                // 'tour_booking_id' => $trans->id,
-                // 'name' => "Room ".$key['no_room'],
-                // 'extrabed' => $key['extraBed'],
-                // 'bedtype' => $key['bedType']
-            // ]);
-            foreach ($key['passenger'] as $key2) {
-                $name = $key2['firstName'] . ' '. $key2['lastName'];
-                $checkuser = Customer::where('guest_name',$name)->first();
+                //     'tour_booking_id' => $trans->id,
+                //     'name' => "Room ".$key['no_room'],
+                //     'extrabed' => $key['extraBed'],
+                //     'bedtype' => $key['bedType']
+                // ]);
+            $paxtype = [];
+            foreach ($key as $key2 => $value) {
+                $paxtype[$key2] = $value['paxType'];
+            }
+            foreach ($key as $key2) {
+                $checkuser = Customer::where('guest_name',$key2['nama'])->first();
                 if(!$checkuser){
                     $passport = Passport::create([
                         // 'no_passport' => $key2['no_passport'],
                         // 'dob' => date_format($key2['dob'],"Y/m/d")
-                        'dob' => date('Y-m-d', strtotime($key2['dob']))
+                        'dob' => date('Y-m-d', strtotime($key2['birth']))
                     ]);
-                    $customer = Customer::create([
-                        'id' => '',
-                        'guest_name' => $name,
-                        'title' => $key2['title'],
-                        'passport_id' => $passport->id,
-                        'phone_number' => $phonenumber,
-                        'paxtype' => $key2['paxType'],
-                    ]);
+                    try {
+                        $customer = Customer::create([
+                            'guest_name' => $key2['nama'],
+                            // 'title' => $key2['title'],
+                            'title' => "mrs",
+                            'passport_id' => $passport->id,
+                            'phone_number' => $key2['nohp'],
+                            'paxtype' => $key2['paxType'],
+                        ]);
+                    } catch (\Throwable $th) {
+                        return $th;
+                        //throw $th;
+                    }
                 }
-                $customer = Customer::where('guest_name',$name)->first();
-                $datacust []= [
-                    'id' => '',
-                    'guest_name' => $name,
-                    'title' => $key2['title'],
-                    'passport_id' => $customer->passport_id,
-                    'phone_number' => $phonenumber,
-                    'paxtype' => $key2['paxType'],
-                ];
-                // dd($customer->id);
-
+                $customer = Customer::where('guest_name',$key2['nama'])->first();
+                $trans->user_id = $customer->id;
+                $trans->save();
+                if(in_array('CHD',$paxtype)){
+                    $extrabed = "cwb";
+                }else{
+                    $extrabed = "standard";
+                }
                 TourPassanger::Create([
                     // 'tour_booking_room_id' => $room->id,
                     'id' => '',
-                    'room' => "Room ".$key['no_room'],
-                    'extrabed' => $key['extraBed'],
-                    'bedtype' => $key['bedType'],
+                    'room' => "Room ".$index+1,
+                    'extrabed' => $extrabed,
+                    'bedtype' => 'double',
                     'tour_bookings_id' => $trans->id,
                     'customers_id' => $customer->id,
-                    'has_visa' => $key2['haveVisa'],
+                    'has_visa' => 0 ,
                     'status' => 0
                 ]);
             }
         }
         return response()->json($trans,200);
-        return $date;
     }
 }

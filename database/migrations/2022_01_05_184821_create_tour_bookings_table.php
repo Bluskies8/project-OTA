@@ -16,7 +16,7 @@ class CreateTourBookingsTable extends Migration
         Schema::create('tour_bookings', function (Blueprint $table) {
             $table->id();
             $table->string('bookingCode');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable();
             $table->foreignId('product_tour_id')->constrained();
             $table->foreignId('product_tour_date_id')->constrained();
             $table->foreignId('visa_id')->nullable()->constrained();

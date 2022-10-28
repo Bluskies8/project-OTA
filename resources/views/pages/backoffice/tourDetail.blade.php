@@ -384,12 +384,12 @@
                             <tr id="photo-clone" style="display: none;">
                                 <td class="text-center">0.<div></div>
                                 </td>
-                                <td><div class="preview-img form-control p-0" ><img src="" style="object-fit: contain; max-width: 300px;" /></div></td>
+                                <td><div class="preview-img form-control p-0" ><img  id = "preview-img" src="" style="object-fit: contain; max-width: 300px;" /></div></td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
                                 <form action="/cms/tour/Photo/create" method="post">
                                     @csrf
                                     <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
-                                        <input type="file" name="img" class="form-control" />
+                                        <input type="file" name="img" class="form-control"  onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
                                         <input type="hidden" name="id" value = "">
                                         {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
                                     </td>

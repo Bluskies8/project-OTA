@@ -118,7 +118,7 @@ $(document).ready(function() {
         var cp_nohp = $('input[name="cp-nohp"]').val();
         var cp_birth = $('input[name="cp-birth"]').val();
         for (let index = 0; index < $('#dataroom').children('div').length; index++) {
-            var adult = [];
+            var passanger = [];
             // var thiss =$('#droom-'+(index+1));
             var child_nama = $('input[name="child-nama'+(index+1)+'"]');
             var child_email = $('input[name="child-email'+(index+1)+'"]');
@@ -130,15 +130,15 @@ $(document).ready(function() {
                 let adult_email = temp.eq(1);
                 let adult_nohp = temp.eq(2);
                 let adult_birth = temp.eq(3);
-                adult.push({
+                passanger.push({
                     'nama':adult_nama.val(),
                     'email':adult_email.val(),
                     'birth':adult_birth.val(),
                     'nohp':adult_nohp.val(),
+                    'paxType' : "ADT"
                 });
             }
 
-            var child = [];
             // console.log($('#container-form-anak'+(index+1)).children('div').children())
             for (let j = 0; j < $('#container-form-anak'+(index+1)).children('div').children().length; j++) {
                 let temp = $('#container-form-anak'+(index+1)).find('.col-4').eq(j).find('input');
@@ -146,18 +146,16 @@ $(document).ready(function() {
                 let child_email = temp.eq(1);
                 let child_nohp = temp.eq(2);
                 let child_birth = temp.eq(3);
-                child.push({
+                passanger.push({
                     'nama':child_nama.val(),
                     'email':child_email.val(),
                     'birth':child_birth.val(),
                     'nohp':child_nohp.val(),
+                    'paxType' : "CHD"
                 });
             }
 
-            room.push({
-                'adult':adult,
-                'child':child
-            });
+            room.push(passanger);
             console.log(room);
         }
         var data = {
