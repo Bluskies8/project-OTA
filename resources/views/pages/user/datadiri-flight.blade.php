@@ -7,110 +7,94 @@
     <div class="row">
         <div class="col-8">
 
-    <div class="card">
-        <div class="card-body">
-            <form> <!-- isi link dari backend -->
-                <div id="container-form-CP" class="mb-4">
-                    <h3>Contact Person</h3>
-                    <hr />
-                    <div class="row">
-                        <!-- loop dari sini -->
-                        <div class="col-4">
-                            <div class="mb-2">
-                                <p>Nama Lengkap</p>
-                                <input type="text" name = "cp-nama" class="form-control" />
-                            </div>
-                            <div class="mb-2">
-                                <p>E-mail</p>
-                                <input type="text" name = "cp-email" class="form-control" />
-                            </div>
-                            <div class="mb-2">
-                                <p>No Telepon</p>
-                                <input type="text" name = "cp-nohp" class="form-control" />
-                            </div>
-                            <div class="mb-2">
-                                <p>Tanggal Lahir</p>
-                                <input class="form-control" name = "cp-birth" type="date" />
-                            </div>
-                        </div>
-                        <!-- sampe sini -->
-                    </div>
-                </div>
-                <div id = "dataflight">
-                    <hr style="margin: 1rem -1rem;" />
-                    <hr />
-                    <div id="container-form-dewasa{{$loop->index+1}}" class="mb-4">
-                        <h4>Dewasa</h4>
-                        <hr />
-                        <div class="row">
-                        @for ($i = 0; $i < $item->adult; $i++)
-                            <!-- loop dari sini -->
-                            <div class="col-4">
-                                <div class="mb-2">
-                                    <p>Nama Lengkap</p>
-                                    <input type="text" id = "adult-nama{{($loop->index+1)}}" name = "adult-nama{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>E-mail</p>
-                                    <input type="text" id = "adult-email{{($loop->index+1)}}" name = "adult-email{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>No Telepon</p>
-                                    <input type="text" id = "adult-nohp{{($loop->index+1)}}" name = "adult-nohp{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>Tanggal Lahir</p>
-                                    <input class="form-control" id = "adult-birth{{($loop->index+1)}}" name = "adult-birth{{($loop->index+1)}}" type="date" />
-                                </div>
-                            </div>
-                            <!-- sampe sini -->
-                            @endfor
-                        </div>
-                    </div>
-                    @if ($item->child > 0)
-                    <div id="container-form-anak{{$loop->index+1}}" class="mb-4">
-                        <h4>Anak-anak</h4>
-                        <hr />
-                        <div class="row">
-                            @for ($i = 0; $i < $item->child; $i++)
-                            <!-- loop dari sini -->
-                            <div class="col-4">
-                                <div class="mb-2">
-                                    <p>Nama Lengkap</p>
-                                    <input type="text" id = "child-nama{{($loop->index+1)}}" name = "child-nama{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>E-mail</p>
-                                    <input type="text" id = "child-email{{($loop->index+1)}}" name = "child-email{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>No Telepon</p>
-                                    <input type="text" id = "child-nohp{{($loop->index+1)}}" name = "child-nohp{{($loop->index+1)}}" class="form-control" />
-                                </div>
-                                <div class="mb-2">
-                                    <p>Tanggal Lahir</p>
-                                    <input class="form-control" id = "child-birth{{($loop->index+1)}}" name = "child-birth{{($loop->index+1)}}" type="date" />
-                                </div>
-                            </div>
-                            <!-- sampe sini -->
-                            @endfor
-                        </div>
-                    </div>
-                    @endif
-                </div>
-
-                <div class="text-end">
-                    <button class="btn btn-primary" type="button" id = "btn-submit" style="color: #fff;background-color: rgb(75, 0, 118);">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-        </div>
-        <div class="vol-4">
             <div class="card">
                 <div class="card-body">
+                    <form> <!-- isi link dari backend -->
+                        <div id="container-form-CP" class="mb-4">
+                            <h3>Contact Person</h3>
+                            <hr />
+                            <div class="row">
+                                <!-- loop dari sini -->
+                                <div class="col-4">
+                                    <div class="mb-2">
+                                        <p>Nama Lengkap</p>
+                                        <div class="form-control d-flex" >
+                                            <select style="outline: none; border: none;" id = "cp-title">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="ms">Ms</option>
+                                            </select>
+                                            <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <p>E-mail</p>
+                                        <input type="text" name = "cp-email" class="form-control" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <p>No Telepon</p>
+                                        <input type="text" name = "cp-nohp" class="form-control" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <p>Tanggal Lahir</p>
+                                        <input class="form-control" name = "cp-birth" type="date" />
+                                    </div>
+                                </div>
+                                <!-- sampe sini -->
+                            </div>
+                        </div>
+                        <div id = "dataflight">
+                            <hr style="margin: 1rem -1rem;" />
+                            <div id="container-form-dewasa" class="mb-4">
+                                <h4>Dewasa</h4>
+                                <hr />
+                                <div class="row">
+                                @for ($i = 0; $i < $count; $i++)
+                                    <!-- loop dari sini -->
+                                    <div class="col-4">
+                                        <div class="mb-2">
+                                            <p>Nama Lengkap</p>
+                                            <div class="form-control d-flex" >
+                                                <select style="outline: none; border: none;" id = "title{{($i+1)}}">
+                                                    <option value="mr">Mr</option>
+                                                    <option value="mrs">Mrs</option>
+                                                    <option value="ms">Ms</option>
+                                                </select>
+                                                <input class="w-100" style="outline: none; border: none; type="text" id = "adult-nama{{($i+1)}}" name = "adult-nama{{($i+1)}}" />
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p>E-mail</p>
+                                            <input type="text" id = "adult-email{{($i+1)}}" name = "adult-email{{($i+1)}}" class="form-control" />
+                                        </div>
+                                        <div class="mb-2">
+                                            <p>No Telepon</p>
+                                            <div class="form-control d-flex align-items-center">
+                                                <strong>+62</strong>
+                                                <input class="w-100" style="outline:none; border:none;" type="text" id = "adult-nohp{{($i+1)}}" name = "adult-nohp{{($i+1)}}" />
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <p>Tanggal Lahir</p>
+                                            <input class="form-control" id = "adult-birth{{($i+1)}}" name = "adult-birth{{($i+1)}}" type="date" />
+                                        </div>
+                                    </div>
+                                    <!-- sampe sini -->
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="text-end">
+                            <button class="btn btn-primary" type="button" id = "btn-submit-flight" style="color: #fff;background-color: rgb(75, 0, 118);">Submit</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body"></div>
             </div>
         </div>
     </div>

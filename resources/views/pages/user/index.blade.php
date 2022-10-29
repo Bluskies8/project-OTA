@@ -31,10 +31,10 @@
                                             <option data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                         @endforeach
                                     </select> --}}
-                                    <input id="input-departure" list="list-departure" class="form-control">
-                                    <datalist id="list-departure" name=departure>
+                                    <input id="input-departure" name="departure" list="list-departure" class="form-control" value = {{old('departure')}}>
+                                    <datalist id="list-departure" >
                                         @foreach ($airport as $item)
-                                        <option value="{{$item->name}} - {{$item->city_name}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->iata_code}}</option>
+                                        <option value=" {{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                         @endforeach
                                     </datalist>
                                     <p class="position-absolute color-sub input-head">Departure</p>
@@ -45,10 +45,10 @@
                             </div>
                             <div class="col-4">
                                 <div class="position-relative">
-                                    <input id="input-destination" list="list-destination" class="form-control">
-                                    <datalist id="list-destination" name=destination>
+                                    <input id="input-destination" name="destination" list="list-destination" class="form-control" value = {{old('destination')}}>
+                                    <datalist id="list-destination" >
                                         @foreach ($airport as $item)
-                                        <option value="{{$item->name}} - {{$item->city_name}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->iata_code}}</option>
+                                        <option value=" {{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                         @endforeach
                                     </select>
                                     <p class="position-absolute color-sub input-head">Destination</p>

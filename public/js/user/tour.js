@@ -110,20 +110,16 @@ $(document).ready(function() {
             }
         });
     });
-    $('#btn-submit').on('click', function(){
-        var fd = new FormData();
-        var room = [];
+    $('#btn-submit-tour').on('click', function(){
         var cp_nama = $('input[name="cp-nama"]').val();
         var cp_email = $('input[name="cp-email"]').val();
         var cp_nohp = $('input[name="cp-nohp"]').val();
         var cp_birth = $('input[name="cp-birth"]').val();
+        var room = [];
         for (let index = 0; index < $('#dataroom').children('div').length; index++) {
+            var bedtype = $('input[name="bed_type-'+(index+1)+'"]:checked').val();
+            console.log(bedtype);
             var passanger = [];
-            // var thiss =$('#droom-'+(index+1));
-            var child_nama = $('input[name="child-nama'+(index+1)+'"]');
-            var child_email = $('input[name="child-email'+(index+1)+'"]');
-            var child_nohp = $('input[name="child-nohp'+(index+1)+'"]');
-            var child_birth = $('input[name="child-birth'+(index+1)+'"]');
             for (let j = 0; j < $('#container-form-dewasa'+(index+1)).children('div').children().length; j++) {
                 let temp = $('#container-form-dewasa'+(index+1)).find('.col-4').eq(j).find('input');
                 let adult_nama = temp.eq(0);
@@ -131,6 +127,7 @@ $(document).ready(function() {
                 let adult_nohp = temp.eq(2);
                 let adult_birth = temp.eq(3);
                 passanger.push({
+                    // 'title' :
                     'nama':adult_nama.val(),
                     'email':adult_email.val(),
                     'birth':adult_birth.val(),
@@ -154,8 +151,14 @@ $(document).ready(function() {
                     'paxType' : "CHD"
                 });
             }
-
-            room.push(passanger);
+            // data['room'] = {
+            //     'bedType':bedtype,
+            //     'data':passanger
+            // }
+            room.push({
+                'bedType':bedtype,
+                'data':passanger
+            });
             console.log(room);
         }
         var data = {
@@ -165,13 +168,74 @@ $(document).ready(function() {
                 'birth':cp_birth,
                 'nohp':cp_nohp,
             },
-            'room' : room
+            'room' :room
         };
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             url: "/tour/cp-submit",
+            method: 'post',
+            data: {
+                'data': data,
+            },
+            beforeSend: function(){
+                // console.log(data)
+            },
+            success: function(response){
+                // console.log(response)
+                $('#modal-notice').modal('show');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // JSON.parse(undefined);
+                console.log(xhr.status);
+                console.log(thrownError);
+                // console.log(ajaxOptions);
+            }
+        });
+    });
+    $('#modal-notice').on('hidden.bs.modal', function () {
+        window.location.replace('/');
+    });
+
+    $('#btn-submit-flight').on('click', function(){
+        var cp_nama = $('input[name="cp-nama"]').val();
+        var cp_email = $('input[name="cp-email"]').val();
+        var cp_nohp = $('input[name="cp-nohp"]').val();
+        var cp_birth = $('input[name="cp-birth"]').val();
+        var passanger = [];
+        for (let j = 0; j < $('#container-form-dewasa').children('div').children().length; j++) {
+            console.log($('#title'+(j+1)).val())
+            let temp = $('#container-form-dewasa').find('.col-4').eq(j).find('input');
+            let adult_nama = temp.eq(0);
+            let adult_email = temp.eq(1);
+            let adult_nohp = temp.eq(2);
+            let adult_birth = temp.eq(3);
+            passanger.push({
+                'title': $('#title'+(j+1)).val(),
+                'nama':adult_nama.val(),
+                'email':adult_email.val(),
+                'birth':adult_birth.val(),
+                'nohp':adult_nohp.val(),
+                'paxType' : "ADT"
+            });
+        }
+        var data = {
+            'cp':{
+                'title': $('#cp-title').val(),
+                'nama': cp_nama,
+                'email':cp_email,
+                'birth':cp_birth,
+                'nohp':cp_nohp,
+            },
+            'passanger' :passanger
+        };
+        console.log(data)
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            url: "/Flight/cp-submit",
             method: 'post',
             data: {
                 'data': data,

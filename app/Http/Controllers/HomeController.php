@@ -19,7 +19,7 @@ class HomeController extends Controller
 {
     public function setCookie(Request $request)
     {
-        Cookie::queue($request->name, json_encode($request->data), '20');
+        Cookie::queue($request->name, json_encode($request->data), '60');
         // return redirect('/Flight/searchFlight2')->withCookie(cookie($request->name, json_encode($request->data), '20'));
         return "success";
     }
@@ -76,14 +76,10 @@ class HomeController extends Controller
             if($passid == ''){
                 $passid = $value->id;
             }else{
-                $passid = ','.$value->id;
+                $passid .= ','.$value->id;
             }
         }
         $minutes = 1;
-        // Cookie::queue('data_flight1',json_encode($temp),60);
-        // $response->withCookie(cookie('name', 'virat', $minutes));
-        // return $response;
-        // dd($passid);
         return view('pages.user.ticket',[
             'airport' => $airport->data,
             'data' => $res->data,
@@ -224,6 +220,7 @@ class HomeController extends Controller
     }
 
     public function datasubmit(Request $request) {
+        // return $request->all();
         $cookie = json_decode($request->cookie('QuoteTour'));
         $date = $cookie->date;
         $product = $cookie->id;
@@ -266,6 +263,7 @@ class HomeController extends Controller
             'payment_status' => 0
         ]);
         foreach ($request->data['room'] as $index => $key) {
+            // return $key2;
             // $room = TourBookingRoom::create([
                 //     'tour_booking_id' => $trans->id,
                 //     'name' => "Room ".$key['no_room'],
@@ -273,10 +271,11 @@ class HomeController extends Controller
                 //     'bedtype' => $key['bedType']
                 // ]);
             $paxtype = [];
-            foreach ($key as $key2 => $value) {
+            foreach ($key['data'] as $key2 => $value) {
                 $paxtype[$key2] = $value['paxType'];
             }
-            foreach ($key as $key2) {
+            foreach ($key['data'] as $key2) {
+                // return $key2;
                 $checkuser = Customer::where('guest_name',$key2['nama'])->first();
                 if(!$checkuser){
                     $passport = Passport::create([
@@ -311,7 +310,7 @@ class HomeController extends Controller
                     'id' => '',
                     'room' => "Room ".$index+1,
                     'extrabed' => $extrabed,
-                    'bedtype' => 'double',
+                    'bedtype' => $key['bedType'],
                     'tour_bookings_id' => $trans->id,
                     'customers_id' => $customer->id,
                     'has_visa' => 0 ,

@@ -14,15 +14,17 @@ use App\Http\AirlinesAPI\GarudaHelper;
 
 class JokulAPI
 {
-    private static $ClientID = "MCH-0324-1132117023979";
-    private static $SecretKey = "SK-G48ZvEfW9nEOuD1L0Omu";
+    // private static $ClientID = "MCH-0324-1132117023979";
+    // private static $SecretKey = "SK-G48ZvEfW9nEOuD1L0Omu";
+    private static $ClientID = "BRN-0247-1659108051026";
+    private static $SecretKey = "SK-l3mLXPPI9QKPwF2pf66M";
     private static $Endpoint = "https://api-sandbox.doku.com";
     // private static $Endpoint = "https://api.doku.com";
     private static $FrontendUrl;
 
     public static function __constructStatic()
     {
-        static::$FrontendUrl = env('APP_FRONTEND_URL', "http://localhost:3000");
+        static::$FrontendUrl = env('APP_URL', "http://localhost:8000");
         // dd(self::$FrontendUrl);
     }
 
@@ -83,7 +85,6 @@ class JokulAPI
             'order' => $data['order'],
             'customer' => $data['customer'] ?: [],
         ];
-
         // $REQUEST['payment']['payment_due_date'] = 50;
         $REQUEST['payment']['payment_due_date'] = $data['payment']['payment_due_date'] ?: 50;
         $paymentConfig = JokulPaymentConfig::where('enabled', true)->get();
@@ -92,7 +93,7 @@ class JokulAPI
         }
 
         $REQUEST['order']['callback_url'] = self::$FrontendUrl.$data['callback_url'];
-
+        // return $REQUEST;
         $requestId = self::generateRandomString(20);
         $requestDate = date('Y-m-d\TH:i:s\Z', time());
         $targetPath = "/checkout/v1/payment";
@@ -103,7 +104,6 @@ class JokulAPI
         "Request-Target:$targetPath\n" .
         "Digest:" . $digestValue;
         $signature = base64_encode(hash_hmac('sha256', $componentSignature, self::$SecretKey, true));
-
         $curl = curl_init(self::$Endpoint.$targetPath);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -146,88 +146,88 @@ class JokulAPI
         return $RESPONSE;
     }
 
-    public static function doPayment($req)
-    {
-        $group = UserFlightBookGroup::where('invoice',$req->invoice)->first();
-        // dd($group->UserFlightBook());
-        $userflight = UserFlightBook::where('group_id',$group->id)->first();
-        // search transbyid
-        // $_send = GarudaHelper::SSGetBookByTransactionId(['transactionId'=>$userflight->transaction_id]);
-        // $_response = GarudaAPI::GetBookByTransactionId($_send);
-        // $_result = GarudaHelper::SRGetBookByTransactionId($_response);
-        // $response['book_details'] = $_result;
-        $data = [];
-        $qtt = 0;
-        foreach ($_result->bookingsSummary[0]->passengers as $key) {
-            $qtt += 1;
-        }
-        foreach ($_result->bookingsSummary[0]->flightJourneys as $key) {
-            $data = [
-                'name' => $key->departureAirport->city." to ".$key->arrivalAirport->city,
-                'quantity' => $qtt
-            ];
-        }
-        $user = User::find($group->order_by)->first();
-        $time = date('Y-m-d\TH:i:s\Z', time());
-        $clientId = self::$ClientID;
-        // dd($time);
-        $requestId = 'lilacoid'.self::generateRandomString(20).$time;
-        $requestDate = $time ;
-        $targetPath = "/checkout/v1/payment";
-        $secretKey = self::$SecretKey;
-        $requestBody = array (
-            'order' => array (
-                "amount"=> $_result->total,
-                "invoice_number"=> $req->invoice,
-                "line_items"=> array(
-                    $data
-                ),
-                "currency"=> "IDR",
-                "callback_url"=> "https://merchant.com/return-url",
-            ),
-            'payment' => array (
-                "payment_method_types"=> [
-                    "VIRTUAL_ACCOUNT_BANK_MANDIRI",
-                    "VIRTUAL_ACCOUNT_BANK_SYARIAH_MANDIRI",
-                    "VIRTUAL_ACCOUNT_DOKU",
-                    "VIRTUAL_ACCOUNT_BRI",
-                    "VIRTUAL_ACCOUNT_BCA",
-                    "CREDIT_CARD",
-                    "DIRECT_DEBIT_BRI",
-                    "ONLINE_TO_OFFLINE_ALFA"
-                ],
-                'payment_due_date' => 60,
-            ),
-            'customer' => array (
-                "id"=> $user->id,
-                "name"=> $user->first_name.' '.$user->middle_name.' '.$user->last_name,
-                "email"=> $user->email,
-                "phone"=> $user->phone_number,
-                "address"=> "",
-                "country"=> "ID"
-            ),
-        );
-        $digestValue = base64_encode(hash('sha256', json_encode($requestBody), true));
-        $componentSignature = "Client-Id:" . $clientId . "\n" .
-        "Request-Id:" . $requestId . "\n" .
-        "Request-Timestamp:" . $requestDate . "\n" .
-        "Request-Target:" . $targetPath . "\n" .
-        "Digest:" . $digestValue;
+    // public static function doPayment($req)
+    // {
+    //     $group = UserFlightBookGroup::where('invoice',$req->invoice)->first();
+    //     // dd($group->UserFlightBook());
+    //     $userflight = UserFlightBook::where('group_id',$group->id)->first();
+    //     // search transbyid
+    //     $_send = GarudaHelper::SSGetBookByTransactionId(['transactionId'=>$userflight->transaction_id]);
+    //     $_response = GarudaAPI::GetBookByTransactionId($_send);
+    //     $_result = GarudaHelper::SRGetBookByTransactionId($_response);
+    //     $response['book_details'] = $_result;
+    //     $data = [];
+    //     $qtt = 0;
+    //     foreach ($_result->bookingsSummary[0]->passengers as $key) {
+    //         $qtt += 1;
+    //     }
+    //     foreach ($_result->bookingsSummary[0]->flightJourneys as $key) {
+    //         $data = [
+    //             'name' => $key->departureAirport->city." to ".$key->arrivalAirport->city,
+    //             'quantity' => $qtt
+    //         ];
+    //     }
+    //     $user = User::find($group->order_by)->first();
+    //     $time = date('Y-m-d\TH:i:s\Z', time());
+    //     $clientId = self::$ClientID;
+    //     // dd($time);
+    //     $requestId = 'lilacoid'.self::generateRandomString(20).$time;
+    //     $requestDate = $time ;
+    //     $targetPath = "/checkout/v1/payment";
+    //     $secretKey = self::$SecretKey;
+    //     $requestBody = array (
+    //         'order' => array (
+    //             "amount"=> $_result->total,
+    //             "invoice_number"=> $req->invoice,
+    //             "line_items"=> array(
+    //                 $data
+    //             ),
+    //             "currency"=> "IDR",
+    //             "callback_url"=> "https://merchant.com/return-url",
+    //         ),
+    //         'payment' => array (
+    //             "payment_method_types"=> [
+    //                 "VIRTUAL_ACCOUNT_BANK_MANDIRI",
+    //                 "VIRTUAL_ACCOUNT_BANK_SYARIAH_MANDIRI",
+    //                 "VIRTUAL_ACCOUNT_DOKU",
+    //                 "VIRTUAL_ACCOUNT_BRI",
+    //                 "VIRTUAL_ACCOUNT_BCA",
+    //                 "CREDIT_CARD",
+    //                 "DIRECT_DEBIT_BRI",
+    //                 "ONLINE_TO_OFFLINE_ALFA"
+    //             ],
+    //             'payment_due_date' => 60,
+    //         ),
+    //         'customer' => array (
+    //             "id"=> $user->id,
+    //             "name"=> $user->first_name.' '.$user->middle_name.' '.$user->last_name,
+    //             "email"=> $user->email,
+    //             "phone"=> $user->phone_number,
+    //             "address"=> "",
+    //             "country"=> "ID"
+    //         ),
+    //     );
+    //     $digestValue = base64_encode(hash('sha256', json_encode($requestBody), true));
+    //     $componentSignature = "Client-Id:" . $clientId . "\n" .
+    //     "Request-Id:" . $requestId . "\n" .
+    //     "Request-Timestamp:" . $requestDate . "\n" .
+    //     "Request-Target:" . $targetPath . "\n" .
+    //     "Digest:" . $digestValue;
 
-        $signature = base64_encode(hash_hmac('sha256', $componentSignature, $secretKey, true));
-        // dd(json_encode($requestBody));
-        $response = [
-            'endpoint' => self::$Endpoint,
-            'clientId' =>$clientId,
-            'requestId' => $requestId,
-            'requestDate' => $requestDate,
-            'targetPath' => $targetPath,
-            'digestValue' => $digestValue,
-            'signature' => $signature,
-            'requestBody' => $requestBody
-        ];
-        return response()->json($response);
-    }
+    //     $signature = base64_encode(hash_hmac('sha256', $componentSignature, $secretKey, true));
+    //     // dd(json_encode($requestBody));
+    //     $response = [
+    //         'endpoint' => self::$Endpoint,
+    //         'clientId' =>$clientId,
+    //         'requestId' => $requestId,
+    //         'requestDate' => $requestDate,
+    //         'targetPath' => $targetPath,
+    //         'digestValue' => $digestValue,
+    //         'signature' => $signature,
+    //         'requestBody' => $requestBody
+    //     ];
+    //     return response()->json($response);
+    // }
 }
 
 JokulAPI::__constructStatic();

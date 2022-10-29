@@ -38,7 +38,19 @@
                     <hr style="margin: 1rem -1rem;" />
                     <div id="droom-{{$loop->index+1}}">
                         <input type="hidden" name="room" value = "{{$loop->index+1}}">
-                        <h2> Room {{$loop->index+1}}</h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2> Room {{$loop->index+1}}</h2>
+                            <div class="d-flex">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" id="formCheck-double-{{($loop->index+1)}}" name="bed_type-{{($loop->index+1)}}" value="double">
+                                    <label class="form-check-label" for="formCheck-double-{{($loop->index+1)}}">Double Bed</label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" id="formCheck-single-{{($loop->index+1)}}" name="bed_type-{{($loop->index+1)}}" value="single">
+                                    <label class="form-check-label" for="formCheck-single-{{($loop->index+1)}}">Single Bed</label>
+                                </div>
+                            </div>
+                        </div>
                         <hr />
                         <div id="container-form-dewasa{{$loop->index+1}}" class="mb-4">
                             <h4>Dewasa</h4>
@@ -130,9 +142,21 @@
                     </div>
                 </div> --}}
                 <div class="text-end">
-                    <button class="btn btn-primary" type="button" id = "btn-submit" style="color: #fff;background-color: rgb(75, 0, 118);">Submit</button>
+                    <button class="btn btn-primary" type="button" id = "btn-submit-tour" style="color: #fff;background-color: rgb(75, 0, 118);">Submit</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div role="dialog" tabindex="-1" id='modal-notice' class="modal fade">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Notice</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Data berhasil kami terima.<br />Untuk pemberitahuan selanjutnya akan di hubungi melalui E-mail atau nomor telepon yang ada pada Contact Person.</p>
+            </div>
         </div>
     </div>
 </div>

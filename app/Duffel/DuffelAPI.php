@@ -109,12 +109,12 @@ class DuffelAPI
                 "cabin_class"=> $data['cabin'],
                 "slices"=> [
                   [
-                    // "departure_date"=> $data['departure_date'],
-                    // "destination"=> $data['destination'],
-                    // "origin"=> $data['origin'],
-                    "departure_date"=> '2023-01-08',
-                    "destination"=> 'DXB',
-                    "origin"=> 'LHR',
+                    "departure_date"=> $data['departure_date'],
+                    "destination"=> $data['destination'],
+                    "origin"=> $data['origin'],
+                    // "departure_date"=> '2023-01-08',
+                    // "destination"=> 'DXB',
+                    // "origin"=> 'LHR',
                   ],
                 ],
                 "passengers" => $data['pass'],
@@ -126,6 +126,19 @@ class DuffelAPI
         return $RESPONSE;
     }
 
+    public static function SearchOrder(){
+        $targetPath = "/air/orders/";
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
     public static function DOBook($data){
         $targetPath = "/air/orders";
         $curl = curl_init(self::$Endpoint.$targetPath);
@@ -139,29 +152,29 @@ class DuffelAPI
             "data"=> [
                 "type"=>"instant",
                 "selected_offers"=> [
-                    "off_0000AOKRl33vdL2bwrUbGj"
+                    $data['selected_offer']
                 ],
                 "payments"=> [
-                [
-                    "type"=> "balance",
-                    "currency"=> "USD",
-                    "amount"=> "442.10"
-                ]
+                    [
+                        'type' => "balance",
+                        'currency' => $data['payment']['currency'],
+                        'amount' => $data['payment']['amount'],
+                    ]
                 ],
-                "passengers"=> [
-                [
-                    "type"=> "adult",
-                    "title"=> "mrs",
-                    "phone_number"=> "+442080160509",
-                    "infant_passenger_id"=> "",
-                    "id"=> "pas_0000AOKRkk02VZdmpIWj4N",
-                    "given_name"=> "Amelia",
-                    "gender"=> "f",
-                    "family_name"=> "Earhart",
-                    "email"=> "amelia@duffel.com",
-                    "born_on"=> "1987-07-24"
+                "passengers"=>[
+                    // $data['passanger']
+                    [
+                        "type"=> $data['passanger'][0]['type'],
+                        "title"=> $data['passanger'][0]['title'],
+                        "phone_number"=> $data['passanger'][0]['phone_number'],
+                        "id"=> $data['passanger'][0]['id'],
+                        "given_name"=> $data['passanger'][0]['given_name'],
+                        "gender"=> $data['passanger'][0]['gender'],
+                        "family_name"=> $data['passanger'][0]['family_name'],
+                        "email"=> $data['passanger'][0]['email'],
+                        "born_on"=> $data['passanger'][0]['born_on']
+                    ]
                 ]
-                ],
             ]
         ]));
         $RESPONSE = json_decode(curl_exec($curl));

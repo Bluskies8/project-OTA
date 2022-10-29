@@ -19,7 +19,6 @@ class UserSingleFlightBookSeeder extends Seeder
             'order_by' => 1,
             'book_status' => 1,
             'payment_status' => 0,
-            'airline_id' => 1,
             'transactionId' => '591210011257',
             'booking_code' => '6N9LV3',
             'book_date' => '2021-10-19 20:23:14',

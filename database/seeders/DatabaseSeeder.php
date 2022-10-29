@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             DisplayBannerSeeder::class,
             CarouselSeeder::class,
             PromoSeeder::class,
+            JokulPaymentConfigSeeder::class
         ]);
     }
 }

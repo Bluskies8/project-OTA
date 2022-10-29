@@ -26,12 +26,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'home']);
+Route::get('/cek', [FlightController::class,'searchOrder']);
 Route::post('/setCookie', [HomeController::class,'setCookie']);
 // Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
-    Route::post('/book',[FlightController::class,'']);
+    Route::get('/datadiri',[FlightController::class,'datadiri']);
+    Route::post('/cp-submit',[FlightController::class,'datasubmit']);
 });
 Route::prefix('tour')->group(function () {
     Route::get('/datadiri',[HomeController::class,'datadiriTour']);

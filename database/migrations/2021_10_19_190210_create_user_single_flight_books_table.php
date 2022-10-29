@@ -19,7 +19,6 @@ class CreateUserSingleFlightBooksTable extends Migration
             $table->foreignId('order_by');
             $table->integer('book_status');
             $table->integer('payment_status');
-            $table->foreignId('airline_id');
             $table->string('transactionId');
             $table->string('city_route');
             $table->string('booking_code')->nullable();

@@ -91,7 +91,6 @@ $(document).ready(function() {
     var destination = $('meta[name="destination"]').attr('content');
     var passid = $('meta[name="passid"]').attr('content');
     $('.btn-pilih').on('click', function(){
-        console.log(departure);
         var data = {
             'type' : type,
             'depart_date' : depart_date,
@@ -120,11 +119,11 @@ $(document).ready(function() {
             },
             success: function(res) {
                 if(res == 'success'){
-                    // if(type == 1){
-                    //     window.location.href = "data diri";
-                    // }else if(type == 2){
+                    if(type == 1){
+                        window.location.href = "/Flight/datadiri";
+                    }else if(type == 2){
                         window.location.href = "/Flight/searchFlight2";
-                    // }
+                    }
                 }
                 console.log(res);
             },
