@@ -68,53 +68,85 @@
         </div>
     </div>
 </div>
-@endsection
-{{--
-<div class="container">
-    <div class="my-5" style="font-size: 1.25rem;"><i class="fas fa-arrow-left color-main me-4"></i><a class="me-3" href="#">CMS</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Product Management</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Tour</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Booking</a></div>
 
-                    <tbody>
-                        <tr class="row-kamar">
-                            <td class="fw-bolder bgcolor-main" colspan="6">Kamar 1</td>
-                        </tr>
-                        <tr class="row-data">
-                            <td class="text-end">Mr</td>
-                            <td>Kevin</td>
-                            <td class="text-center">1234567890</td>
-                            <td class="text-center">08123456789</td>
-                            <td class="text-center">Adult</td>
-                            <td class="cell-aksi"><button class="btn btn-primary btn-sm" type="button"><i class="fas fa-edit"></i></button></td>
-                        </tr>
-                        <tr class="row-data">
-                            <td class="text-end">Mrs</td>
-                            <td>Larisa</td>
-                            <td class="text-center">1234567891</td>
-                            <td class="text-center">08123456789</td>
-                            <td class="text-center">Adult</td>
-                            <td class="cell-aksi"><button class="btn btn-primary btn-sm" type="button"><i class="fas fa-edit"></i></button></td>
-                        </tr>
-                        <tr class="row-data">
-                            <td class="text-end">Mr</td>
-                            <td>Jimmy</td>
-                            <td class="text-center">1234567892</td>
-                            <td class="text-center">08123456789</td>
-                            <td class="text-center">Child</td>
-                            <td class="cell-aksi"><button class="btn btn-primary btn-sm" type="button"><i class="fas fa-edit"></i></button></td>
-                        </tr>
-                        <tr class="row-kamar">
-                            <td class="fw-bolder bgcolor-main" colspan="6">Kamar 2</td>
-                        </tr>
-                        <tr class="row-data">
-                            <td class="text-end">Mr</td>
-                            <td>Kevin</td>
-                            <td class="text-center">1234567890</td>
-                            <td class="text-center">08123456789</td>
-                            <td class="text-center">Adult</td>
-                            <td class="cell-aksi"><button class="btn btn-primary btn-sm" type="button"><i class="fas fa-edit"></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
+<div role="dialog" tabindex="-1" class="modal fade" id="modal-edit-booking">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit data booking</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="" method="">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col col-2 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Title</p>
+                                <select class="form-select ps-2" id="select-title">
+                                    <option value="mr">Mr</option>
+                                    <option value="mrs">Mrs</option>
+                                    <option value="ms">Ms</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-10 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Guest Name</p>
+                                <input type="text" class="form-control ps-2" id="input-name" />
+                            </div>
+                        </div>
+                        <div class="col col-4 mb-4">
+                            <div class="position-relative">
+                                <p class="small">NIK</p>
+                                <input type="number" class="form-control ps-2" id="input-nik" />
+                            </div>
+                        </div>
+                        <div class="col col-4 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Nomor HP</p>
+                                <div class="d-flex align-items-center">
+                                    <strong>+62</strong>
+                                    <input type="number" class="form-control ms-2" id="input-nomor-hp" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-4 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Tipe</p>
+                                <div class="d-flex justify-content-evenly py-1">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="formCheck-adult" name="tipe" />
+                                        <label class="form-check-label" for="formCheck-adult">Adult</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="formCheck-child" name="tipe" />
+                                        <label class="form-check-label" for="formCheck-child">Child</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-6 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Nomor Passport</p>
+                                <input type="text" class="form-control ps-2" id="input-nomor-passport" />
+                            </div>
+                        </div>
+                        <div class="col col-6 mb-4">
+                            <div class="position-relative">
+                                <p class="small">Date of birth</p>
+                                <input class="form-control ps-2" type="date" id="input-date" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
         </div>
     </div>
-</div> --}}
+</div>
+
+<script src="{{asset('js/backoffice/detailBookingTour.js')}}"></script>s
+@endsection
+
