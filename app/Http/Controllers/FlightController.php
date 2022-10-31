@@ -9,6 +9,7 @@ use App\Models\Passport;
 use App\Models\ProductsConfig;
 use App\Models\UserFlightBookPassRecord;
 use App\Models\UserSingleFlightBook;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -26,11 +27,11 @@ class FlightController extends Controller
         $data = json_decode($request->cookie('dataFlight1'));
         $flight = DuffelAPI::getOffer($data->flight1)->data;
         if(!$data)return redirect()->back();
-        // dd($flight);
         return view('pages.user.datadiri-flight',[
             'count' => $data->pass_count,
             'flight' => $flight,
-            'cabin' => $data->cabin
+            'cabin' => $data->cabin,
+            'date' => $data->depart_date
         ]);
     }
 

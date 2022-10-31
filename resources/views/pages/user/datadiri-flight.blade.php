@@ -114,9 +114,10 @@
                             $count = $key;
                         ?>
                         @endforeach
-                        <p class="mb-3">Departure<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-dot">
+                        {{-- <p class="mb-3">Departure<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-dot">
                                 <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                            </svg><span id="departure-date">Date</span></p>
+                            </svg> --}}
+                            <span id="departure-date">{{$date}}</span></p>
                         <div class="d-flex mb-3"><img class="me-3" src="{{$flight->owner->logo_symbol_url}}" style="max-height: 48px;" />
                             <div class="d-flex flex-column">
                                 <p>{{$flight->owner->name}}</p>
