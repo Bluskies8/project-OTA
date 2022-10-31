@@ -10,4 +10,9 @@ class UserAdmin extends Model
 {
     use HasApiTokens,HasFactory;
     protected $guarded = ['id'];
+
+    public function role()
+    {
+        return $this->hasOne(AdminRole::class, "type","admin_role_id");
+    }
 }

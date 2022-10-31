@@ -21,6 +21,7 @@ class FlightController extends Controller
         $theId = count($lastT) + 1;
         return $pConfig->invoice_prefix.date("Ymd").'.BC.'.str_pad($theId, 4, "0", STR_PAD_LEFT);
     }
+
     public function datadiri(Request $request) {
         $data = json_decode($request->cookie('dataFlight1'));
         // dd($data);
@@ -30,8 +31,10 @@ class FlightController extends Controller
             'count' => $data->pass_count
         ]);
     }
+
     public function searchOrder(Request $req)
     {
+        return view('pages.backoffice.report_tour_booking');
         $data = json_decode($req->cookie('dataFlight1'));
         $passid = explode(',', $data->passid1);
         $res = DuffelAPI::SearchOrder();
@@ -117,7 +120,7 @@ class FlightController extends Controller
             ];
             // return $data;
             $_response = DuffelAPI::DOBook($data);
-            return $_response;
+            // return $_response;
             $response =  $_response->data;
             $total = $response->total_amount * 15000;
             $newBook["status"] = true;
@@ -167,7 +170,7 @@ class FlightController extends Controller
             // $nama = "Lila Flight Book GA-(bs->booking code)-(bs->invoice number) invoice db kita"
             $datajokul['order']['line_items'] = [
                 "name" => "Lila Flight Book ".$invoiceId,
-                // "price" => $total,
+                "price" => $total,
                 "quantity" => 1
             ];
             // $due_time = date_diff(now(), new DateTime("2022-10-29 06:00:00"));

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\adminAccountController;
+use App\Http\Controllers\adminRoleController;
 use App\Http\Controllers\BackofficeController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\HomeController;
@@ -12,6 +14,8 @@ use App\Http\Controllers\ProductTourItinenaryController;
 use App\Http\Controllers\ProductTourPassGroupController;
 use App\Http\Controllers\ProductTourPhotoController;
 use App\Http\Controllers\ProductTourThermcondController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +40,7 @@ Route::prefix('Flight')->group(function () {
     Route::post('/cp-submit',[FlightController::class,'datasubmit']);
 });
 Route::prefix('tour')->group(function () {
+    Route::post('/',[ProductTourController::class,'ShowAllTour']);
     Route::get('/datadiri',[HomeController::class,'datadiriTour']);
     Route::post('/cp-submit',[HomeController::class,'datasubmit']);
     Route::get('/quote',[productTourController::class,'quote']);
@@ -46,12 +51,54 @@ Route::prefix('tour')->group(function () {
         Route::get('/getall/{id}', [ProductTourController::class, 'showAllPhoto']);
         Route::get('/getimg/{id}', [ProductTourController::class, 'showPhoto']);
     });
+    Route::get('checkout',[BackofficeController::class,'']);
     // Route::post('/search', [ProductTourController::class, 'search']);
     // Route::post('/all', [ProductTourController::class, 'showPaginate']);
     // Route::post('/showcountry', [ProductTourController::class, 'showbyCountry']);
     // Route::post('availDate',[ProductTourController::class, 'availDate']);
 });
 
+
+Route::prefix('admin')->group(function () {
+    Route::prefix('role')->group(function () {
+        Route::get('/',[BackofficeController::class,'adminRole']);
+        Route::post('/create',[adminRoleController::class,'create']);
+        Route::post('/update',[adminRoleController::class,'update']);
+        Route::delete('/{id}',[adminRoleController::class,'delete']);
+    });
+    Route::prefix('account')->group(function () {
+        Route::get('/',[BackofficeController::class,'adminAccount']);
+        Route::post('/create',[adminAccountController::class,'create']);
+        Route::post('/update',[adminAccountController::class,'update']);
+        Route::delete('/{id}',[adminAccountController::class,'delete']);
+    });
+});
+Route::prefix('backoffice')->group(function () {
+    Route::prefix('supplier')->group(function () {
+        Route::get('/',[BackofficeController::class,'Supplier']);
+        Route::post('/create',[SupplierController::class,'create']);
+        Route::post('/update',[SupplierController::class,'update']);
+        Route::delete('/{id}',[SupplierController::class,'delete']);
+    });
+    Route::prefix('tag')->group(function () {
+        Route::get('/',[BackofficeController::class,'Tag']);
+        Route::post('/create',[TagController::class,'create']);
+        Route::post('/update',[TagController::class,'update']);
+        Route::delete('/{id}',[TagController::class,'delete']);
+    });
+    Route::prefix('Flight')->group(function () {
+        Route::get('/',[BackofficeController::class,'FlightTrans']);
+        Route::post('/create',[TagController::class,'create']);
+        Route::post('/update',[TagController::class,'update']);
+        Route::delete('/{id}',[TagController::class,'delete']);
+    });
+    Route::prefix('tour')->group(function () {
+        Route::get('/',[BackofficeController::class,'Tour']);
+        Route::get('/getDate/{id}',[BackofficeController::class,'TourDate']);
+        Route::get('/getPass/{tour}/{date}',[BackofficeController::class,'passanger']);
+        Route::get('/generatePayment/{id}',[BackofficeController::class,'generatePaymentLink']);
+    });
+});
 Route::prefix('cms')->group(function () {
     Route::prefix('bulk')->group(function () {
         Route::post('tour',[ProductTourController::class,'bulk']);

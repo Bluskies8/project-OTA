@@ -31,6 +31,9 @@ $(document).ready(function() {
         }, 1000);
     });
 
+    $('.btn-pilih').on('click', function(){
+        window.location.href = "/tour/"+$(this).closest('.card').attr('id');
+    });
     $('.add-room').on('click', function(){
         roomcount++;
         let temp = $('#room-1').clone().prop('id', 'room-' + roomcount).appendTo(".room");
@@ -115,19 +118,20 @@ $(document).ready(function() {
         var cp_email = $('input[name="cp-email"]').val();
         var cp_nohp = $('input[name="cp-nohp"]').val();
         var cp_birth = $('input[name="cp-birth"]').val();
+        var cp_title = $('#cp-title').val();
         var room = [];
         for (let index = 0; index < $('#dataroom').children('div').length; index++) {
             var bedtype = $('input[name="bed_type-'+(index+1)+'"]:checked').val();
-            console.log(bedtype);
             var passanger = [];
             for (let j = 0; j < $('#container-form-dewasa'+(index+1)).children('div').children().length; j++) {
                 let temp = $('#container-form-dewasa'+(index+1)).find('.col-4').eq(j).find('input');
+                let temp2 = $('#container-form-dewasa'+(index+1)).find('.adult-title').eq(j).val();
                 let adult_nama = temp.eq(0);
                 let adult_email = temp.eq(1);
                 let adult_nohp = temp.eq(2);
                 let adult_birth = temp.eq(3);
                 passanger.push({
-                    // 'title' :
+                    'title' :$('#container-form-dewasa'+(index+1)).find('.adult-title').eq(j).val(),
                     'nama':adult_nama.val(),
                     'email':adult_email.val(),
                     'birth':adult_birth.val(),
@@ -139,11 +143,13 @@ $(document).ready(function() {
             // console.log($('#container-form-anak'+(index+1)).children('div').children())
             for (let j = 0; j < $('#container-form-anak'+(index+1)).children('div').children().length; j++) {
                 let temp = $('#container-form-anak'+(index+1)).find('.col-4').eq(j).find('input');
+                let temp2 = $('#container-form-anak'+(index+1)).find('.adult-title').eq(j).val();
                 let child_nama = temp.eq(0);
                 let child_email = temp.eq(1);
                 let child_nohp = temp.eq(2);
                 let child_birth = temp.eq(3);
                 passanger.push({
+                    'title' :$('#container-form-anak'+(index+1)).find('.adult-title').eq(j).val(),
                     'nama':child_nama.val(),
                     'email':child_email.val(),
                     'birth':child_birth.val(),
@@ -163,6 +169,7 @@ $(document).ready(function() {
         }
         var data = {
             'cp':{
+                'title':cp_title,
                 'nama':cp_nama,
                 'email':cp_email,
                 'birth':cp_birth,
@@ -184,7 +191,7 @@ $(document).ready(function() {
             },
             success: function(response){
                 // console.log(response)
-                $('#modal-notice').modal('show');
+                // $('#modal-notice').modal('show');
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

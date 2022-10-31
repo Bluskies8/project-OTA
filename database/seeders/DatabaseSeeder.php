@@ -49,7 +49,9 @@ class DatabaseSeeder extends Seeder
             DisplayBannerSeeder::class,
             CarouselSeeder::class,
             PromoSeeder::class,
-            JokulPaymentConfigSeeder::class
+            JokulPaymentConfigSeeder::class,
+            AdminRoleSeeder::class,
+            UserAdminSeeder::class,
         ]);
     }
 }

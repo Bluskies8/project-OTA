@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductTourPhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductTourPhotoController extends Controller
 {
@@ -127,7 +128,17 @@ class ProductTourPhotoController extends Controller
      */
     public function destroy($id)
     {
-        $data = ProductTourPhoto::where('id',$id)->first()->delete();
+        $data = ProductTourPhoto::where('id',$id)->first();
+        if(Storage::exists('public/'.$data->img_url)){
+            Storage::delete('public/'.$data->img_url);
+            $data->delete();
+            /*
+                Delete Multiple File like this way
+                Storage::delete(['upload/test.png', 'upload/test2.png']);
+            */
+        }else{
+            dd('File does not exists.');
+        }
         return response()->json([
             'message' => 'Success'
         ],200);

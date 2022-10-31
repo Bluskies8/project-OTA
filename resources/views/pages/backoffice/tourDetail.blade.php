@@ -381,17 +381,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="photo-clone" style="display: none;">
+                            {{-- <tr id="photo-clone" style="display: none;">
                                 <td class="text-center">0.<div></div>
                                 </td>
                                 <td><div class="preview-img form-control p-0" ><img  id = "preview-img" src="" style="object-fit: contain; max-width: 300px;" /></div></td>
                                 <td style="padding-top: 6px;padding-bottom: 6px;"><input name = "photos" value = "" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <form action="/cms/tour/Photo/create" method="post">
+                                <form id = "myForm" action="/cms/tour/Photo/create" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;">
-                                        <input type="file" name="img" class="form-control"  onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
+                                        <input type="file" name="img" class="form-control" onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
                                         <input type="hidden" name="id" value = "">
-                                        {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
                                     </td>
                                     <td style="width: 100px;padding-top: 4px;padding-bottom: 4px;">
                                         <button class="btn btn-sm text-danger" type="button" id = "submitBtn"><i class="fas fa-save"></i></button>
@@ -400,9 +399,9 @@
                                         </button>
                                     </td>
                                 </form>
-                            </tr>
+                            </tr> --}}
                             @foreach ($data->photos as $item)
-                            <tr>
+                            <tr id = "{{$item->id}}">
                                 <td class="text-center">1.<div></div>
                                 </td>
                                 {{-- <td><img class="w-100 h-100" style="object-fit: contain;" src = {{$item->img_url}}/></td> --}}
@@ -433,5 +432,33 @@
     </section>
 </div>
 
+<div role="dialog" tabindex="-1" id='modal-photo' class="modal fade">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Notice</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/cms/tour/Photo/update" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-6 d-flex flex-column justify-content-end mb-4">
+                        <p class="tiny">Slug</p><input class="form-control" type="text" placeholder="xyz.co.id/tours/" name = "slug" value = "{{$data->slug}}">
+                    </div>
+                    {{-- <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"> --}}
+                        <input type="file" name="img" class="form-control" onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
+                        <input type="hidden" name="id" value = "{{$item->id}}">
+                        {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
+                    {{-- </td> --}}
+                    {{-- <td style="width: 100px;padding-top: 4px;padding-bottom: 4px;"> --}}
+                        <button class="btn btn-sm text-danger" type="submit "><i class="fas fa-save"></i></button>
+                        <button class="btn btn-sm text-danger delete-photo" type="button">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    {{-- </td> --}}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{asset('js/backoffice/tour.js')}}"></script>
 @endsection

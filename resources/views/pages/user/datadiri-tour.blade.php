@@ -15,7 +15,14 @@
                         <div class="col-4">
                             <div class="mb-2">
                                 <p>Nama Lengkap</p>
-                                <input type="text" name = "cp-nama" class="form-control" />
+                                <div class="form-control d-flex" >
+                                    <select style="outline: none; border: none; " id = "cp-title"">
+                                        <option value="mr">Mr</option>
+                                        <option value="mrs">Mrs</option>
+                                        <option value="ms">Ms</option>
+                                    </select>
+                                    <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" />
+                                </div>
                             </div>
                             <div class="mb-2">
                                 <p>E-mail</p>
@@ -42,7 +49,7 @@
                             <h2> Room {{$loop->index+1}}</h2>
                             <div class="d-flex">
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" id="formCheck-double-{{($loop->index+1)}}" name="bed_type-{{($loop->index+1)}}" value="double">
+                                    <input class="form-check-input" type="radio" id="formCheck-double-{{($loop->index+1)}}" name="bed_type-{{($loop->index+1)}}" value="double" checked>
                                     <label class="form-check-label" for="formCheck-double-{{($loop->index+1)}}">Double Bed</label>
                                 </div>
                                 <div class="form-check me-3">
@@ -61,7 +68,14 @@
                                 <div class="col-4">
                                     <div class="mb-2">
                                         <p>Nama Lengkap</p>
-                                        <input type="text" id = "adult-nama{{($loop->index+1)}}" name = "adult-nama{{($loop->index+1)}}" class="form-control" />
+                                        <div class="form-control d-flex" >
+                                            <select style="outline: none; border: none;" class = "adult-title">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="ms">Ms</option>
+                                            </select>
+                                            <input class="w-100" style="outline: none; border: none;" type="text" id = "adult-nama{{($loop->index+1)}}" name = "adult-nama{{($loop->index+1)}}" />
+                                        </div>
                                     </div>
                                     <div class="mb-2">
                                         <p>E-mail</p>
@@ -90,7 +104,14 @@
                                 <div class="col-4">
                                     <div class="mb-2">
                                         <p>Nama Lengkap</p>
-                                        <input type="text" id = "child-nama{{($loop->index+1)}}" name = "child-nama{{($loop->index+1)}}" class="form-control" />
+                                        <div class="form-control d-flex" >
+                                            <select style="outline: none; border: none;" class = "adult-title">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="ms">Ms</option>
+                                            </select>
+                                            <input class="w-100" style="outline: none; border: none; type=" type="text" id = "child-nama{{($loop->index+1)}}" name = "child-nama{{($loop->index+1)}}" />
+                                        </div>
                                     </div>
                                     <div class="mb-2">
                                         <p>E-mail</p>

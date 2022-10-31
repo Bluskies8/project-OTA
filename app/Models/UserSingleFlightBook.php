@@ -16,7 +16,10 @@ class UserSingleFlightBook extends Model
     {
         return $this->hasOne(Airline::class, "id", "airline_id");
     }
-
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, "id", "order_by");
+    }
     // public function Test()
     // {
     //     $this->invoice = 'LISFGH2021101900001';

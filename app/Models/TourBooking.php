@@ -11,4 +11,17 @@ class TourBooking extends Model
     use HasFactory,SoftDeletes;
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, "id", "user_id");
+    }
+    public function tour()
+    {
+        return $this->hasOne(ProductTour::class, "id", "product_tour_id");
+    }
+    public function tourdate()
+    {
+        return $this->hasOne(ProductTourDate::class, "id", "product_tour_date_id");
+    }
 }

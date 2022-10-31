@@ -168,29 +168,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function DoBook(Request $request)
-    {
-        // foreach ($request->pass as $key ) {
-            $pass = [
-                "type"=> "adult",
-                "title"=> "mrs",
-                "phone_number"=> "+442080160509",
-                "infant_passenger_id"=> "pas_00009hj8USM8Ncg32aTGHL",
-                "id"=> "pas_00009hj8USM7Ncg31cBCLL",
-                "given_name"=> "Amelia",
-                "gender"=> "f",
-                "family_name"=> "Earhart",
-                "email"=> "amelia@duffel.com",
-                "born_on"=> "1987-07-24"
-            ];
-        // }
-        $data = [
-            'amount' => $request->amount,
-        ];
-        $res = DuffelAPI::DOBook($data);
-        dd($res);
-    }
-
     public function showheader($id)
     {
         $data = ProductTour::where('id',$id)->first();
@@ -286,8 +263,7 @@ class HomeController extends Controller
                     try {
                         $customer = Customer::create([
                             'guest_name' => $key2['nama'],
-                            // 'title' => $key2['title'],
-                            'title' => "mrs",
+                            'title' => $key2['title'],
                             'passport_id' => $passport->id,
                             'phone_number' => $key2['nohp'],
                             'paxtype' => $key2['paxType'],

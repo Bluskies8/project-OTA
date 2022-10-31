@@ -8,6 +8,38 @@ $(document).ready(function() {
 
     // Tour
 
+    $('.bulk-tour').on('click', function() {
+        var id =[];
+        $('input:checked').each(function() {
+            id.push($(this).closest('tr').attr('id'));
+        });
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "post",
+            url: "/cms/bulk/tour",
+            data:{
+                "opt":$('#bulk-action').val(),
+                "id":id
+            },
+            // status: '200', function(res){
+            // },
+            beforeSend: function(){
+                // console.log(this.data);
+            },
+            success: function(res) {
+                console.log(res);
+                if(res == "Updated"){
+                    window.location.reload();
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    });
     $('#add-tour').on('click', function() {
         $(this).parent().next().toggle('fast');
     });
@@ -16,6 +48,10 @@ $(document).ready(function() {
         $('#table-tours').DataTable({
             order: [[2, 'asc']],
         });
+    }
+    
+    if ($('#table-Flight').length) {
+        $('#table-Flight').DataTable();
     }
 
     $('#section-tour #action-detail').on('click', function() {
@@ -372,22 +408,23 @@ $(document).ready(function() {
     });
 
     $('#add-photo').on('click', function() {
-        let temp = $('#photo-clone').clone(true);
-        let count = $('#table-photo tbody').children().length;
-        temp.children().eq(0).html(count + '.');
-        temp.appendTo($('#table-photo tbody'));
-        temp.show();
+        // let temp = $('#photo-clone').clone(true);
+        // let count = $('#table-photo tbody').children().length;
+        // temp.children().eq(0).html(count + '.');
+        // temp.children().eq(3).prop('id','myForm'+count);
+        // temp.appendTo($('#table-photo tbody'));
+        // temp.show();
+
+        $('#modal-photo').modal('show');
     });
     $("#submitBtn").click(function(){
-        var form = $(this).parent().parent().children().closest("form");
-        console.log(form);
-        // $("#myForm").submit();
+        var idform = $(this).parent().parent().children().closest("form").attr('id');
+        $(idform).submit();
     });
     $('.delete-photo').on('click', function() {
         var thiss = $(this);
-        var td = $(this).parent().parent().children()[1];
-        var id = $(td).children().attr('id');
-        console.log(id)
+        var id = $(this).parent().parent().attr('id');
+        // console.log(id)
         if(id == ''){
             $(this).parent().parent().detach();
         }else{
@@ -421,4 +458,5 @@ $(document).ready(function() {
             console.log($(this).val());
         });
     }
+
 });

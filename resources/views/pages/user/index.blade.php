@@ -109,7 +109,11 @@
                     <div class="d-flex align-items-center">
                         <h3 class="text-uppercase color-main me-3">travels beyond</h3>
                     </div>
-                    <form class="mt-3 text-end"><input class="form-control mb-4" type="text" placeholder="City, destination or tour name"><button class="btn bgcolor-main" type="button">Explore</button></form>
+                    <form class="mt-3 text-end" method="post" action="/tour">
+                        @csrf
+                        <input class="form-control mb-4" name = "keyword" type="text" placeholder="City, destination or tour name">
+                        <button class="btn bgcolor-main" type="submit">Explore</button>
+                    </form>
                 </div>
             </div>
         </div>

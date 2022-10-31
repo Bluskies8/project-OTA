@@ -188,10 +188,10 @@
     </div>
     <div class="mb-4">
         <h5>Bulk Action</h5>
-        <div class="d-flex"><select class="form-control me-3" style="width: 200px;">
-                <option value selected hidden>Select Action</option>
-                <option value="publish">Publish</option>
-                <option value="unpublish">Unpublish</option>
+        <div class="d-flex"><select class="form-control me-3" style="width: 200px;" id = "bulk-action">
+                {{-- <option value selected hidden>Select Action</option> --}}
+                <option value="1" selected>Publish</option>
+                <option value="0">Unpublish</option>
             </select>
             <button class="btn btn-primary bulk-tour" type="button">Apply</button>
         </div>
@@ -218,7 +218,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
-                        <tr id = "{{$item->slug}}">
+                        <tr id = "{{$item->id}}">
                             <td class="text-center"><input type="checkbox" /></td>
                             @if ($item->enabled == 1)
                                 <td class="text-center"><i class="fa fa-check"></i></td>

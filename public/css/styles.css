@@ -184,11 +184,18 @@ header i {
     border-bottom: 1px solid lightgray;
 }
 
-#back-office form input[type="text"], #back-office form input[type="date"], #back-office form select, #back-office form textarea {
+#back-office form input[type="text"], #back-office form input[type="number"], #back-office form input[type="email"], #back-office form input[type="date"], #back-office form select, #back-office form textarea {
     border: none;
     border-bottom: 1px solid lightgray;
     border-radius: 0;
     padding: 6px 0;
+}
+
+.toNormal {
+    border: inherit!important;
+    border-bottom: inherit!important;
+    border-radius: inherit!important;
+    padding: inherit!important;
 }
 
 .tiny {

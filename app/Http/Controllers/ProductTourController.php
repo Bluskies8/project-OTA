@@ -18,11 +18,38 @@ class ProductTourController extends Controller
         $opt = $request->opt;
         foreach ($request->id as $key ) {
             $data = ProductTour::where('id',$key)->first();
-            if($opt == 'enabled')$data->enabled = 1;
-            if($opt == 'disabled')$data->enabled = 0;
+            $data->enabled = $opt;
             $data->save();
         }
-        return response()->json(['message' => ' Updated']);
+        return response()->json('Updated');
+    }
+
+    public function ShowAllTour(Request $request)
+    {
+        $data = ProductTour::getAlive()->where('keyword','like','%'.strtolower($request->keyword).'%')->where('enabled',1)->get();
+        // ->orderBy('start_price',$pricesort)
+        // ->orderBy('days_count',$dayssort);
+        // if($req->has('duration')) $data = $data->where('days_count','>=',$explodedduration[0])->where('days_count','<=',$explodedduration[1]);
+        // if($req->has('include_hotel')) $data = $data->where('include_hotel',$req->include_hotel);
+        // if($req->has('include_flight')) $data = $data->where('include_flight',$req->include_flight);
+        // if($req->has('isDomestic')) $data = $data->where('id_domestic',$req->isDomestic);
+        // foreach ($price as $key ) {
+        //     $explodedprice = explode(',', $key);
+        //     if(count($explodedprice) ==1){
+        //         if($req->has('price')) $data = $data->orWhere('start_price','>=',$key);
+        //     }else{
+        //         if($req->has('price')) $data = $data->orWhere('start_price','>=',$explodedprice[0])->where('start_price','<=',$explodedprice[1]);
+        //     }
+        // }
+        // $data = $data->paginate($paginate);
+        foreach ($data as $key) {
+            $key->header_img_url = env('APP_URL').'/tour/imgh/'.$key->id;
+            $key->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$key->id;
+        }
+        // dd($data);
+        return view('pages.user.listTour',[
+            'data' => $data,
+        ]);
     }
 
     public function show(ProductTour $productTour)

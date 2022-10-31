@@ -5,11 +5,17 @@
     <ul class="list-group" style="border-radius: 0; height: calc(100vh - 64px); overflow-y: auto;">
         <li class="list-group-item p-0" style="border-top: none;">
             <h4 class="color-main py-3 px-3 menu-header">Super Admin</h4>
-            <div class="py-2 px-3 menu-item active"><i class="fas fa-user-friends me-3"></i>
+            <div class="py-2 px-3 menu-item active">
+                <a href="/admin/account" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                <i class="fas fa-user-friends me-3"></i>
                 <p>Admin Accounts</p>
+            </a>
             </div>
-            <div class="py-2 px-3 menu-item"><i class="fas fa-user-cog me-3"></i>
-                <p>Admin Role</p>
+            <div class="py-2 px-3 menu-item">
+                <a href="/admin/role" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-user-cog me-3"></i>
+                    <p>Admin Role</p>
+                </a>
             </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-cog me-3"></i>
@@ -30,11 +36,17 @@
                     <p>Transaction</p>
                 </div><i class="fas fa-angle-down"></i>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-plane me-3"></i>
-                <p>Flight Users</p>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/Flight" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-plane me-3"></i>
+                    <p>Flight Users</p>
+                </a>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-flag me-3"></i>
-                <p>Tours</p>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/tour" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-flag me-3"></i>
+                    <p>Tours</p>
+                </a>
             </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-users me-3"></i>
@@ -53,8 +65,20 @@
                     <p>Master</p>
                 </div><i class="fas fa-angle-down"></i>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-plane-departure me-3"></i>
+            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-book me-3"></i>
                 <p>Airline</p>
+            </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/supplier" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-flag me-3"></i>
+                    <p>Supplier</p>
+                </a>
+            </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/tag" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-tag me-3"></i>
+                    <p>Tag</p>
+                </a>
             </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-file-alt me-3"></i>
@@ -83,8 +107,11 @@
                     <p>Product Management</p>
                 </div><i class="fas fa-angle-down"></i>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-flag me-3"></i>
-                <p><a href="/cms/tour">Tour</a></p>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/cms/tour" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-flag me-3"></i>
+                    <p>Tour</p>
+                </a>
             </div>
         </li>
     </ul>
