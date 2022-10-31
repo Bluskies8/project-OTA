@@ -17,17 +17,22 @@
                 </tr>
             </thead>
             <tbody>
+                @dump($data)
+                @foreach ($data as $item)
                 <tr class="row-kamar">
-                    <td class="fw-bolder bg-main" colspan="5">Kamar 1</td>
+                    <td class="fw-bolder bg-main" colspan="5">Kamar {{$loop->index+1}}</td>
                 </tr>
-                <tr class="row-data">
-                    <td class="text-end">Mr</td>
-                    <td>Kevin</td>
-                    <td class="text-center">1234567890</td>
-                    <td class="text-center">08123456789</td>
-                    <td class="text-center">Adult</td>
-                </tr>
-                <tr class="row-data">
+                    @foreach ($item as $final)
+                        <tr class="row-data">
+                            <td class="text-end">{{$final['title']}}</td>
+                            <td>{{$final['name']}}</td>
+                            <td class="text-center">{{$final['nik']}}</td>
+                            <td class="text-center">{{$final['phone']}}</td>
+                            <td class="text-center">Adult</td>
+                        </tr>
+                    @endforeach
+                @endforeach
+                {{-- <tr class="row-data">
                     <td class="text-end">Mrs</td>
                     <td>Larisa</td>
                     <td class="text-center">1234567891</td>
@@ -50,7 +55,7 @@
                     <td class="text-center">1234567890</td>
                     <td class="text-center">08123456789</td>
                     <td class="text-center">Adult</td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>

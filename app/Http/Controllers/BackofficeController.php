@@ -171,6 +171,37 @@ class BackofficeController extends Controller
         }
     }
 
+    public function detailBooking($id)
+    {
+        $data = TourBooking::with('detail.customer')->where('BookingCode',$id)->first();
+        $room = [];
+        $temp = TourPassanger::where('tour_bookings_id',$data->id)->distinct()->get(['room']);
+        foreach ($temp as $rooms) {
+            $t = TourPassanger::with('customer')->where('tour_bookings_id',$data->id)->where('room',$rooms->room)->get();
+            // dd($t);
+            $troom = [];
+            foreach ($t as $key) {
+                if($key->customer->paxtype == "CHD"){
+                    $type = "Child";
+                }else{
+                    $type = "Adult";
+                }
+                $troom[] = [
+                    'name' =>$key->customer->guest_name,
+                    'title' => $key->customer->title,
+                    'phone' => $key->customer->phone_number,
+                    'type' => $type,
+                    'nik' => $key->customer->nik
+                ];
+            }
+            $room[] = $troom;
+        }
+        // dd($room);
+        return view('pages.backoffice.detailbookingtour',[
+            'data' => $room
+        ]);
+    }
+
     public function FlightTrans()
     {
         //bookingStatus : "hold" => 1,"Expired" => 2, "Cancelled" => 3, "Confirmed" => 4

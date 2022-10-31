@@ -12,4 +12,8 @@ class TourPassanger extends Model
 
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, "id", "customers_id");
+    }
 }

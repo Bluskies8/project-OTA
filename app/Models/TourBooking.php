@@ -12,6 +12,11 @@ class TourBooking extends Model
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
 
+
+    public function detail()
+    {
+        return $this->hasMany(TourPassanger::class, "tour_bookings_id", "id");
+    }
     public function customer()
     {
         return $this->hasOne(Customer::class, "id", "user_id");

@@ -97,6 +97,7 @@ Route::prefix('backoffice')->group(function () {
         Route::get('/getDate/{id}',[BackofficeController::class,'TourDate']);
         Route::get('/getPass/{tour}/{date}',[BackofficeController::class,'passanger']);
         Route::get('/generatePayment/{id}',[BackofficeController::class,'generatePaymentLink']);
+        Route::get('/detailBooking/{id}',[BackofficeController::class,'detailBooking']);
     });
 });
 Route::prefix('cms')->group(function () {
