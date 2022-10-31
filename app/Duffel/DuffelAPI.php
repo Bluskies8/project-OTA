@@ -161,20 +161,21 @@ class DuffelAPI
                         'amount' => $data['payment']['amount'],
                     ]
                 ],
-                "passengers"=>[
-                    // $data['passanger']
-                    [
-                        "type"=> $data['passanger'][0]['type'],
-                        "title"=> $data['passanger'][0]['title'],
-                        "phone_number"=> $data['passanger'][0]['phone_number'],
-                        "id"=> $data['passanger'][0]['id'],
-                        "given_name"=> $data['passanger'][0]['given_name'],
-                        "gender"=> $data['passanger'][0]['gender'],
-                        "family_name"=> $data['passanger'][0]['family_name'],
-                        "email"=> $data['passanger'][0]['email'],
-                        "born_on"=> $data['passanger'][0]['born_on']
-                    ]
-                ]
+                "passengers"=>
+                // [
+                    $data['passanger']
+                    // [
+                    //     "type"=> $data['passanger'][0]['type'],
+                    //     "title"=> $data['passanger'][0]['title'],
+                    //     "phone_number"=> $data['passanger'][0]['phone_number'],
+                    //     "id"=> $data['passanger'][0]['id'],
+                    //     "given_name"=> $data['passanger'][0]['given_name'],
+                    //     "gender"=> $data['passanger'][0]['gender'],
+                    //     "family_name"=> $data['passanger'][0]['family_name'],
+                    //     "email"=> $data['passanger'][0]['email'],
+                    //     "born_on"=> $data['passanger'][0]['born_on']
+                    // ]
+                // ]
             ]
         ]));
         $RESPONSE = json_decode(curl_exec($curl));

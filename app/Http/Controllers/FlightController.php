@@ -24,11 +24,13 @@ class FlightController extends Controller
 
     public function datadiri(Request $request) {
         $data = json_decode($request->cookie('dataFlight1'));
-        // dd($data);
+        $flight = DuffelAPI::getOffer($data->flight1)->data;
         if(!$data)return redirect()->back();
-        // dd($data);
+        // dd($flight);
         return view('pages.user.datadiri-flight',[
-            'count' => $data->pass_count
+            'count' => $data->pass_count,
+            'flight' => $flight,
+            'cabin' => $data->cabin
         ]);
     }
 
@@ -50,7 +52,7 @@ class FlightController extends Controller
     public function datasubmit(Request $req)
     {
         $data = json_decode($req->cookie('dataFlight1'));
-        // return $data;
+
         $ONEWAY = $data->type;
         $reqDepartingAirline = $data->flight1;
         $depart = $data->departure;
@@ -93,7 +95,6 @@ class FlightController extends Controller
             $passanger[]= [
                 'type' => 'adult',
                 "title"=> $value['title'],
-                // "phone_number"=> "+62".$value['nohp'],
                 "phone_number"=> "+442080160509",
                 "id"=> $passid[$key],
                 "given_name"=> $firstName,
@@ -103,7 +104,6 @@ class FlightController extends Controller
                 "born_on"=> $value['birth']
             ];
         }
-        return $passanger;
         if($ONEWAY == 2){
             $route = $depart.'-'.$return .'-'.$depart;
         }else{
@@ -126,7 +126,7 @@ class FlightController extends Controller
             $newBook["status"] = true;
             $newBook["transactionId"] = $response->id;
             $newBook["booking_code"] = $response->booking_reference;
-            $newBook["nta"] = $response->base_amount;
+            $newBook["nta"] = $response->base_amount * 15000;
             $newBook["total"] = $total;
             // $newBook["total"] = "1000000";
             // return $newBook;
@@ -141,6 +141,7 @@ class FlightController extends Controller
                     'guest_name' => $req->data['cp']['nama'],
                     'title' => $req->data['cp']['title'],
                     'passport_id' => $passport->id,
+                    'email' => $req->data['cp']['email'],
                     'phone_number' => '+62'.$req->data['cp']['nohp'],
                     'paxtype' => 'ADT',
                 ]);
@@ -150,6 +151,7 @@ class FlightController extends Controller
             }
         }
         $customer = Customer::where('guest_name',$req->data['cp']['nama'])->first();
+        $newBook['order_by'] = $customer->id;
         if ($newBook['status']) {
             $passRecords = [];
             foreach ($req->data['passanger'] as $value) {
@@ -190,7 +192,7 @@ class FlightController extends Controller
             ];
             $datajokul['callback_url'] = "/flight/checkout/$invoiceId";
             $JokulResponse = JokulAPI::DoJokulPayment($datajokul);
-            // return $JokulResponse;
+            return $JokulResponse;
             if($JokulResponse->message[0] == "SUCCESS"){
                 $newBook['payment_url'] = $JokulResponse->response->payment->url;
             }
@@ -202,15 +204,15 @@ class FlightController extends Controller
                 $rec['type'] = 1;
                 UserFlightBookPassRecord::create($rec);
             }
-            $response['newInvoice'] = $latestBook->invoice;
-            $response['payment_url'] = $latestBook->payment_url;
-            $response['book_details'] = $_response;
-            return response()->json($response, 200);
+            // $response['newInvoice'] = $latestBook->invoice;
+            // $response['payment_url'] = $latestBook->payment_url;
+            // $response['book_details'] = $_response;
+            return $latestBook->payment_url;
         }
 
-        $response['book_details'] = $_response;
-        $response['message'] = $_response->errorsB['message'];
-        return response()->json($response, 400);
+        // $response['book_details'] = $_response;
+        // $response['message'] = $_response->errorsB['message'];
+        // return response()->json($response, 400);
 
         // $jokulres = Jokul::doPayment($doku);
         // $response['book_details'] = $_response;

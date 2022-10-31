@@ -19,6 +19,8 @@ class HomeController extends Controller
 {
     public function setCookie(Request $request)
     {
+        $data = $request->cookie($request->name);
+        if($data)Cookie::forget($request->name);
         Cookie::queue($request->name, json_encode($request->data), '60');
         // return redirect('/Flight/searchFlight2')->withCookie(cookie($request->name, json_encode($request->data), '20'));
         return "success";
@@ -265,6 +267,7 @@ class HomeController extends Controller
                             'guest_name' => $key2['nama'],
                             'title' => $key2['title'],
                             'passport_id' => $passport->id,
+                            'email' => $key2['email'],
                             'phone_number' => $key2['nohp'],
                             'paxtype' => $key2['paxType'],
                         ]);

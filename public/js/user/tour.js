@@ -191,7 +191,7 @@ $(document).ready(function() {
             },
             success: function(response){
                 // console.log(response)
-                // $('#modal-notice').modal('show');
+                $('#modal-notice').modal('show');
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
@@ -252,6 +252,8 @@ $(document).ready(function() {
             },
             success: function(response){
                 console.log(response)
+                // window.location.href = "/";
+                // window.open(response);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

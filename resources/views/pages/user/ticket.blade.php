@@ -102,7 +102,7 @@
                                     </div>
                                     <div class="col-4 text-end">
                                         <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
-                                        <button id = "{{$item->id}}" class="btn btn-sm btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                        <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
@@ -217,14 +217,12 @@
                                     <div class="col-4 text-end">
                                             <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
                                             <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
-
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
                                 <hr class="my-0" />
                                 <div class="p-3 detail-penerbangan" style="display: none;">
                                     @foreach ($item->slices[0]->segments as $item2)
-                                    {{-- @dump($item2) --}}
                                     <div class="row">
                                         <div class="col-2">
                                             <div class="d-flex h-100">

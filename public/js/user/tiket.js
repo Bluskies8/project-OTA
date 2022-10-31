@@ -135,7 +135,48 @@ $(document).ready(function() {
     });
 
     $('.btn-pilih2').on('click', function(){
-        window.location.href = "data diri";
+        var data = {
+            'type' : type,
+            'depart_date' : depart_date,
+            'return_date' : return_date,
+            'cabin' : cabin,
+            'pass_count' : pass_count,
+            'departure' : departure,
+            'destination' : destination,
+            'flight2' : $(this).attr('id'),
+            'passid2' : passid
+        };
+
+        // console.log(data);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "post",
+            url: "/setCookie",
+            data:{
+                data:data,
+                name: "dataFlight2"
+            },
+            beforeSend: function(){
+                // console.log(this.data);
+            },
+            success: function(res) {
+                if(res == 'success'){
+                    if(type == 1){
+                        window.location.href = "/Flight/datadiri";
+                    }else if(type == 2){
+                        window.location.href = "/Flight/searchFlight2";
+                    }
+                }
+                console.log(res);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+        // window.location.href = "data diri";
         console.log($(this).attr('id'));
     });
 });

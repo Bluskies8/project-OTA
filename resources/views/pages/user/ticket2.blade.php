@@ -14,40 +14,6 @@
                 <div class="w-25 p-3 d-flex align-items-center justify-content-end"><button class="btn btn-primary" id="btn-pencarian" type="button">&nbsp;<i class="fas fa-search"></i>&nbsp;Ganti Pencarian</button></div>
             </div>
         </div>
-        {{-- <div id="filter" class="px-3 d-flex align-items-center">
-            <p>Filter :&nbsp;</p>
-            <div id="data-transit" class="position-relative ms-3"><button class="btn" id="btn-filter-transit" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Transit&nbsp;<i class="fas fa-caret-down"></i></button>
-                <div id="menu-transit" class="position-absolute" style="display: none;margin-top: 8px;width: 150px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
-                    <p class="fw-bold px-2" style="background-color: rgba(0,0,0,.125);">Jumlah Transit</p>
-                    <div class="px-2" style="font-size: 14px;">
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-transit-1"><label class="form-check-label" for="formCheck-1">Langsung</label></div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-transit-2"><label class="form-check-label" for="formCheck-1">1 Transit</label></div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-transit-3"><label class="form-check-label" for="formCheck-1">2+ Transit</label></div>
-                    </div>
-                </div>
-            </div>
-            <div id="data-waktu" class="position-relative ms-3"><button class="btn" id="btn-filter-waktu" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Waktu&nbsp;<i class="fas fa-caret-down"></i></button>
-                <div id="menu-waktu" class="position-absolute" style="display: none;margin-top: 8px;width: 200px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
-                    <p class="fw-bold px-2" style="background-color: rgba(0,0,0,.125);">Waktu Keberangkatan</p>
-                    <div class="px-2" style="font-size: 14px;">
-                        <div class="form-check d-flex align-items-center mb-0"><input class="form-check-input mt-0" type="radio" id="radio-waktu-1"><label class="form-check-label ms-2" for="formCheck-1">00:00 - 06:00</label></div>
-                        <div class="form-check d-flex align-items-center mb-0"><input class="form-check-input mt-0" type="radio" id="radio-waktu-3"><label class="form-check-label ms-2" for="formCheck-1">06:00 - 12:00</label></div>
-                        <div class="form-check d-flex align-items-center mb-0"><input class="form-check-input mt-0" type="radio" id="radio-waktu-2"><label class="form-check-label ms-2" for="formCheck-1">12:00 - 18:00</label></div>
-                        <div class="form-check d-flex align-items-center mb-0"><input class="form-check-input mt-0" type="radio" id="radio-waktu-1"><label class="form-check-label ms-2" for="formCheck-1">18:00 - 24:00</label></div>
-                    </div>
-                </div>
-            </div>
-            <div id="data-maskapai" class="position-relative ms-3"><button class="btn" id="btn-filter-maskapai" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Maskapai&nbsp;<i class="fas fa-caret-down"></i></button>
-                <div id="menu-maskapai" class="position-absolute" style="display: none;margin-top: 8px;width: 150px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
-                    <p class="fw-bold px-2" style="background-color: rgba(0,0,0,.125);">List Maskapai</p>
-                    <div class="px-2" style="font-size: 14px;">
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-maskapai-1"><label class="form-check-label" for="formCheck-1">Maskapai A</label></div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-maskapai-2"><label class="form-check-label" for="formCheck-1">Maskapai B</label></div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check-maskapai-3"><label class="form-check-label" for="formCheck-1">Maskapai C</label></div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div id="list">
         @foreach ($data->offers as $item)
@@ -94,13 +60,7 @@
                                     </div>
                                     <div class="col-4 text-end">
                                         <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
-                                        {{-- @if($type == 2)
-                                        <a href="http://halaman ke 2">
-                                        @elseif($type == 1)
-                                        <a href="http://form data diri">
-                                        @endif --}}
-                                            <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
-                                        {{-- </a> --}}
+                                        <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
@@ -213,17 +173,8 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-end">
-                                        <div class="col-4 text-end">
                                             <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
-                                            {{-- @if($type == 2)
-                                            <a href="http://halaman ke 2">
-                                            @elseif($type == 1)
-                                            <a href="http://form data diri">
-                                            @endif --}}
-                                                <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
-                                            {{-- </a> --}}
-                                        </div>
-
+                                            <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih2" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
