@@ -39,6 +39,11 @@ class BackofficeController extends Controller
         ]);
     }
 
+    public function Customers()
+    {
+        return view('pages.backoffice.customers');
+    }
+
     public function Supplier()
     {
         $data = Supplier::get();
@@ -177,7 +182,7 @@ class BackofficeController extends Controller
         $room = [];
         $temp = TourPassanger::where('tour_bookings_id',$data->id)->distinct()->get(['room']);
         foreach ($temp as $rooms) {
-            $t = TourPassanger::with('customer')->where('tour_bookings_id',$data->id)->where('room',$rooms->room)->get();
+            $t = TourPassanger::with('customer.passport')->where('tour_bookings_id',$data->id)->where('room',$rooms->room)->get();
             // dd($t);
             $troom = [];
             foreach ($t as $key) {
@@ -187,21 +192,40 @@ class BackofficeController extends Controller
                     $type = "Adult";
                 }
                 $troom[] = [
+                    'id' => $key->customer->id,
                     'name' =>$key->customer->guest_name,
                     'title' => $key->customer->title,
                     'phone' => $key->customer->phone_number,
                     'type' => $type,
-                    'nik' => $key->customer->nik
+                    'nik' => $key->customer->nik,
+                    'dob' => $key->customer->passport->dob,
+                    'no_passport' => $key->customer->passport->no_passport
                 ];
             }
             $room[] = $troom;
         }
-        // dd($room);
+        $tour = ProductTour::find($data->product_tour_id);
+        $tour->header_img_url = env('APP_URL').'/tour/imgh/'.$tour->id;
+        $tour->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$tour->id;
         return view('pages.backoffice.detailbookingtour',[
-            'data' => $room
+            'data' => $room,
+            'tour' => $tour
         ]);
     }
-
+    public function updateTourPassanger(Request $request,$id)
+    {
+        // dd($request->DOB);
+        $pass = TourPassanger::with('customer.passport')->where('id',$id)->first();
+        $pass->customer->guest_name = $request->name;
+        $pass->customer->nik = $request->nik;
+        $pass->customer->paxtype = $request->tipe;
+        $pass->customer->phone_number = $request->phone;
+        $pass->customer->save();
+        if($request->no_passport!=null)$pass->customer->passport->no_passport = $request->no_passport;
+        if($request->DOB!=null)$pass->customer->passport->dob = $request->DOB;
+        $pass->customer->passport->save();
+        return redirect()->back();
+    }
     public function FlightTrans()
     {
         //bookingStatus : "hold" => 1,"Expired" => 2, "Cancelled" => 3, "Confirmed" => 4

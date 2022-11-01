@@ -218,7 +218,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
-                        <tr id = "{{$item->id}}">
+                        <tr id = "{{$item->slug}}">
                             <td class="text-center"><input type="checkbox" /></td>
                             @if ($item->enabled == 1)
                                 <td class="text-center"><i class="fa fa-check"></i></td>

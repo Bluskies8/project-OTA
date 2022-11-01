@@ -140,8 +140,8 @@ class ProductTourController extends Controller
         foreach (explode(",", $data->countrytag) as $tag) {
             $tempCountryTags[] = country::find($tag);
         }
-        $data->header_img_url = env('APP_URL').'/api/tour/imgh/'.$data->id;
-        $data->thumbnail_img_url = env('APP_URL').'/api/tour/imgt/'.$data->id;
+        $data->header_img_url = env('APP_URL').'/tour/imgh/'.$data->id;
+        $data->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$data->id;
         $data->tagsObject = $tempTags;
         $data->countryTagsObject = $tempCountryTags;
         $data->valid_date_end = $end;

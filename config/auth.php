@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+            'hash' => true
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+            'hash' => true
+        ],
     ],
 
     /*
@@ -69,6 +79,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'admin' =>[
+            'driver' => 'eloquent',
+            'model' => App\Models\UserAdmin::class,
+        ]
     ],
 
     /*

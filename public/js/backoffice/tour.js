@@ -49,7 +49,7 @@ $(document).ready(function() {
             order: [[2, 'asc']],
         });
     }
-    
+
     if ($('#table-Flight').length) {
         $('#table-Flight').DataTable();
     }
