@@ -6,5 +6,6 @@ $(document).ready(function() {
         }else{
             $('#return-date').prop('disabled', false);
         }
-      });
+    });
+    
 });

@@ -52,4 +52,10 @@ $(document).ready(function() {
             }
         }, 10);
     });
+
+    $('#btn-login').on('click', function() {
+        $('#modal-login').modal('show');
+    });
+
+
 });

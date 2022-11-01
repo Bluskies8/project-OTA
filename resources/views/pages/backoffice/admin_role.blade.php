@@ -16,8 +16,9 @@
 						<input type="text" class="form-control" id="validationCustom02" placeholder="Role Name" >
 
 						<h4 class="mt-3">Role Type</h4>
+
 						<label class="custom-control custom-radio">
-						<input type="radio" name="radio-stacked" checked="" class="custom-control-input"><span class="custom-control-label">Super Admin (Create,Read,Update,Delete)</span>
+						    <input type="radio" name="radio-stacked" checked="" class="custom-control-input"><span class="custom-control-label">Super Admin (Create,Read,Update,Delete)</span>
 						</label>
 						<label class="custom-control custom-radio">
 							<input type="radio" name="radio-stacked" class="custom-control-input" ><span class="custom-control-label">Backoffice(Create,Read,Update,Delete)</span>

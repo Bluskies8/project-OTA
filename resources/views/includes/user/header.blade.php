@@ -26,7 +26,34 @@
     </div>
     <div class="h-100 d-flex align-items-center justify-content-end p-3">
         <i class="fas fa-thin fa-user-group"></i>
-        <button class="btn" type="button" style="color: inherit">Login</button>
+        <button id="btn-login" class="btn" type="button" style="color: inherit">Login</button>
         <button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5); color: inherit;">Register</button>
     </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-login">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modal-master-header" class="modal-title">Login</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="/">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                        <div class="col-12 mt-2">
+                            <input type="text" id = "username" class="form-control" name="username" placeholder="Username*" >
+                        </div>
+                        <div class="col-12 mt-2">
+                            <input type="text" id = "password" class="form-control" name="password" placeholder="Password" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
