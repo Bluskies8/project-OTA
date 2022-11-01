@@ -36,6 +36,7 @@ Route::post('/logincek', [HomeController::class,'loginUser']);
 Route::get('/login', [HomeController::class,'loginPages']);
 Route::post('/setCookie', [HomeController::class,'setCookie']);
 // Route::get('/DoBooking',[HomeController::class,'DoBook']);
+Route::get('/carousel/{id}', [CMSController::class,'getPhotoCarousel']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
@@ -60,6 +61,7 @@ Route::prefix('tour')->group(function () {
     // Route::post('/showcountry', [ProductTourController::class, 'showbyCountry']);
     // Route::post('availDate',[ProductTourController::class, 'availDate']);
 });
+
 
 Route::group(['middleware' => ['enduser']], function () {
 
@@ -113,6 +115,18 @@ Route::group(['middleware' => ['enduser']], function () {
     Route::prefix('cms')->group(function () {
         Route::prefix('content')->group(function () {
             Route::get('/staticimg', [CMSController::class, 'showStaticImages']);
+            Route::prefix('carousel')->group(function () {
+                Route::get('/', [CMSController::class, 'showCarousel']);
+                Route::post('/create', [CMSController::class, 'createCarousel']);
+                Route::post('/update/{id}', [CMSController::class, 'updateCarousel']);
+                Route::post('/delete/{id}', [CMSController::class, 'deleteCarousel']);
+            });
+            Route::prefix('displaybanner')->group(function () {
+                Route::get('/', [CMSController::class, 'showDisplayBanner']);
+                Route::post('/create', [CMSController::class, 'createDisplayBanner']);
+                Route::post('/update/{id}', [CMSController::class, 'updateDisplayBanner']);
+                Route::delete('/{id}', [CMSController::class, 'deleteDisplayBanner']);
+            });
         });
         Route::prefix('bulk')->group(function () {
             Route::post('tour',[ProductTourController::class,'bulk']);

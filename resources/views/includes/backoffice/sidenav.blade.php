@@ -1,5 +1,6 @@
 <section id="back-office-sidenav" style="width: 289px;max-width: 289px;height: calc(100vh - 48px);">
-    <div class="w-100 d-flex justify-content-end align-items-center" style="height: 48px; border: 1px solid rgba(0,0,0,.125);">
+    <div class="w-100 d-flex justify-content-end align-items-center"
+        style="height: 48px; border: 1px solid rgba(0,0,0,.125);">
         <i class="fas fa-chevron-left me-3" style="font-size: 1.25rem"></i>
     </div>
     <ul class="list-group" style="border-radius: 0; height: calc(100vh - 64px); overflow-y: auto;">
@@ -7,9 +8,9 @@
             <h4 class="color-main py-3 px-3 menu-header">Super Admin</h4>
             <div class="py-2 px-3 menu-item active">
                 <a href="/admin/account" class="d-flex w-100" style="text-decoration: none; color:inherit;">
-                <i class="fas fa-user-friends me-3"></i>
-                <p>Admin Accounts</p>
-            </a>
+                    <i class="fas fa-user-friends me-3"></i>
+                    <p>Admin Accounts</p>
+                </a>
             </div>
             <div class="py-2 px-3 menu-item">
                 <a href="/admin/role" class="d-flex w-100" style="text-decoration: none; color:inherit;">
@@ -105,8 +106,18 @@
                     <p>Static Images</p>
                 </a>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-money-bill me-3"></i>
-                <p>Carousel</p>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/cms/content/carousel" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-money-bill me-3"></i>
+                    <p>Carousel</p>
+                </a>
+            </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/cms/content/displaybanner" class="d-flex w-100"
+                    style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-newspaper me-3"></i>
+                    <p>Display Banner</p>
+                </a>
             </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-shopping-bag me-3"></i>

@@ -80,6 +80,5 @@
 				</div>
 			</form>
 		</div> --}}
-
     <script src="{{ asset('js/backoffice/tour.js') }}"></script>
 @endsection

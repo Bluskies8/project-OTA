@@ -27,7 +27,7 @@
                                     <td>1</td>
                                     <td><img src="" alt="" class="w-100 h-100"></td>
                                     <td>ABC</td>
-                                    <td class="text-center"><i class="fas fa-exclamation-circle text-primary staticDetail"><i class="fas fa-trash"></td>
+                                    <td class="text-center"><i class="fas fa-exclamation-circle text-primary staticDetail">  <i class="fas text-primary fa-trash staticDelete"></td>
                                 </tr>
                             </form>
                             {{-- @foreach ($data as $item)
@@ -49,23 +49,4 @@
             </div>
         </div>
     </div>
-    <div class="modal" tabindex="-1" id="modal-detail">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="" method="post">
-                    <div class="modal-body">
-                        ABC
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <script src="{{ asset('js/backoffice/endusercontent.js') }}"></script>
 @endsection
