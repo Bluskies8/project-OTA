@@ -25,19 +25,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($data as $item)
+                            @foreach ($data as $item)
                                 <tr>
-                                    <td class="text-center">{{}}</td>
-                                    <td class="text-center">{{}}</td>
-                                    <td class="text-center">{{}}</td>
-                                    <td class="text-center">{{}}</td>
-                                    <td class="text-center">{{}}</td>
-                                    <td class="text-center">{{}}</td>
+                                    <td class="text-center">{{$loop->index+1}}</td>
+                                    <td class="text-center">{{$item->title}}</td>
+                                    <td class="text-center">{{$item->guest_name}}</td>
+                                    <td class="text-center">{{$item->nik}}</td>
+                                    <td class="text-center">{{$item->phone_number}}</td>
+                                    <td class="text-center">{{$item->paxtype}}</td>
                                     <td class="cell-action text-right">
                                         <i class="fas fa-exclamation-circle text-primary"></i>
                                     </td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                     <!-- <ul class="list-unstyled form-control" id="list-action"> -->

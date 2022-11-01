@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\PaymentAPI\JokulAPI;
 use App\Models\AdminRole;
 use App\Models\country;
+use App\Models\Customer;
 use App\Models\GlobalTransaction;
 use App\Models\ProductsConfig;
 use App\Models\ProductTour;
@@ -41,7 +42,15 @@ class BackofficeController extends Controller
 
     public function Customers()
     {
-        return view('pages.backoffice.customers');
+        $data = Customer::get();
+        foreach ($data as $key) {
+            if($key->paxtype == "ADT"){
+                $key->paxtype = "Adult";
+            }else if($key->paxtype == "CHD"){
+                $key->paxtype = "Child";
+            }
+        }
+        return view('pages.backoffice.customers',compact('data'));
     }
 
     public function Supplier()
