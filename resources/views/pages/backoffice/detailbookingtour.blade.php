@@ -18,17 +18,17 @@
         <div class="card-body">
             <h1>Table Booking Tour</h1>
             <hr style="margin: 1rem -1rem;" />
-            <div class="p-3 data-penerbangan mb-3" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)), url(bg_search.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;border-radius: inherit;">
+            <div class="p-3 data-penerbangan mb-3" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5)), url({{url($tour->thumbnail_img_url)}});background-repeat: no-repeat;background-size: cover;background-position: center center;border-radius: inherit;">
                 <div class="row">
                     <div class="col-4 d-flex align-items-center" style="color: white;">
-                        <p class="ms-3 fs-4 fw-bold">Nama Tour</p>
+                        <p class="ms-3 fs-4 fw-bold">{{$tour->name}}</p>
                     </div>
                     <div class="col-4 d-flex align-items-center justify-content-evenly offset-4" style="color: white;">
                         <div class="text-center"><i class="fas fa-sun" style="font-size: 1.25rem;"></i>
-                            <p>4 hari</p>
+                            <p>{{$tour->days_count}} hari</p>
                         </div>
                         <div class="text-center"><i class="fas fa-moon"></i>
-                            <p>3 Malam</p>
+                            <p>{{$tour->nights_count}} Malam</p>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                 <td class="fw-bolder bgcolor-main" colspan="6">Kamar {{ $loop->index+1 }}</td>
                             </tr>
                             @foreach ($item as $final)
-                                <tr class="row-data">
+                                <tr class="row-data" id = "{{$final['id']}}">
                                     <td class="text-end">{{ $final['title'] }}</td>
                                     <td>{{ $final['name'] }}</td>
                                     <td class="text-center">{{ $final['nik'] }}</td>
@@ -76,7 +76,8 @@
                 <h4 class="modal-title">Edit data booking</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="">
+            <form action="" method="post" id = "form-update">
+                @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col col-2 mb-4">
@@ -92,13 +93,13 @@
                         <div class="col col-10 mb-4">
                             <div class="position-relative">
                                 <p class="small">Guest Name</p>
-                                <input type="text" class="form-control ps-2" id="input-name" />
+                                <input type="text" name = "name" class="form-control ps-2" id="input-name" />
                             </div>
                         </div>
                         <div class="col col-4 mb-4">
                             <div class="position-relative">
                                 <p class="small">NIK</p>
-                                <input type="number" class="form-control ps-2" id="input-nik" />
+                                <input type="number" name = "nik" class="form-control ps-2" id="input-nik" />
                             </div>
                         </div>
                         <div class="col col-4 mb-4">
@@ -106,7 +107,7 @@
                                 <p class="small">Nomor HP</p>
                                 <div class="d-flex align-items-center">
                                     <strong>+62</strong>
-                                    <input type="number" class="form-control ms-2" id="input-nomor-hp" />
+                                    <input type="number" name = "phone" class="form-control ms-2" id="input-nomor-hp" />
                                 </div>
                             </div>
                         </div>
@@ -115,11 +116,11 @@
                                 <p class="small">Tipe</p>
                                 <div class="d-flex justify-content-evenly py-1">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="formCheck-adult" name="tipe" />
+                                        <input type="radio" class="form-check-input" value = "ADT" id="formCheck-adult" name="tipe" />
                                         <label class="form-check-label" for="formCheck-adult">Adult</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="formCheck-child" name="tipe" />
+                                        <input type="radio" class="form-check-input" value = "CHD" id="formCheck-child" name="tipe" />
                                         <label class="form-check-label" for="formCheck-child">Child</label>
                                     </div>
                                 </div>
@@ -128,13 +129,13 @@
                         <div class="col col-6 mb-4">
                             <div class="position-relative">
                                 <p class="small">Nomor Passport</p>
-                                <input type="text" class="form-control ps-2" id="input-nomor-passport" />
+                                <input type="text" name = "no_passport" class="form-control ps-2" id="input-nomor-passport" />
                             </div>
                         </div>
                         <div class="col col-6 mb-4">
                             <div class="position-relative">
                                 <p class="small">Date of birth</p>
-                                <input class="form-control ps-2" type="date" id="input-date" />
+                                <input class="form-control ps-2" type="date" name = "DOB" id="input-date" />
                             </div>
                         </div>
                     </div>
@@ -147,6 +148,6 @@
     </div>
 </div>
 
-<script src="{{asset('js/backoffice/detailBookingTour.js')}}"></script>s
+<script src="{{asset('js/backoffice/detailBookingTour.js')}}"></script>
 @endsection
 

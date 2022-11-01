@@ -11,6 +11,7 @@ use App\Models\ProductTour;
 use App\Models\TourBooking;
 use App\Models\TourBookingRoom;
 use App\Models\TourPassanger;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -24,6 +25,21 @@ class HomeController extends Controller
         Cookie::queue($request->name, json_encode($request->data), '60');
         // return redirect('/Flight/searchFlight2')->withCookie(cookie($request->name, json_encode($request->data), '20'));
         return "success";
+    }
+
+    public function loginUser(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'email' => 'bail|required|email',
+            'password' => 'bail|required'
+        ]);
+        $user = User::where('email',$request->email)->first();
+        if(!$user) return redirect()->back()->with('error','email/password salah');
+    }
+    public function loginPages()
+    {
+        return view('pages.backoffice.login');
     }
 
     public function searchFlight(Request $request)

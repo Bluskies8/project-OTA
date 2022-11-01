@@ -61,7 +61,8 @@ $(document).ready(function() {
         });
     });
     $('#table-tours tbody').on('click','.detail-booking',function (){
-        console.log($(this).closest('tr'));
+        console.log($(this).closest('tr').children().eq(1).html());
+        window.location.href = "/backoffice/tour/detailBooking/"+$(this).closest('tr').children().eq(1).html();
     });
     $('#table-tours tbody').on('click','.create-link',function (){
         console.log($(this).closest('tr').find('td').eq(4).text());
