@@ -33,27 +33,65 @@
     </div>
 
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-login">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 id="modal-master-header" class="modal-title">Login</h4>
+                    <h4 id="modal-master-header" class="modal-title" style="color: black;">Login</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="/">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                        <div class="col-12 mt-2">
-                            <input type="text" id = "username" class="form-control" name="username" placeholder="Username*" >
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <form class="h-100" method="POST" action="/login">
+                                @csrf
+                                <div class="h-100 d-flex flex-column justify-content-between">
+                                    <div class="h-100 d-flex align-items-center">
+                                        <div class="row">
+                                            <div class="col-12 mb-2">
+                                                <input type="text" id="username" class="form-control" name="username" placeholder="Username" >
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end modal-footer">
+                                        <button class="btn btn-primary" type="submit">Login</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-12 mt-2">
-                            <input type="text" id = "password" class="form-control" name="password" placeholder="Password" >
+                        <div class="col-6">
+                            <form method="POST" action="/register">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-12 mb-2">
+                                        <div class="form-control d-flex" >
+                                            <select style="outline: none; border: none;" id="title" name="title">
+                                                <option value="mr">Mr</option>
+                                                <option value="mrs">Mrs</option>
+                                                <option value="ms">Ms</option>
+                                            </select>
+                                            <input class="w-100" style="outline: none; border: none;" type="text" id="username" name="username" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <input type="text" name="email" class="form-control" placeholder="E-mail"/>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <input type="password" id="password" class="form-control" name="password" placeholder="Password" />
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <input type="password" id="confpass" class="form-control" name="confpass" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="text-end modal-footer">
+                                    <button class="btn btn-primary" type="submit">Register</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit">Login</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
