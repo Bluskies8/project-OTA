@@ -22,7 +22,8 @@
                 <div class="w-25 p-3 d-flex align-items-center justify-content-end"><button class="btn btn-primary" id="btn-pencarian" type="button">&nbsp;<i class="fas fa-search"></i>&nbsp;Ganti Pencarian</button></div>
             </div>
         </div>
-        <div id="filter" class="px-3 d-flex align-items-center">
+
+        {{-- <div id="filter" class="px-3 d-flex align-items-center">
             <p>Filter :&nbsp;</p>
             <div id="data-transit" class="position-relative ms-3"><button class="btn" id="btn-filter-transit" type="button" style="color: black;border: 1px solid rgba(0,0,0,.25);background-color: white;">Transit&nbsp;<i class="fas fa-caret-down"></i></button>
                 <div id="menu-transit" class="position-absolute" style="display: none;margin-top: 8px;width: 150px;max-height: 300px;background-color: white;border-radius: 4px;border: 1px solid rgba(0,0,0,.25);overflow-y: auto;z-index: 1;">
@@ -54,6 +55,42 @@
                         <div class="form-check"><input class="form-check-input" type="checkbox" id="check-maskapai-3"><label class="form-check-label" for="formCheck-1">Maskapai C</label></div>
                     </div>
                 </div>
+            </div>
+        </div> --}}
+
+        <div id="filter" class="px-3 mb-4 position-relative">
+            <button class="btn btn-primary" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
+            <div class="position-absolute mt-2 card card-body" style="width: 526px;height: 300px;background-color: white;z-index: 1;">
+                <div class="row">
+                    <div class="col">
+                        <h4>Sort By :</h4>
+                        <div style="overflow-y: auto;">
+                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
+                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-earliest-departure" /><label class="form-check-label" for="formCheck-earliest-departure">Earliest Departure</label></div>
+                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lastest-departure" /><label class="form-check-label" for="formCheck-lastest-departure">Lastest Departure</label></div>
+                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-earliest-arrival" /><label class="form-check-label" for="formCheck-earliest-arrival">Earliest Arrival</label></div>
+                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lastest-arrival" /><label class="form-check-label" for="formCheck-lastest-arrival">Lastest Arrival</label></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>Waktu :</h4>
+                        <div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-early-morning" /><label class="form-check-label" for="formCheck-early-morning">Early Morning<br />(00.00 - 05.59)</label></div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-morning" /><label class="form-check-label" for="formCheck-morning">Morning<br />(06.00 - 11.59)</label></div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-afternoon" /><label class="form-check-label" for="formCheck-afternoon">Afternoon <br />(12.00 - 17.59)</label></div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-evening" /><label class="form-check-label" for="formCheck-evening">Evening<br />(18.00 - 23.59)</label></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h4>Transit :</h4>
+                        <div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-direct" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-transit-1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
+                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-transit-2+" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end"><button class="btn btn-primary" type="button">Apply</button></div>
             </div>
         </div>
     </div>
