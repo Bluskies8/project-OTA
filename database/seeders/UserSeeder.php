@@ -15,7 +15,6 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'firebase_uid' => "waX58Ro817bX5rMbN9YDdXZzMao2",
             'first_name' => 'Test',
             'last_name' => '1',
             'phone_number' => '12345678',
@@ -24,7 +23,6 @@ class UserSeeder extends Seeder
             'DOB' => '2001-05-08',
         ]);
         User::create([
-            'firebase_uid' => "VWGEqYynBoWyOYj20yNIoG5jWmq1",
             'first_name' => 'Ariel',
             'middle_name' => 'Nova',
             'last_name' => 'Christian',
