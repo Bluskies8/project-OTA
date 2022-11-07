@@ -77,6 +77,19 @@ class DuffelAPI
         curl_close($curl);
         return $RESPONSE;
     }
+    public static function getCurrency()
+    {
+        // $targetPath = "/air/airports?after=&limit=1000&iata_country_code=ID&before=";
+        $curl = curl_init("http://www.floatrates.com/daily/usd.json");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+        //     'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+        //     'Duffel-Version: beta'
+        // ));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
     public static function getOffer($id)
     {
         $targetPath = "/air/offers/".$id;
@@ -108,6 +121,14 @@ class DuffelAPI
             "data"=> [
                 "cabin_class"=> $data['cabin'],
                 "slices"=> [
+                  [
+                    "departure_date"=> $data['departure_date'],
+                    "destination"=> $data['destination'],
+                    "origin"=> $data['origin'],
+                    // "departure_date"=> '2023-01-08',
+                    // "destination"=> 'DXB',
+                    // "origin"=> 'LHR',
+                  ],
                   [
                     "departure_date"=> $data['departure_date'],
                     "destination"=> $data['destination'],

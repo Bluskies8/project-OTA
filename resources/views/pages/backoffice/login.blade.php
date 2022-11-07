@@ -3,11 +3,11 @@
     <div class="row vh-100 m-0" style="background-image: url('../assets/img/login.jpg');background-size: cover;background-repeat: no-repeat;">
         <div class="col-12 col-lg-6 offset-lg-6 px-5 d-flex align-items-center" style="background-color: white;background-image: linear-gradient(rgba(254, 251, 255, 0) 0%, rgba(175, 12, 233, 0.13) 73.96%, rgba(148, 99, 252, 0.23) 80.73%, rgba(204, 97, 120, 0.3) 91.15%, rgba(252, 96, 8, 0.42) 100%);box-sizing: border-box;">
 
-            <form action="logincek" method="post" class="w-100">
+            <form action="adminlogincek" method="post" class="w-100">
                 @csrf
                 <h1 class="mb-3 text-center">Backoffice</h1>
                 <div class="d-flex align-items-center form-container mb-3">
-                    <input class="form-control border-0 px-2" type="email" name = "email" placeholder="Email*" value = "{{old('email')}}">
+                    <input class="form-control border-0 px-2" type="text" name = "username" placeholder="Username*" value = "{{old('email')}}">
                 </div>
                 @error('email')
                     {{$message}}

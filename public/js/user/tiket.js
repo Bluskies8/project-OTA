@@ -19,35 +19,47 @@ $(document).ready(function() {
         }
     });
 
-    $('#btn-filter-transit').on('click', function() {
-        if ($('#menu-transit').css('display') == 'none') {
-            $('#menu-transit').show();
+    // $('#btn-filter-transit').on('click', function() {
+    //     if ($('#menu-transit').css('display') == 'none') {
+    //         $('#menu-transit').show();
+    //         $(this).find('i').addClass('fa-flip-vertical');
+    //     } else {
+    //         $('#menu-transit').hide();
+    //         $(this).find('i').removeClass('fa-flip-vertical');
+    //     }
+    // });
+
+    // $('#btn-filter-waktu').on('click', function() {
+    //     if ($('#menu-waktu').css('display') == 'none') {
+    //         $('#menu-waktu').show();
+    //         $(this).find('i').addClass('fa-flip-vertical');
+    //     } else {
+    //         $('#menu-waktu').hide();
+    //         $(this).find('i').removeClass('fa-flip-vertical');
+    //     }
+    // });
+
+    // $('#btn-filter-maskapai').on('click', function() {
+    //     if ($('#menu-maskapai').css('display') == 'none') {
+    //         $('#menu-maskapai').show();
+    //         $(this).find('i').addClass('fa-flip-vertical');
+    //     } else {
+    //         $('#menu-maskapai').hide();
+    //         $(this).find('i').removeClass('fa-flip-vertical');
+    //     }
+    // });
+
+    $('.btn-filter').on('click', function() {
+        if ($('#menu-filter').css('display') == 'none') {
+            $('#menu-filter').show();
             $(this).find('i').addClass('fa-flip-vertical');
         } else {
-            $('#menu-transit').hide();
+            $('#menu-filter').hide();
             $(this).find('i').removeClass('fa-flip-vertical');
         }
     });
 
-    $('#btn-filter-waktu').on('click', function() {
-        if ($('#menu-waktu').css('display') == 'none') {
-            $('#menu-waktu').show();
-            $(this).find('i').addClass('fa-flip-vertical');
-        } else {
-            $('#menu-waktu').hide();
-            $(this).find('i').removeClass('fa-flip-vertical');
-        }
-    });
 
-    $('#btn-filter-maskapai').on('click', function() {
-        if ($('#menu-maskapai').css('display') == 'none') {
-            $('#menu-maskapai').show();
-            $(this).find('i').addClass('fa-flip-vertical');
-        } else {
-            $('#menu-maskapai').hide();
-            $(this).find('i').removeClass('fa-flip-vertical');
-        }
-    });
 
     $('.btn-detail').on('click', function() {
         let detail = $(this).next().next();
@@ -60,28 +72,24 @@ $(document).ready(function() {
         }
     });
 
-    function setCookie(cname, cvalue, exdays) {
-        const d = new Date();
-        d.setTime(d.getTime() + (exdays * 60 * 1000));
-        let expires = "expires="+d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-
-    function getCookie(cname) {
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        console.log(document.cookie)
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
+    var separatorInterval = setInterval(setThousandSeparator, 10);
+    function setThousandSeparator () {
+        let length = $('.thousand-separator').length;
+        if (length != 0) {
+            $('.thousand-separator').each(function(index, element) {
+                let val = $(element).text();
+                if (val != ''){
+                    while(val.indexOf('.') != -1){
+                        val = val.replace('.', '');
+                    }
+                    let number = parseInt(val);
+                    $(element).text(number.toLocaleString(['ban', 'id']));
+                }
+            });
+            clearInterval(separatorInterval);
         }
-        return "";
-    }
+    };
+
     var type = $('meta[name="type"]').attr('content');
     var depart_date = $('meta[name="depart_date"]').attr('content');
     var return_date = $('meta[name="return_date"]').attr('content');

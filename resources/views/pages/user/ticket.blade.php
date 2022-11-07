@@ -59,38 +59,48 @@
         </div> --}}
 
         <div id="filter" class="px-3 mb-4 position-relative">
-            <button class="btn btn-primary" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
-            <div class="position-absolute mt-2 card card-body" style="width: 526px;height: 300px;background-color: white;z-index: 1;">
-                <div class="row">
-                    <div class="col">
-                        <h4>Sort By :</h4>
-                        <div style="overflow-y: auto;">
-                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
-                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-earliest-departure" /><label class="form-check-label" for="formCheck-earliest-departure">Earliest Departure</label></div>
-                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lastest-departure" /><label class="form-check-label" for="formCheck-lastest-departure">Lastest Departure</label></div>
-                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-earliest-arrival" /><label class="form-check-label" for="formCheck-earliest-arrival">Earliest Arrival</label></div>
-                            <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lastest-arrival" /><label class="form-check-label" for="formCheck-lastest-arrival">Lastest Arrival</label></div>
+            <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
+            <div id="menu-filter"  class="position-absolute mt-2 card card-body" style="width: 526px;height: 300px;background-color: white;z-index: 1; display: none;"  >
+                <form action="/Flight/search" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col">
+                            <h4>Sort By :</h4>
+                            <div style="overflow-y: auto;">
+                                <div class="form-check"><input type="radio" class="form-check-input" name = "sort" id="formCheck-lowest-price" value = "lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
+                                <div class="form-check"><input type="radio" class="form-check-input" name = "sort" id="formCheck-earliest-departure" value = "earliest-departure" /><label class="form-check-label" for="formCheck-earliest-departure">Earliest Departure</label></div>
+                                <div class="form-check"><input type="radio" class="form-check-input" name = "sort" id="formCheck-lastest-departure" value = "lastest-departure" /><label class="form-check-label" for="formCheck-lastest-departure">Lastest Departure</label></div>
+                                <div class="form-check"><input type="radio" class="form-check-input" name = "sort" id="formCheck-earliest-arrival" value = "earliest-arrival" /><label class="form-check-label" for="formCheck-earliest-arrival">Earliest Arrival</label></div>
+                                <div class="form-check"><input type="radio" class="form-check-input" name = "sort" id="formCheck-lastest-arrival" value = "lastest-arrival" /><label class="form-check-label" for="formCheck-lastest-arrival">Lastest Arrival</label></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4>Waktu :</h4>
+                            <div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "waktu[]" id="formCheck-early-morning" value = "00.00 - 05.59" /><label class="form-check-label" for="formCheck-early-morning">Early Morning<br />(00.00 - 05.59)</label></div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "waktu[]" id="formCheck-morning" value = "06.00 - 11.59" /><label class="form-check-label" for="formCheck-morning">Morning<br />(06.00 - 11.59)</label></div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "waktu[]" id="formCheck-afternoon" value = "12.00 - 17.59" /><label class="form-check-label" for="formCheck-afternoon">Afternoon <br />(12.00 - 17.59)</label></div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "waktu[]" id="formCheck-evening" value = "18.00 - 23.59" /><label class="form-check-label" for="formCheck-evening">Evening<br />(18.00 - 23.59)</label></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4>Transit :</h4>
+                            <div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
+                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <h4>Waktu :</h4>
-                        <div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-early-morning" /><label class="form-check-label" for="formCheck-early-morning">Early Morning<br />(00.00 - 05.59)</label></div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-morning" /><label class="form-check-label" for="formCheck-morning">Morning<br />(06.00 - 11.59)</label></div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-afternoon" /><label class="form-check-label" for="formCheck-afternoon">Afternoon <br />(12.00 - 17.59)</label></div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-evening" /><label class="form-check-label" for="formCheck-evening">Evening<br />(18.00 - 23.59)</label></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h4>Transit :</h4>
-                        <div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-direct" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-transit-1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
-                            <div class="form-check"><input type="checkbox" class="form-check-input" id="formCheck-transit-2+" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-end"><button class="btn btn-primary" type="button">Apply</button></div>
+                    <input type="hidden" name="departure" value = "{{$data->slices[0]->origin->iata_code}}">
+                    <input type="hidden" name="destination" value = "{{$data->slices[0]->destination->iata_code}}">
+                    <input type="hidden" name="depart" value = "{{$depart_date}}">
+                    <input type="hidden" name="return" value = "{{$return_date}}">
+                    <input type="hidden" name="passanger" value = "{{$pass_count}}">
+                    <input type="hidden" name="cabin" value = "{{$cabin}}">
+                    <input type="hidden" name="type" value = "{{$type}}">
+                    <div class="text-end"><button class="btn btn-primary" type="submit">Apply</button></div>
+                </form>
             </div>
         </div>
     </div>
@@ -138,7 +148,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-end">
-                                        <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
+                                        <p> {{$item->total_currency}} <span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->total_amount}}</span>/org</p>
                                         <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
@@ -252,7 +262,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4 text-end">
-                                            <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->total_currency}} {{$item->total_amount}}</span>/org</p>
+                                            <p>{{$item->total_currency}}<span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->total_amount}}</span>/org</p>
                                             <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>

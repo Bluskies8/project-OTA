@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Duffel\DuffelAPI;
+use App\Models\Carousel;
 use App\Models\Customer;
 use App\Models\DisplayBanner;
 use App\Models\Passport;
@@ -12,8 +13,10 @@ use App\Models\TourBooking;
 use App\Models\TourBookingRoom;
 use App\Models\TourPassanger;
 use App\Models\User;
+use App\Models\UserAdmin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
@@ -41,9 +44,39 @@ class HomeController extends Controller
     {
         return view('pages.backoffice.login');
     }
+    public function loginAdmin(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'username' => 'bail|required',
+            'password' => 'bail|required'
+        ]);
+        $user = UserAdmin::where('username',$request->username)->first();
+
+        $data = [
+            'username' => $request->username,
+            'password' => $request->password
+        ];
+
+        if(Auth::guard('admin')->attempt($data)){
+            return redirect('/admin/account');
+        }else{
+            return redirect()->back()->with('pesan','email/password salah');
+        }
+    }
+    public function loginAdminPages()
+    {
+        return view('pages.backoffice.login');
+    }
 
     public function searchFlight(Request $request)
     {
+        $currency = DuffelAPI::getCurrency();
+        $currentIDR = $currency->idr->rate;
+        if($request->has('sort')) $sort = $request->sort;
+        if($request->has('waktu')) $waktu = $request->waktu;
+        if($request->has('transit')) $transit = $request->transit;
+        // dd($request->all());
         $passid = '';
         for ($i=0; $i < $request->passanger; $i++) {
             $pass[$i] =[
@@ -68,7 +101,7 @@ class HomeController extends Controller
         }
         $airport = DuffelAPI::getAirport();
         if($request->type == 2){
-            $data = [
+            $REQUESTdata = [
                 'cabin' => $request->class,
                 'departure_date' => $request->depart,
                 'return_date' => $request->return,
@@ -77,7 +110,7 @@ class HomeController extends Controller
                 'pass' => $pass
             ];
         }else{
-            $data = [
+            $REQUESTdata = [
                 'cabin' => $request->class,
                 'departure_date' => $request->depart,
                 'origin' => $request->departure,
@@ -85,11 +118,26 @@ class HomeController extends Controller
                 'pass' => $pass
             ];
         }
-        // dd($data);
+        // dd($REQUESTdata);
         $day = Carbon::createFromFormat('Y-m-d', $request->depart)->format('l');
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
-        $res = DuffelAPI::SearchFlight($data);
-        // dd($res->data);
+        $res = DuffelAPI::SearchFlight($REQUESTdata);
+
+        foreach ($res->data->offers as $key) {
+            $idr = $key->total_amount * $currentIDR;
+            $key->total_currency = "IDR";
+            $key->total_amount = (int)$idr;
+            
+        }
+        //$collectt = collect($res->data->offers)->sortBy('total_amount');
+        $collectt = collect($res->data->offers);
+        dd($res->data->offers);
+        $collectt =  $collectt->sortBy(function ($collectt){
+            $slices = collect($collectt->slices);
+            $segments = collect($slices->segments);
+            return $segments->departing_at;
+        });
+        dd($collectt);
         foreach ($res->data->passengers as $key => $value) {
             if($passid == ''){
                 $passid = $value->id;
@@ -97,7 +145,6 @@ class HomeController extends Controller
                 $passid .= ','.$value->id;
             }
         }
-        $minutes = 1;
         return view('pages.user.ticket',[
             'airport' => $airport->data,
             'data' => $res->data,
@@ -179,10 +226,11 @@ class HomeController extends Controller
         }
         // }
         // dd($display);
-
+        $carousel = Carousel::get();
         return view('pages.user.index',[
             'airport' => $airport->data,
-            'product' => $display
+            'product' => $display,
+            'carousel' => $carousel
         ]);
     }
 

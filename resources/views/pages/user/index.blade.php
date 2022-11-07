@@ -134,7 +134,9 @@
     <section id="section-carousel" class="mt-5">
         <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
             <div class="carousel-inner">
-                <div class="carousel-item active"><img class="w-100 d-block" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" alt="Slide Image" style="max-height: 420px;object-fit: none;"></div>
+                @foreach ($carousel as $item)
+                <div class="carousel-item active"><a href="{{$item->direct_link}}"><img class="w-100 d-block" src="{{url('/carousel/'.$item->id)}}" alt="" style="max-height: 420px;object-fit: none;"></a></div>
+                @endforeach
             </div>
             <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev" style="width: 10%;"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next" style="width: 10%;"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
             <ol class="carousel-indicators color-main">

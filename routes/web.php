@@ -32,11 +32,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'home']);
 // Route::get('/cek', [FlightController::class,'searchOrder']);
-Route::post('/logincek', [HomeController::class,'loginUser']);
-Route::get('/login', [HomeController::class,'loginPages']);
 Route::post('/setCookie', [HomeController::class,'setCookie']);
 // Route::get('/DoBooking',[HomeController::class,'DoBook']);
 Route::get('/carousel/{id}', [CMSController::class,'getPhotoCarousel']);
+Route::post('/adminlogincek', [HomeController::class,'loginAdmin']);
+Route::get('/adminlogin', [HomeController::class,'loginAdminPages']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
@@ -63,10 +63,10 @@ Route::prefix('tour')->group(function () {
 });
 
 
-Route::group(['middleware' => ['enduser']], function () {
+Route::group(['middleware' => ['endUser']], function () {
 
 });
-// Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['adminUser']], function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('role')->group(function () {
             Route::get('/',[BackofficeController::class,'adminRole']);
@@ -230,4 +230,4 @@ Route::group(['middleware' => ['enduser']], function () {
             // });
         });
     });
-// });
+});
