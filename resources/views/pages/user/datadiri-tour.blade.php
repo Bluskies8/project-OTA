@@ -1,8 +1,8 @@
 @section('title')Data Diri Tour @endsection
 @extends('layout.users')
 
-@section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
 <div class="container py-5">
     <div class="card">
         <div class="card-body">
