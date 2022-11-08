@@ -577,28 +577,27 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Notice</h4><button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h4 class="modal-title">Notice</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="/cms/tour/Photo/update" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-6 d-flex flex-column justify-content-end mb-4">
-                            <p class="tiny">Slug</p><input class="form-control" type="text"
-                                placeholder="xyz.co.id/tours/" name="slug" value="{{ $data->slug }}">
+                        <div class="col-12 mb-3">
+                            <p class="tiny">Slug</p>
+                            <input class="form-control" type="text" placeholder="xyz.co.id/tours/" name="slug" value="{{ $data->slug }}">
                         </div>
-                        {{-- <td style="width: 122px;padding-top: 4px;padding-bottom: 4px;"> --}}
-                        <input type="file" name="img" class="form-control"
-                            onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
+                        <div class="col-12 mb-3">
+                            <input type="file" name="img" class="form-control" onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
+                        </div>
+                        <div class="text-end mb-3">
+                            <button class="btn btn-sm btn-danger mx-2" type="submit">
+                                <i class="fas fa-save"></i> Simpan
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-photo" type="button">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
                         <input type="hidden" name="id" value="{{ $item->id }}">
-                        {{-- <button class="btn btn-primary btn-sm" type="button">Upload Image</button></td> --}}
-                        {{-- </td> --}}
-                        {{-- <td style="width: 100px;padding-top: 4px;padding-bottom: 4px;"> --}}
-                        <button class="btn btn-sm text-danger" type="submit "><i class="fas fa-save"></i></button>
-                        <button class="btn btn-sm text-danger delete-photo" type="button">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        {{-- </td> --}}
                     </form>
                 </div>
             </div>
