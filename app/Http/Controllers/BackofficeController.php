@@ -260,7 +260,7 @@ class BackofficeController extends Controller
     {
         // return $request->all();
         if($request->transaction['status'] == "SUCCESS"){
-            $data = TourBooking::where('bookingCode',$request->order->invoice_number)->first();
+            $data = TourBooking::where('bookingCode',$request->order['invoice_number'])->first();
             return $data;
             $data->payment_status = 1;
             $data->save();
