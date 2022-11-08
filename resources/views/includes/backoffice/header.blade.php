@@ -5,9 +5,9 @@
             <i class="fas fa-user-circle" style="font-size: 1.5rem"></i>
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">First Item</a>
-            <a class="dropdown-item" href="#">Second Item</a>
-            <a class="dropdown-item" href="#">Third Item</a>
+            <a class="dropdown-item" href="/admin/logout">logout</a>
+            {{-- <a class="dropdown-item" href="#">Second Item</a>
+            <a class="dropdown-item" href="#">Third Item</a> --}}
         </div>
     </div>
 </div>

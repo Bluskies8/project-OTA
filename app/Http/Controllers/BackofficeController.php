@@ -19,6 +19,7 @@ use App\Models\UserSingleFlightBook;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BackofficeController extends Controller
 {
@@ -38,6 +39,12 @@ class BackofficeController extends Controller
             'country' => country::get(),
             'supplier' => Supplier::get(),
         ]);
+    }
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect('adminlogin');
     }
 
     public function Customers()

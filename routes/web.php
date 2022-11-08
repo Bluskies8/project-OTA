@@ -68,6 +68,8 @@ Route::group(['middleware' => ['endUser']], function () {
 });
 Route::group(['middleware' => ['adminUser']], function () {
     Route::prefix('admin')->group(function () {
+        Route::get('/logout',[BackofficeController::class,'logout']);
+        Route::get('/',[BackofficeController::class,'logout']);
         Route::prefix('role')->group(function () {
             Route::get('/',[BackofficeController::class,'adminRole']);
             Route::post('/create',[adminRoleController::class,'create']);

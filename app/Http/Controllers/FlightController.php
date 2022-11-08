@@ -54,6 +54,8 @@ class FlightController extends Controller
     {
         $data = json_decode($req->cookie('dataFlight1'));
 
+        $currency = DuffelAPI::getCurrency();
+        $currentIDR = $currency->idr->rate;
         $ONEWAY = $data->type;
         $reqDepartingAirline = $data->flight1;
         $depart = $data->departure;
@@ -105,33 +107,29 @@ class FlightController extends Controller
                 "born_on"=> $value['birth']
             ];
         }
-        if($ONEWAY == 2){
-            $route = $depart.'-'.$return .'-'.$depart;
-        }else{
-            $offer = DuffelAPI::getOffer($data->flight1);
-            // return $offer;
-            $data = [
-                "selected_offer" => $data->flight1,
-                "payment" => [
-                    'type' => "balance",
-                    'currency' => $offer->data->total_currency,
-                    'amount' => $offer->data->total_amount
-                ],
-                "passanger" =>$passanger
-            ];
-            // return $data;
-            $_response = DuffelAPI::DOBook($data);
-            // return $_response;
-            $response =  $_response->data;
-            $total = $response->total_amount * 15000;
-            $newBook["status"] = true;
-            $newBook["transactionId"] = $response->id;
-            $newBook["booking_code"] = $response->booking_reference;
-            $newBook["nta"] = $response->base_amount * 15000;
-            $newBook["total"] = $total;
-            // $newBook["total"] = "1000000";
-            // return $newBook;
-        }
+        $offer = DuffelAPI::getOffer($data->flight1);
+        return $offer;
+        $data = [
+            "selected_offer" => $data->flight1,
+            "payment" => [
+                'type' => "balance",
+                'currency' => $offer->data->total_currency,
+                'amount' => $offer->data->total_amount
+            ],
+            "passanger" =>$passanger
+        ];
+        // return $data;
+        $_response = DuffelAPI::DOBook($data);
+        // return $_response;
+        $response =  $_response->data;
+        $total = (int)$response->total_amount * $currentIDR;
+        $newBook["status"] = true;
+        $newBook["transactionId"] = $response->id;
+        $newBook["booking_code"] = $response->booking_reference;
+        $newBook["nta"] = $response->base_amount * $currentIDR;
+        $newBook["total"] = $total;
+        // $newBook["total"] = "1000000";
+        // return $newBook;
         $checkuser = Customer::where('guest_name',$req->data['cp']['nama'])->first();
         if(!$checkuser){
             $passport = Passport::create([

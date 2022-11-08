@@ -121,23 +121,28 @@
                         </div>
                         <div class="col">
                             <h4>Transit :</h4>
-                            @dump($transit)
                             <div>
-                                @if ($transit[0] == "0" || $transit[1] == "0" ||$transit[2] == "0")
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" checked/><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                @if ($transit == "")
+                                    <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                    <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
+                                    <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
                                 @else
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                    @if ($transit[0] == "0")
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" checked/><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                    @else
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
+                                    @endif
+                                    @if ($transit[0] == "1" || $transit[1] == "1")
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" checked /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
+                                    @else
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
+                                    @endif
+                                    @if ($transit[0] == "2" || $transit[1] == "2" ||$transit[2] == "2")
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" checked/><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
+                                    @else
+                                        <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
+                                    @endif
                                 @endif
-                                {{-- @if ($transit[0] == "1" || $transit[1] == "1" ||$transit[2] == "1") --}}
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" checked /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
-                                {{-- @else
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
-                                @endif --}}
-                                {{-- @if ($transit[0] == "2" || $transit[1] == "2" ||$transit[2] == "2") --}}
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" checked/><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
-                                {{-- @else
-                                <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
-                                @endif --}}
                             </div>
                         </div>
                     </div>
