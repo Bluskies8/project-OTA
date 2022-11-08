@@ -26,11 +26,6 @@
                         <div class="row mb-4">
                             <div class="col-4">
                                 <div class="position-relative">
-                                    {{-- <select class="selectpicker" data-live-search="true" data-width="fit" tabindex="-98">
-                                        @foreach ($airport as $item)
-                                            <option data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
-                                        @endforeach
-                                    </select> --}}
                                     <input id="input-departure" name="departure" list="list-departure" class="form-control" value = {{old('departure')}}>
                                     <datalist id="list-departure" >
                                         @foreach ($airport as $item)
@@ -45,13 +40,13 @@
                             </div>
                             <div class="col-4">
                                 <div class="position-relative">
+                                    <p class="position-absolute color-sub input-head">Destination</p>
                                     <input id="input-destination" name="destination" list="list-destination" class="form-control" value = {{old('destination')}}>
                                     <datalist id="list-destination" >
                                         @foreach ($airport as $item)
                                         <option value=" {{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                         @endforeach
                                     </select>
-                                    <p class="position-absolute color-sub input-head">Destination</p>
                                     @error('destination')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -117,19 +112,6 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" role="dialog" tabindex="-1">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Modal Title</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>The content of your modal.</p>
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                </div>
-            </div>
-        </div>
     </section>
     <section id="section-carousel" class="mt-5">
         <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
@@ -145,80 +127,44 @@
         </div>
     </section>
     @isset($product)
-    <section id="section-package-1" class="mt-5 text-center section-package">
-        <h2 class="text-uppercase color-main">holiday package</h2>
-        <h5 class="mb-3 color-sub">Travel to exciting destinations with flights, hotel, transfers and tours - all packaged up!<br></h5>
-        <div class="carousel slide" data-bs-ride="carousel" id="carousel-2">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        @foreach ($product->products as $item)
-                        <div class="col-4 px-4 mb-3">
-                            <div style="background-color: #FF9142;border-radius: 16px;color: white;">
-                                <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)), url({{url($item->thumbnail_img_url)}}); background-repeat: no-repeat;background-size: cover;background-position: center center;">
-                                    <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
-                                        <h3 class="text-uppercase card-title mt-3">{{$item->name}}</h3>
-                                        <div class="mb-3">
-                                            <div>
-                                                <p>Starting from</p>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h2>Rp {{$item->start_price}}</h2>
-                                                <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
+        @foreach ($product as $products)
+        <section id="section-package-{{$loop->index+1}}" class="mt-5 text-center section-package">
+            <h2 class="text-uppercase color-main">{{$products->title}}</h2>
+            <h5 class="mb-3 color-sub">{{$products->description}}<br></h5>
+            <div class="carousel slide" data-bs-ride="carousel" id="carousel-{{$loop->index+2}}">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            @foreach ($products->products as $item)
+                            <div class="col-4 px-4 mb-3">
+                                <div style="background-color: #FF9142;border-radius: 16px;color: white;">
+                                    <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)), url({{url($item->thumbnail_img_url)}}); background-repeat: no-repeat;background-size: cover;background-position: center center;">
+                                        <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
+                                            <h3 class="text-uppercase card-title mt-3">{{$item->name}}</h3>
+                                            <div class="mb-3">
+                                                <div>
+                                                    <p>Starting from</p>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h2>Rp {{$item->start_price}}</h2>
+                                                    <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <a href="/tour/{{$item->slug}}" style="color: inherit; text-decoration: none;"><p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p></a>
                                 </div>
-                                <a href="/#" style="color: inherit; text-decoration: none;"><p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p></a>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                        {{-- <div class="col px-4">
-                            <div style="background-color: #FF9142;border-radius: 16px;color: white;">
-                                <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)),url(assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;">
-                                    <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
-                                        <h3 class="text-uppercase card-title mt-3">7 days exploration osaka - tokyo</h3>
-                                        <div class="mb-3">
-                                            <div>
-                                                <p>Starting from</p>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h2>Rp 25.000.000</h2>
-                                                <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
-                            </div>
-                        </div>
-                        <div class="col px-4">
-                            <div style="background-color: #FF9142;border-radius: 16px;color: white;">
-                                <div class="card position-relative" style="height: 520px;border: none;background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)),url(assets/img/bg_japan.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center;">
-                                    <div class="card-body d-flex flex-column justify-content-between" style="z-index: 2;text-align: start;">
-                                        <h3 class="text-uppercase card-title mt-3">7 days exploration osaka - tokyo</h3>
-                                        <div class="mb-3">
-                                            <div>
-                                                <p>Starting from</p>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <h2>Rp 25.000.000</h2>
-                                                <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p style="font-size: 20px;margin-top: 4px;padding-bottom: 4px;">Book Now&nbsp;<i class="fas fa-angle-right"></i></p>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
+                <ol class="carousel-indicators" style="margin-bottom: 0;bottom: -22px;">
+                    <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active"></li>
+                </ol>
             </div>
-            <ol class="carousel-indicators" style="margin-bottom: 0;bottom: -22px;">
-                <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active"></li>
-            </ol>
-        </div>
-    </section>
+        </section>
+        @endforeach
     @endisset
 </div>
 <section id="section-footer">

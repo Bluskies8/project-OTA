@@ -4,7 +4,7 @@
         <i class="fas fa-chevron-left me-3" style="font-size: 1.25rem"></i>
     </div>
     <ul class="list-group" style="border-radius: 0; height: calc(100vh - 64px); overflow-y: auto;">
-        <li class="list-group-item p-0" style="border-top: none;">
+        {{-- <li class="list-group-item p-0" style="border-top: none;">
             <h4 class="color-main py-3 px-3 menu-header">Super Admin</h4>
             <div class="py-2 px-3 menu-item active">
                 <a href="/admin/account" class="d-flex w-100" style="text-decoration: none; color:inherit;">
@@ -29,7 +29,7 @@
             <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-money-bill me-3"></i>
                 <p>Payment Config</p>
             </div>
-        </li>
+        </li> --}}
         <li class="list-group-item p-0">
             <h4 class="color-main py-3 px-3 menu-header">Back Office</h4>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
@@ -49,7 +49,7 @@
                     <p>Tours</p>
                 </a>
             </div>
-            <div class="py-2 px-3 menu-item disabled" data-open="false">
+            {{-- <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-users me-3"></i>
                     <p>User Management</p>
                 </div><i class="fas fa-angle-down"></i>
@@ -59,15 +59,12 @@
             </div>
             <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-shopping-basket me-3"></i>
                 <p>User Wishlist</p>
-            </div>
+            </div> --}}
 
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-database me-3"></i>
                     <p>Master</p>
                 </div><i class="fas fa-angle-down"></i>
-            </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none"><i class="fas fa-book me-3"></i>
-                <p>Airline</p>
             </div>
             <div class="py-2 ps-5 px-3 menu-item d-none">
                 <a href="/backoffice/supplier" class="d-flex w-100" style="text-decoration: none; color:inherit;">

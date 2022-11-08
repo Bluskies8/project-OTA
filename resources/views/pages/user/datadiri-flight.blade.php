@@ -100,7 +100,7 @@
                 <div class="card-body">
                     <header class="d-flex align-items-center justify-content-between"><i class="fas fa-plane" style="font-size: 1.25rem;"></i>
                         <h4><span>{{$flight->slices[0]->origin->city_name}}</span><i class="fas fa-arrow-right mx-1" style="font-size: 1.25rem;width: initial;"></i><span>{{$flight->slices[0]->destination->city_name}}</span></h4>
-                        <p class="px-2 py-1" style="color: #FF9142;">Details</p>
+                        {{-- <p class="px-2 py-1" style="color: #FF9142;">Details</p> --}}
                     </header>
                     <hr style="margin: 1rem -1rem;" />
                     <section>

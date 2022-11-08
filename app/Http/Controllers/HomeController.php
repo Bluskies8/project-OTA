@@ -15,6 +15,7 @@ use App\Models\TourPassanger;
 use App\Models\User;
 use App\Models\UserAdmin;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -46,7 +47,6 @@ class HomeController extends Controller
     }
     public function loginAdmin(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'username' => 'bail|required',
             'password' => 'bail|required'
@@ -59,7 +59,7 @@ class HomeController extends Controller
         ];
 
         if(Auth::guard('admin')->attempt($data)){
-            return redirect('/admin/account');
+            return redirect('/cms/tour');
         }else{
             return redirect()->back()->with('pesan','email/password salah');
         }
@@ -73,9 +73,9 @@ class HomeController extends Controller
     {
         $currency = DuffelAPI::getCurrency();
         $currentIDR = $currency->idr->rate;
-        if($request->has('sort')) $sort = $request->sort;
-        if($request->has('waktu')) $waktu = $request->waktu;
-        if($request->has('transit')) $transit = $request->transit;
+        ($request->has('sort'))?$sort = $request->sort:$sort = "";
+        ($request->has('waktu'))?$waktu = $request->waktu:$waktu = "";
+        ($request->has('transit'))?$transit = $request->transit:$transit = "";
         // dd($request->all());
         $passid = '';
         for ($i=0; $i < $request->passanger; $i++) {
@@ -103,18 +103,36 @@ class HomeController extends Controller
         if($request->type == 2){
             $REQUESTdata = [
                 'cabin' => $request->class,
-                'departure_date' => $request->depart,
-                'return_date' => $request->return,
-                'origin' => $request->departure,
-                'destination' => $request->destination,
+                'slices' => [
+                    [
+                        "departure_date"=> $request->depart,
+                        "destination"=> $request->destination,
+                        "origin"=> $request->departure,
+                        // "departure_date"=> '2023-01-08',
+                        // "destination"=> 'DXB',
+                        // "origin"=> 'LHR',
+                    ],
+                    [
+                        "departure_date"=> $request->return,
+                        "destination"=> $request->departure,
+                        "origin"=> $request->destination,
+                        // "departure_date"=> '2023-01-08',
+                        // "destination"=> 'DXB',
+                        // "origin"=> 'LHR',
+                    ],
+                ],
                 'pass' => $pass
             ];
         }else{
             $REQUESTdata = [
+                'slices' => [
+                    [
+                        "departure_date"=> $request->depart,
+                        "destination"=> $request->destination,
+                        "origin"=> $request->departure,
+                    ],
+                ],
                 'cabin' => $request->class,
-                'departure_date' => $request->depart,
-                'origin' => $request->departure,
-                'destination' => $request->destination,
                 'pass' => $pass
             ];
         }
@@ -122,22 +140,62 @@ class HomeController extends Controller
         $day = Carbon::createFromFormat('Y-m-d', $request->depart)->format('l');
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($REQUESTdata);
+        $offers = collect($res->data->offers);
 
-        foreach ($res->data->offers as $key) {
+        foreach ($offers as $key) {
             $idr = $key->total_amount * $currentIDR;
             $key->total_currency = "IDR";
             $key->total_amount = (int)$idr;
-            
+            $temp = Carbon::createFromFormat('Y-m-d H:i:s', str_replace('T',' ',$key->slices[0]->segments[0]->departing_at))->format('Y-m-d H:i:s');
+            $key->depart_jam_depart = $temp;
+            $key->transit_depart = count($key->slices[0]->segments)-1;
+            if(count($key->slices) > 1){
+                $temp = Carbon::createFromFormat('Y-m-d H:i:s', str_replace('T',' ',$key->slices[1]->segments[0]->departing_at))->format('Y-m-d H:i:s');
+                $key->return_jam_depart = $temp;
+                $key->transit_return = count($key->slices[1]->segments)-1;
+            }
         }
-        //$collectt = collect($res->data->offers)->sortBy('total_amount');
-        $collectt = collect($res->data->offers);
-        dd($res->data->offers);
-        $collectt =  $collectt->sortBy(function ($collectt){
-            $slices = collect($collectt->slices);
-            $segments = collect($slices->segments);
-            return $segments->departing_at;
-        });
-        dd($collectt);
+
+        if($transit != "" && $waktu != ""){
+            $tempwaktu = explode("-",$waktu);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s', $request->depart .' '.$tempwaktu[0]);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s', $request->depart .' '.$tempwaktu[1]);
+            if(in_array('2',$transit)){
+                $offers =$offers->whereIn('transit_depart',$transit)->where('transit_depart','>=',2)->whereBetween('depart_jam_depart',[$start,$end]);
+            }else{
+                $offers =$offers->whereIn('transit_depart',$transit)->whereBetween('depart_jam_depart',[$start,$end]);
+            }
+        }
+        else if($transit != ""){
+            if(in_array('2',$transit)){
+                $offers =$offers->whereIn('transit_depart',$transit)->where('transit_depart','>',2);
+            }else{
+                $offers =$offers->whereIn('transit_depart',$transit);
+            }
+        }
+        else if($waktu != "") {
+            $tempwaktu = explode("-",$waktu);
+            $start = Carbon::createFromFormat('Y-m-d H:i:s', $request->depart .' '.$tempwaktu[0]);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s', $request->depart .' '.$tempwaktu[1]);
+            $offers =$offers->whereBetween('depart_jam_depart',[$start,$end]);
+        }
+
+        if($sort == "lowest-price"){
+            $offers = $offers->sortBy('total_amount');
+        }
+        else if($sort == "depart-earliest-departure"){
+            $offers = $offers->sortBy('depart_jam_depart');
+        }
+        else if($sort == "depart-lastest-departure"){
+            $offers = $offers->sortByDesc('depart_jam_depart');
+        }
+        else if($sort == "return-earliest-departure"){
+            $offers = $offers->sortBy('return_jam_depart');
+        }
+        else if($sort == "return-lastest-departure"){
+            $offers = $offers->sortByDesc('return_jam_depart');
+        }
+
         foreach ($res->data->passengers as $key => $value) {
             if($passid == ''){
                 $passid = $value->id;
@@ -151,10 +209,14 @@ class HomeController extends Controller
             'pass_count' => $request->passanger,
             'cabin' => $request->class,
             'days' => $day.", ".$date,
-            'depart_date' => $date,
+            'depart_date' => $request->depart,
             'return_date' => ($request->return)?$request->return:"",
             'type' => $request->type,
-            'passid' => $passid
+            'passid' => $passid,
+            'offers' => $offers,
+            'sort' => $sort,
+            'waktu' => $waktu,
+            'transit' => $transit,
         ]);
     }
 
@@ -193,36 +255,38 @@ class HomeController extends Controller
     public function home()
     {
         // return view('pages.user.index');
-        $display = DisplayBanner::where('enabled',1)->orderBy('index', 'ASC')->first();
+        $display = DisplayBanner::where('enabled',1)->orderBy('index', 'ASC')->get();
         $tour = ProductTour::get();
         $airport = DuffelAPI::getAirport();
         // foreach ($display as $tagg) {
         if ($display) {
-            $temp = [];
-            $explode = explode(',', $display->tags);
-            foreach ($explode as $ex) {
-                foreach ($tour as $key3) {
-                    $tourexplode = explode(',', $key3->tags);
-                    if(in_array($ex, $tourexplode)){
-                        $boolean = false;
-                        foreach ($temp as $key) {
-                            if($key->id == $key3->id){
-                                $boolean = true;
+            foreach ($display as $diplays) {
+                $temp = [];
+                $explode = explode(',', $diplays->tags);
+                foreach ($explode as $ex) {
+                    foreach ($tour as $key3) {
+                        $tourexplode = explode(',', $key3->tags);
+                        if(in_array($ex, $tourexplode)){
+                            $boolean = false;
+                            foreach ($temp as $key) {
+                                if($key->id == $key3->id){
+                                    $boolean = true;
+                                }
                             }
-                        }
-                        if(!$boolean && $key3->enabled===1){
-                            $key3->product_type = 'tour';
-                            $key3->header_img_url = env('APP_URL').'/tour/imgh/'.$key3->id;
-                            $key3->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$key3->id;
-                            $temp []=$key3;
+                            if(!$boolean && $key3->enabled===1){
+                                $key3->product_type = 'tour';
+                                $key3->header_img_url = env('APP_URL').'/tour/imgh/'.$key3->id;
+                                $key3->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$key3->id;
+                                $temp []=$key3;
+                            }
                         }
                     }
                 }
+                usort($temp,function($a,$b){
+                    return $a->id > $b->id?1:-1;
+                });
+                $diplays->products = $temp;
             }
-            usort($temp,function($a,$b){
-                return $a->id > $b->id?1:-1;
-            });
-            $display->products = $temp;
         }
         // }
         // dd($display);
@@ -306,13 +370,6 @@ class HomeController extends Controller
             'payment_status' => 0
         ]);
         foreach ($request->data['room'] as $index => $key) {
-            // return $key2;
-            // $room = TourBookingRoom::create([
-                //     'tour_booking_id' => $trans->id,
-                //     'name' => "Room ".$key['no_room'],
-                //     'extrabed' => $key['extraBed'],
-                //     'bedtype' => $key['bedType']
-                // ]);
             $paxtype = [];
             foreach ($key['data'] as $key2 => $value) {
                 $paxtype[$key2] = $value['paxType'];
@@ -349,7 +406,6 @@ class HomeController extends Controller
                     $extrabed = "standard";
                 }
                 TourPassanger::Create([
-                    // 'tour_booking_room_id' => $room->id,
                     'id' => '',
                     'room' => "Room ".$index+1,
                     'extrabed' => $extrabed,

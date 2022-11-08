@@ -181,7 +181,7 @@ class BackofficeController extends Controller
             ]);
             return $paymentUrl;
         }else{
-            return response()->json($JokulResponse->message,400);
+            return $JokulResponse->message;
         }
     }
 
@@ -254,5 +254,16 @@ class BackofficeController extends Controller
         return view('pages.backoffice.flight_user',[
             'data' => $data,
         ]);
+    }
+
+    public function payment(Request $request)
+    {
+
+        if($request->transaction->status == "SUCCESS"){
+            $data = TourBooking::where('bookingCode',$request->order->invoice_number)->first();
+            return $data;
+            $data->payment_status = 1;
+            $data->save();
+        }
     }
 }
