@@ -258,8 +258,8 @@ class BackofficeController extends Controller
 
     public function payment(Request $request)
     {
-        return $request->all();
-        if($request->transaction->status == "SUCCESS"){
+        // return $request->all();
+        if($request->transaction['status'] == "SUCCESS"){
             $data = TourBooking::where('bookingCode',$request->order->invoice_number)->first();
             return $data;
             $data->payment_status = 1;
