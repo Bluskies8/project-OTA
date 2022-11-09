@@ -4,7 +4,24 @@
 
 <div class="container" style="margin-top: 100px;padding-bottom: 2rem;">
     <h3 class="mb-2">Nama Lokasi</h3>
-    {{-- <div id="list" style="height: 75vh;overflow-y: auto;"> --}}
+    <div id="filter" class="px-3 mb-4 position-relative">
+        <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
+        <div id="menu-filter" class="position-absolute mt-2 card card-body" style="background-color: white;z-index: 1; display: none;">
+            <div class="row">
+                <div class="col">
+                    <h4>Sort By :</h4>
+                    <div style="overflow-y: auto;">
+                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
+                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div>
+                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-shortest-day" /><label class="form-check-label" for="formCheck-shortest-day">Shortest Day Count</label></div>
+                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-longest-day" /><label class="form-check-label" for="formCheck-longest-day">Longest Day Count</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end"><button class="btn btn-primary" type="button">Apply</button></div>
+        </div>
+    </div>
+    <div id="list" style="overflow-y: auto;">
         {{-- loop disini --}}
         @foreach ($data as $item)
             <div class="card mb-3" id = "{{$item->slug}}">
@@ -31,7 +48,7 @@
                 </div>
             </div>
         @endforeach
-    {{-- </div> --}}
+    </div>
 </div>
 
 <script src="{{asset('js/user/tour.js')}}"></script>

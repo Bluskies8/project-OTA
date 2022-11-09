@@ -263,4 +263,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.btn-filter').on('click', function() {
+        if ($('#menu-filter').css('display') == 'none') {
+            $('#menu-filter').show();
+            $(this).find('i').addClass('fa-flip-vertical');
+        } else {
+            $('#menu-filter').hide();
+            $(this).find('i').removeClass('fa-flip-vertical');
+        }
+    });
 });
