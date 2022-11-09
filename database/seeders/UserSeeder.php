@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'test1@gmail.com',
             'email_verified_at' => '2021-10-13 16:43:36',
             'DOB' => '2001-05-08',
-            'password' => 'asd'
+            'password' => '$2y$10$DLyrXz5xMCCHDFtBVIN6mueZT4gjSV9LgIYQdjMeg7W.1aAARvWx.'
         ]);
         User::create([
             'first_name' => 'Ariel',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'email' => 'arielnovachristian01@gmail.com',
             'email_verified_at' => '2021-10-13 16:43:36',
             'DOB' => '2001-05-08',
-            'password' => 'asd'
+            'password' => '$2y$10$DLyrXz5xMCCHDFtBVIN6mueZT4gjSV9LgIYQdjMeg7W.1aAARvWx.'
         ]);
     }
 }

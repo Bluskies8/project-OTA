@@ -60,7 +60,7 @@
 
         <div id="filter" class="px-3 mb-4 position-relative">
             <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
-            <div id="menu-filter"  class="position-absolute mt-2 card card-body" style="width: 526px;height: 327px;background-color: white;z-index: 1; display: none; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
+            <div id="menu-filter"  class="position-absolute mt-2 card card-body" style="width: 526px;background-color: white;z-index: 1; display: none; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"  >
                 <form action="/Flight/search" method="post">
                     @csrf
                     <div class="row">
@@ -127,17 +127,17 @@
                                     <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
                                     <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
                                 @else
-                                    @if ($transit[0] == "0")
+                                    @if (in_array("0",$transit))
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" checked/><label class="form-check-label" for="formCheck-direct">Direct</label></div>
                                     @else
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-direct" value = "0" /><label class="form-check-label" for="formCheck-direct">Direct</label></div>
                                     @endif
-                                    @if ($transit[0] == "1" || $transit[1] == "1")
+                                    @if (in_array("1",$transit))
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" checked /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
                                     @else
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-1" value = "1" /><label class="form-check-label" for="formCheck-transit-1">1 Transit</label></div>
                                     @endif
-                                    @if ($transit[0] == "2" || $transit[1] == "2" ||$transit[2] == "2")
+                                    @if (in_array("2",$transit))
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" checked/><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
                                     @else
                                         <div class="form-check"><input type="checkbox" class="form-check-input" name = "transit[]" id="formCheck-transit-2+" value = "2" /><label class="form-check-label" for="formCheck-transit-2+">2+ Transit</label></div>
@@ -153,7 +153,10 @@
                     <input type="hidden" name="passanger" value = "{{$pass_count}}">
                     <input type="hidden" name="class" value = "{{$cabin}}">
                     <input type="hidden" name="type" value = "{{$type}}">
-                    <div class="text-end"><button class="btn btn-primary" type="submit">Apply</button></div>
+                    <div class="text-end">
+                        <button class="btn btn-primary" id = "reset-filter" type="button">Reset</button>
+                        <button class="btn btn-primary" type="submit">Apply</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -303,7 +306,7 @@
                                     <div class="col-4 d-flex align-items-center"><img src="{{$item->owner->logo_symbol_url}}" style="max-height: 64px;">
                                         <p class="ms-3 fs-4">{{$item->owner->name}}</p>
                                     </div>
-                                    <div class="col-4 d-flex align-items-center justify-content-evenly">
+                                    <div class="col-5 d-flex flex-column align-items-center justify-content-evenly">
                                         @foreach ($item->slices as $slicess)
                                             @foreach ($slicess->segments as $item2)
                                                 <?php
@@ -318,10 +321,15 @@
 
                                                 ?>
                                             @endforeach
-                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                            <div class="d-flex w-100 justify-content-center mb-3">
+                                                @if($loop->index == 0)
+                                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                                @else
+                                                    <div class="d-flex flex-column align-items-center justify-content-center border-left border-secondary">
+                                                @endif
                                                     <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
                                                 </div>
-                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <div class="d-flex flex-column align-items-center justify-content-center mx-5">
                                                     <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
                                                     @if ($count>1)
                                                     <p>Transit</p>
@@ -332,6 +340,7 @@
                                                 <div class="d-flex flex-column align-items-center justify-content-center">
                                                     <p>{{gmdate('H:i', strtotime($arriving[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->destination->iata_code}}</button>
                                                 </div>
+                                            </div>
                                             <?php
                                                 $total = [];
                                                 $arriving = [];
@@ -342,9 +351,9 @@
                                             ?>
                                         @endforeach
                                     </div>
-                                    <div class="col-4 text-end">
-                                            <p>{{$item->total_currency}}<span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->total_amount}}</span>/org</p>
-                                            <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
+                                    <div class="col-3 d-flex flex-column justify-content-center align-items-end">
+                                        <p>{{$item->total_currency}}<span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->total_amount}}</span>/org</p>
+                                        <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fw-bold btn-detail ms-2" type="button">Detail Penerbangan</button>
@@ -352,8 +361,11 @@
                                 <div class="p-3 detail-penerbangan" style="display: none;">
                                     @foreach ($item->slices as $slicess)
                                     <?php $tempp = "" ?>
-                                    <div class="row">
-                                            @foreach ($slicess->segments as $item2)
+                                    @if($loop->index != 0)
+                                        <hr>
+                                    @endif
+                                        @foreach ($slicess->segments as $item2)
+                                        <div class="row pb-2 mb-2">
                                             <div class="col-2">
                                                 <div class="d-flex h-100">
                                                     <div class="d-flex flex-column justify-content-between" style="width: calc(100% - 16px);">
@@ -421,9 +433,9 @@
                                                 </div>
                                             </div>
                                             <div class="col"></div>
-                                            @endforeach
                                         </div>
-                                        <?php $tempp = "" ?>
+                                        @endforeach
+                                    <?php $tempp = "" ?>
                                     @endforeach
                                 </div>
                             </div>

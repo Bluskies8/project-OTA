@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container" style="margin-top: 100px;padding-bottom: 2rem;">
-    <h3 class="mb-2">Nama Lokasi</h3>
+    <h3 class="mb-2">Tour</h3>
     <div id="filter" class="px-3 mb-4 position-relative">
         <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
         <div id="menu-filter" class="position-absolute mt-2 card card-body" style="background-color: white;z-index: 1; display: none;">

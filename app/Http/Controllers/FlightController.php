@@ -26,12 +26,14 @@ class FlightController extends Controller
     public function datadiri(Request $request) {
         $data = json_decode($request->cookie('dataFlight1'));
         $flight = DuffelAPI::getOffer($data->flight1)->data;
+        // dd($flight);
         if(!$data)return redirect()->back();
         return view('pages.user.datadiri-flight',[
             'count' => $data->pass_count,
             'flight' => $flight,
             'cabin' => $data->cabin,
-            'date' => $data->depart_date
+            'depart_date' => $data->depart_date,
+            'return_date' => ($data->return_date)?$data->return_date:""
         ]);
     }
 

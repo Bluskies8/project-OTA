@@ -43,8 +43,14 @@ class BackofficeController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect('adminlogin');
+
+        if(Auth::guard('admin')->user()){
+            Auth::guard('admin')->logout();
+            return redirect('adminlogin');
+        }else if(Auth::guard('user')->user()){
+            Auth::guard('user')->logout();
+            return redirect('/');
+        }
     }
 
     public function Customers()

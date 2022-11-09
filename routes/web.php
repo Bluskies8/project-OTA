@@ -37,6 +37,8 @@ Route::post('/setCookie', [HomeController::class,'setCookie']);
 Route::get('/carousel/{id}', [CMSController::class,'getPhotoCarousel']);
 Route::post('/adminlogincek', [HomeController::class,'loginAdmin']);
 Route::get('/adminlogin', [HomeController::class,'loginAdminPages']);
+Route::post('/logincek', [HomeController::class,'loginUser']);
+Route::post('/register', [HomeController::class,'registerUser']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
@@ -45,9 +47,6 @@ Route::prefix('Flight')->group(function () {
 });
 Route::prefix('tour')->group(function () {
     Route::post('/',[ProductTourController::class,'ShowAllTour']);
-    Route::get('/datadiri',[HomeController::class,'datadiriTour']);
-    Route::post('/cp-submit',[HomeController::class,'datasubmit']);
-    Route::get('/quote',[productTourController::class,'quote']);
     Route::get('/{productTour:slug}', [ProductTourController::class, 'show']);
     Route::get('/imgh/{id}', [HomeController::class, 'showheader']);
     Route::get('/imgt/{id}', [HomeController::class, 'showthumb']);
@@ -64,7 +63,17 @@ Route::prefix('tour')->group(function () {
 
 
 Route::group(['middleware' => ['endUser']], function () {
-
+    Route::get('/logout',[BackofficeController::class,'logout']);
+    Route::get('history',[HomeController::class, 'history']);
+    Route::prefix('Flights')->group(function () {
+        Route::get('/datadiri',[FlightController::class,'datadiri']);
+        Route::post('/cp-submit',[FlightController::class,'datasubmit']);
+    });
+    Route::prefix('tours')->group(function () {
+        Route::get('/datadiri',[HomeController::class,'datadiriTour']);
+        Route::post('/cp-submit',[HomeController::class,'datasubmit']);
+        Route::get('/quote',[productTourController::class,'quote']);
+    });
 });
 Route::group(['middleware' => ['adminUser']], function () {
     Route::prefix('admin')->group(function () {

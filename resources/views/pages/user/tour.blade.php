@@ -190,6 +190,7 @@
                             <div class="p-3">
                                 <button class="mb-3 btn w-100 add-room" type="submit" style="color: #FF9142;border: 1px solid #FF9142;">Add Room</button>
                                 <hr class="my-0">
+                                <input type="hidden" name="auth" value = "{{Auth::guard('user')->user(0)}}">
                             <button class="btn w-100" id = 'quote' type="button" style="color: white;background-color: rgb(75, 0, 118);">Quote Now</button>
                             <p>Terms &amp; Conditions</p>
                         </div>

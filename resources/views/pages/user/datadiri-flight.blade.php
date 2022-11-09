@@ -108,73 +108,49 @@
                     </header>
                     <hr style="margin: 1rem -1rem;" />
                     <section>
-                        @foreach ($flight->slices[0]->segments as $key => $item)
-                        <?php
-                            $tempdeparting = strtotime($item->departing_at);
-                            $depart = date('d M',$tempdeparting);
-                            $temparriving = strtotime($item->arriving_at);
-                            $arrive = date('d M',$temparriving);
-                            $temp = gmdate('H:i', $temparriving - $tempdeparting);
-                            $count = $key;
-                        ?>
-                        @endforeach
-                        {{-- <p class="mb-3">Departure<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-dot">
-                                <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                            </svg> --}}
-                            <span id="departure-date">{{$date}}</span></p>
+                        @foreach ($flight->slices as $flights)
+                        @if ($loop->index == 0)
+                        <span id="departure-date">{{$depart_date}}</span></p>
+                        @else
+                        <span id="departure-date">{{$return_date}}</span></p>
+                        @endif
                         <div class="d-flex mb-3"><img class="me-3" src="{{$flight->owner->logo_symbol_url}}" style="max-height: 48px;" />
                             <div class="d-flex flex-column">
                                 <p>{{$flight->owner->name}}</p>
                                 <p class="text-secondary">{{$cabin}}</p>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', $tempdeparting)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->origin->iata_code}}</button>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center position-relative">
-                                <p>{{$temp}}</p>
-                                @if ($count == 1)
-                                <p> Transit</p>
-                                @else
-                                <p>Langsung</p>
-                                @endif
-                                <div class="position-absolute h-100 d-flex justify-content-between align-items-center pt-1" style="width: 130px;"><i class="far fa-circle text-secondary"></i>
-                                    <hr class="w-100" /><i class="fas fa-dot-circle text-secondary"></i>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>{{gmdate('H:i', $temparriving)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->destination->iata_code}}</button>
-                            </div>
-                        </div>
+                            @foreach ($flights->segments as $key => $item)
+                                <?php
+                                    $tempdeparting = strtotime($item->departing_at);
+                                    $depart = date('d M',$tempdeparting);
+                                    $temparriving = strtotime($item->arriving_at);
+                                    $arrive = date('d M',$temparriving);
+                                    $temp = gmdate('H:i', $temparriving - $tempdeparting);
+                                    $count = $key;
+                                ?>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', $tempdeparting)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->origin->iata_code}}</button>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center position-relative">
+                                        <p>{{$temp}}</p>
+                                        @if ($count == 1)
+                                        <p> Transit</p>
+                                        @else
+                                        <p>Langsung</p>
+                                        @endif
+                                        <div class="position-absolute h-100 d-flex justify-content-between align-items-center pt-1" style="width: 130px;"><i class="far fa-circle text-secondary"></i>
+                                            <hr class="w-100" /><i class="fas fa-dot-circle text-secondary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <p>{{gmdate('H:i', $temparriving)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->destination->iata_code}}</button>
+                                    </div>
+                                    </div>
+                            @endforeach
+                        @endforeach
                     </section>
-                    {{-- <hr style="margin: 1rem -1rem;" />
-                    <section>
-                        <p class="mb-3">Return<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-dot">
-                                <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                            </svg><span id="return-date">Date</span></p>
-                        <div class="d-flex mb-3"><img class="me-3" src="bruh.jpg" style="max-height: 48px;" />
-                            <div class="d-flex flex-column">
-                                <p>Maskapai</p>
-                                <p class="text-secondary">Kelas Penerbangan</p>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>19:15</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">Kode</button>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center position-relative">
-                                <p>Durasi Penerbangan</p>
-                                <p>Langsung / n Transit</p>
-                                <div class="position-absolute h-100 d-flex justify-content-between align-items-center pt-1" style="width: 130%;"><i class="far fa-circle text-secondary"></i>
-                                    <hr class="w-100" /><i class="fas fa-dot-circle text-secondary"></i>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                <p>19:15</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">Kode</button>
-                            </div>
-                        </div>
-                    </section> --}}
                 </div>
             </div>
         </div>

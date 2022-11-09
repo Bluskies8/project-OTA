@@ -90,6 +90,12 @@ $(document).ready(function() {
         }
     };
 
+    $('#reset-filter').on('click',function () {
+        $('input:checked').each(function(){
+            $(this).prop('checked', false);
+        });
+    })
+
     var type = $('meta[name="type"]').attr('content');
     var depart_date = $('meta[name="depart_date"]').attr('content');
     var return_date = $('meta[name="return_date"]').attr('content');
@@ -127,11 +133,7 @@ $(document).ready(function() {
             },
             success: function(res) {
                 if(res == 'success'){
-                    if(type == 1){
-                        window.location.href = "/Flight/datadiri";
-                    }else if(type == 2){
-                        window.location.href = "/Flight/searchFlight2";
-                    }
+                    window.location.href = "/Flight/datadiri";
                 }
                 console.log(res);
             },
@@ -171,11 +173,8 @@ $(document).ready(function() {
             },
             success: function(res) {
                 if(res == 'success'){
-                    if(type == 1){
-                        window.location.href = "/Flight/datadiri";
-                    }else if(type == 2){
-                        window.location.href = "/Flight/searchFlight2";
-                    }
+                    window.location.href = "/Flight/datadiri";
+
                 }
                 console.log(res);
             },

@@ -19,6 +19,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -39,12 +40,67 @@ class HomeController extends Controller
             'password' => 'bail|required'
         ]);
         $user = User::where('email',$request->email)->first();
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        if(Auth::guard('user')->attempt($data)){
+            return redirect()->back();
+        }else{
+            return redirect()->back()->with('pesan','email/password salah');
+        }
         if(!$user) return redirect()->back()->with('error','email/password salah');
     }
-    public function loginPages()
+
+    public function registerUser(Request $request)
     {
-        return view('pages.backoffice.login');
+        // dd($request->all());
+        // $request->validate([
+        //     'nama' => 'required',
+        //     'email' => 'required|email',
+        //     'password' => 'required"|confirmed|min:6',
+        // ]);
+        $temp = explode(' ',$request->nama);
+        if(count($temp) == 1) {
+            $firstName = $temp[0];
+            $lastName = $temp[0];
+        }else if(count($temp) == 2) {
+            $firstName = $temp[0];
+            $lastName = $temp[1];
+        }else if(count($temp) == 3) {
+            $firstName = $temp[0];
+            $middleName = $temp[1];
+            $lastName = $temp[2];
+            foreach ($temp as $key2 => $value2) {
+                if($key2>2){
+                    $lastName = $value2;
+                }else{
+                    $lastName .= ' '.$value2;
+                }
+            }
+        }else if(count($temp) > 3) {
+            $firstName = $temp[0];
+            $middleName = $temp[1];
+            $lastName = "";
+            for ($i=2; $i < count($temp); $i++) {
+                if($i == 2){
+                    $lastName = $temp[$i];
+                }else{
+                    $lastName .= ' '.$temp[$i];
+                }
+            }
+        }
+        User::create([
+            'title' => $request->title,
+            'first_name' => $firstName,
+            'middle_name' => $middleName,
+            'last_name' => $lastName,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect()->back();
     }
+
     public function loginAdmin(Request $request)
     {
         $request->validate([
@@ -141,7 +197,6 @@ class HomeController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($REQUESTdata);
         $offers = collect($res->data->offers);
-
         foreach ($offers as $key) {
             $idr = $key->total_amount * $currentIDR;
             $key->total_currency = "IDR";

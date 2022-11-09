@@ -88,7 +88,12 @@ $(document).ready(function() {
                     alert( "page not found" );
                 },
                 200: function(data){
-                    window.location.href = "/tour/datadiri";
+                    console.log($('input[name="auth"]').val());
+                    if($('input[name="auth"]').val()){
+                        window.location.href = "/tours/datadiri";
+                    }else{
+                        $('#modal-login').modal('show');
+                    }
                     console.log(data);
                 }
             },
