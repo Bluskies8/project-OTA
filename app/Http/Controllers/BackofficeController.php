@@ -76,6 +76,14 @@ class BackofficeController extends Controller
         ]);
     }
 
+    public function Referral()
+    {
+        // $data = Referral::get();
+        return view('pages.backoffice.master_referral',[
+            // 'data' => $data,
+        ]);
+    }
+
     public function adminRole()
     {
         $data = AdminRole::get();

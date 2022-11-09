@@ -78,6 +78,12 @@
                     <p>Tag</p>
                 </a>
             </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/referral" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-bullhorn me-3"></i>
+                    <p>Kode Referral</p>
+                </a>
+            </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-file-alt me-3"></i>
                     <p>Reports</p>

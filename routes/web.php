@@ -96,6 +96,13 @@ Route::group(['middleware' => ['adminUser']], function () {
             Route::post('/update',[TagController::class,'update']);
             Route::delete('/{id}',[TagController::class,'delete']);
         });
+
+
+        Route::prefix('referral')->group(function () {
+            Route::get('/',[BackofficeController::class,'Referral']);
+        });
+
+
         Route::prefix('Flight')->group(function () {
             Route::get('/',[BackofficeController::class,'FlightTrans']);
             Route::post('/create',[TagController::class,'create']);
