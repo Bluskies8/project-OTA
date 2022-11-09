@@ -60,7 +60,7 @@
 
         <div id="filter" class="px-3 mb-4 position-relative">
             <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
-            <div id="menu-filter"  class="position-absolute mt-2 card card-body" style="width: 526px;height: 300px;background-color: white;z-index: 1; display: none;"  >
+            <div id="menu-filter"  class="position-absolute mt-2 card card-body" style="width: 526px;height: 327px;background-color: white;z-index: 1; display: none; box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
                 <form action="/Flight/search" method="post">
                     @csrf
                     <div class="row">
