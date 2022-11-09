@@ -22,6 +22,12 @@
                             <option value="tour">Tour</option>
                         </select>
 					</div>
+					<div class="col-6 mt-2 d-flex">
+						<input type="number" min=0 max=999999999 class="form-control" name="limit" placeholder="Limit Penggunaan" required>
+                    </div>
+					<div class="col-6 mt-2 d-flex">
+						<input type="number" min=0 max=100 class="form-control" name="diskon" placeholder="Besar Diskon" required>
+                    </div>
 				</div>
 
                 <div class="w-100 text-end mt-3">
