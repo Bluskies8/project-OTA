@@ -42,6 +42,10 @@
                                         <p>Tanggal Lahir</p>
                                         <input class="form-control" name = "cp-birth" type="date" />
                                     </div>
+                                    <div class="mb-2">
+                                        <p>Kode Referral</p>
+                                        <input class="form-control" name="kode_referral" type="text" />
+                                    </div>
                                 </div>
                                 <!-- sampe sini -->
                             </div>

@@ -6,12 +6,11 @@
 <div class="container py-5">
     <div class="card">
         <div class="card-body">
-            <form> <!-- isi link dari backend -->
+            <form>
                 <div id="container-form-CP" class="mb-4">
                     <h3>Contact Person</h3>
                     <hr />
                     <div class="row">
-                        <!-- loop dari sini -->
                         <div class="col-4">
                             <div class="mb-2">
                                 <p>Nama Lengkap</p>
@@ -36,11 +35,14 @@
                                 <p>Tanggal Lahir</p>
                                 <input class="form-control" name = "cp-birth" type="date" />
                             </div>
+                            <div class="mb-2">
+                                <p>Kode Referral</p>
+                                <input class="form-control" name="kode_referral" type="text" />
+                            </div>
                         </div>
-                        <!-- sampe sini -->
                     </div>
                 </div>
-                <div id = "dataroom">
+                <div id="dataroom">
                     @foreach ($room as $item)
                     <hr style="margin: 1rem -1rem;" />
                     <div id="droom-{{$loop->index+1}}">
