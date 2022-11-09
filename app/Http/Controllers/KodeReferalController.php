@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\kodeReferal;
+use App\Models\kodeReferalDetail;
 use Illuminate\Http\Request;
 
 class KodeReferalController extends Controller
@@ -14,7 +15,8 @@ class KodeReferalController extends Controller
      */
     public function index()
     {
-        //
+        $data = kodeReferal::get();
+        return view('pages.backoffice.master_referral',compact('data'));
     }
 
     /**
@@ -22,9 +24,18 @@ class KodeReferalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function detail($id)
     {
-        //
+        $data = kodeReferalDetail::with('user')->where('referal_id', $id)->get();
+        foreach ($data as $key) {
+            if($key->user->middle_name == ""){
+                $name = $key->user->first_name. ' '. $key->user->last_name;
+            }else{
+                $name = $key->user->first_name.' '.$key->user->middle_name.' '.$key->user->last_name;
+            }
+            $key->nama = $name;
+        }
+        return $data;
     }
 
     /**
@@ -35,7 +46,19 @@ class KodeReferalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required',
+            'limit' => 'required|numeric',
+            'diskon' => 'required|numeric',
+            'tipe' => 'required'
+        ]);
+        kodeReferal::create([
+            'kode' => $request->kode,
+            'limit' => $request->limit,
+            'discount' => $request->diskon,
+            'tipe' => $request->tipe,
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +92,13 @@ class KodeReferalController extends Controller
      */
     public function update(Request $request, kodeReferal $kodeReferal)
     {
-        //
+        $data = kodeReferal::where('id',$request->id)->first();
+        $data->tipe = $request->tipe;
+        $data->kode = $request->kode;
+        $data->discount = $request->amount;
+        $data->limit = $request->limit;
+        $data->save();
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +107,8 @@ class KodeReferalController extends Controller
      * @param  \App\Models\kodeReferal  $kodeReferal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kodeReferal $kodeReferal)
+    public function destroy($id)
     {
-        //
+        kodeReferal::where('id',$id)->delete();
     }
 }

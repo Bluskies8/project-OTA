@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
+            'title' => 'mr',
             'first_name' => 'Test',
             'last_name' => '1',
             'phone_number' => '12345678',
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$DLyrXz5xMCCHDFtBVIN6mueZT4gjSV9LgIYQdjMeg7W.1aAARvWx.'
         ]);
         User::create([
+            'title' => 'mr',
             'first_name' => 'Ariel',
             'middle_name' => 'Nova',
             'last_name' => 'Christian',

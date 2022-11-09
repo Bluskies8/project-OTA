@@ -6,6 +6,7 @@ use App\Http\Controllers\BackofficeController;
 use App\Http\Controllers\CMSController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KodeReferalController;
 use App\Http\Controllers\ProductTourController;
 use App\Http\Controllers\ProductTourCountrytagController;
 use App\Http\Controllers\ProductTourExcludeController;
@@ -108,9 +109,12 @@ Route::group(['middleware' => ['adminUser']], function () {
 
 
         Route::prefix('referral')->group(function () {
-            Route::get('/',[BackofficeController::class,'Referral']);
+            Route::get('/',[KodeReferalController::class,'index']);
+            Route::post('/create',[KodeReferalController::class,'store']);
+            Route::post('/update',[KodeReferalController::class,'update']);
+            Route::delete('/{id}',[KodeReferalController::class,'destroy']);
+            Route::get('/detail/{id}',[KodeReferalController::class,'detail']);
         });
-
 
         Route::prefix('Flight')->group(function () {
             Route::get('/',[BackofficeController::class,'FlightTrans']);
