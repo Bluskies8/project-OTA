@@ -5,8 +5,8 @@
             <p>LOGO</p>
             {{-- <img class="h-75 py-2" src="{{ asset('img/logoWhite.png') }}"> --}}
         </div>
-        <div class="h-100 d-none d-lg-flex justify-content-center align-items-center">
-            <button class="btn" type="button" style="color: inherit">HOME</button>
+        {{-- <div class="h-100 d-none d-lg-flex justify-content-center align-items-center">
+            <a href="/"><button class="btn" type="button" style="color: white">HOME</button></a>
             <div class="dropdown">
                 <button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"
                     style="color: inherit">ACTIVITIES</button>
@@ -27,12 +27,13 @@
                     <a class="dropdown-item" href="#">Third Item</a>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="h-100 d-flex align-items-center justify-content-end p-3">
         @if(Auth::guard('user')->user())
         <div class="dropdown me-4">
             <button class="btn p-0" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="outline: none;box-shadow: none;">
+                <p>{{Auth::guard('user')->user()->first_name}} {{Auth::guard('user')->user()->middle_name}} {{Auth::guard('user')->user()->last_name}}</p>
                 <i class = "fa fa-circle-user" style = "font-size:1.5rem; color:white;"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
@@ -45,7 +46,7 @@
             <i class="fas fa-thin fa-user-group"></i>
             <button id="btn-login" class="btn" type="button" style="color: inherit">Login</button>
             <button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5); color: inherit;">Register</button>
-            @endif
+        @endif
         </div>
     </div>
 

@@ -123,6 +123,7 @@ $(document).ready(function() {
         var cp_email = $('input[name="cp-email"]').val();
         var cp_nohp = $('input[name="cp-nohp"]').val();
         var cp_birth = $('input[name="cp-birth"]').val();
+        var referal = $('input[name="kode_referral"]').val();
         var cp_title = $('#cp-title').val();
         var room = [];
         for (let index = 0; index < $('#dataroom').children('div').length; index++) {
@@ -173,6 +174,7 @@ $(document).ready(function() {
             console.log(room);
         }
         var data = {
+            'referal' : referal,
             'cp':{
                 'title':cp_title,
                 'nama':cp_nama,
@@ -182,11 +184,12 @@ $(document).ready(function() {
             },
             'room' :room
         };
+        console.log(data);
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            url: "/tour/cp-submit",
+            url: "/tours/cp-submit",
             method: 'post',
             data: {
                 'data': data,
@@ -195,8 +198,12 @@ $(document).ready(function() {
                 // console.log(data)
             },
             success: function(response){
-                // console.log(response)
-                $('#modal-notice').modal('show');
+                console.log(response)
+                if(response == "kode not found"){
+                    $('#error-kode').show();
+                }else{
+                    $('#modal-notice').modal('show');
+                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);

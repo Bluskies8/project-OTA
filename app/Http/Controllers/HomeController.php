@@ -6,6 +6,8 @@ use App\Duffel\DuffelAPI;
 use App\Models\Carousel;
 use App\Models\Customer;
 use App\Models\DisplayBanner;
+use App\Models\kodeReferal;
+use App\Models\kodeReferalDetail;
 use App\Models\Passport;
 use App\Models\ProductsConfig;
 use App\Models\ProductTour;
@@ -14,6 +16,7 @@ use App\Models\TourBookingRoom;
 use App\Models\TourPassanger;
 use App\Models\User;
 use App\Models\UserAdmin;
+use App\Models\UserSingleFlightBook;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -63,9 +66,11 @@ class HomeController extends Controller
         $temp = explode(' ',$request->nama);
         if(count($temp) == 1) {
             $firstName = $temp[0];
+            $middleName = "";
             $lastName = $temp[0];
         }else if(count($temp) == 2) {
             $firstName = $temp[0];
+            $middleName = "";
             $lastName = $temp[1];
         }else if(count($temp) == 3) {
             $firstName = $temp[0];
@@ -123,6 +128,29 @@ class HomeController extends Controller
     public function loginAdminPages()
     {
         return view('pages.backoffice.login');
+    }
+
+    public function history()
+    {
+        $tour = TourBooking::with('tour')->where('user_id',Auth::guard('user')->user()->id)->get();
+        foreach ($tour as $key ) {
+            $count = TourPassanger::where('tour_bookings_id',$key->id)->count();
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+            $key->trans_date = $date;
+            $key->biaya = $key->tour->downpayment * $count;
+        }
+        $flight = UserSingleFlightBook::where('order_by',Auth::guard('user')->user()->id)->get();
+        // foreach ($flight as $key) {
+        //     $res = DuffelAPI::getOrder($key->transactionId);
+        //     $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+        //     $key->trans_date = $date;
+        //     $key->detail = $res->data;
+        // }
+        // dd($flight);
+        return view('pages.user.history',[
+            'tour' => $tour,
+            'flight' => $flight
+        ]);
     }
 
     public function searchFlight(Request $request)
@@ -410,8 +438,9 @@ class HomeController extends Controller
             $middleName = "";
             $lastName = "";
         }
+
         $trans = TourBooking::create([
-            'user_id' => 0,
+            'user_id' => Auth::guard('user')->user()->id,
             'bookingCode' => $bookingCode,
             'product_tour_id' => $tour->id,
             'product_tour_date_id' => $date,
@@ -424,6 +453,16 @@ class HomeController extends Controller
             'payment_url' => $paymentUrl,
             'payment_status' => 0
         ]);
+        if($request->data['referal']){
+            $kode = kodeReferal::where('kode',$request->data['referal'])->where('tipe','tour')->first();
+            if(!$kode){
+                return "kode not found";
+            }
+            kodeReferalDetail::create([
+                'user_id' => Auth::guard('user')->user()->id,
+                'referal_id' => $kode->id
+            ]);
+        }
         foreach ($request->data['room'] as $index => $key) {
             $paxtype = [];
             foreach ($key['data'] as $key2 => $value) {

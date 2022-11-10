@@ -39,6 +39,7 @@
                                 <p>Kode Referral</p>
                                 <input class="form-control" name="kode_referral" type="text" />
                             </div>
+                            <div style="color:red; display:none" id = "error-kode">kode not found</div>
                         </div>
                     </div>
                 </div>

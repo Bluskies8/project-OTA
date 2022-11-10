@@ -110,7 +110,6 @@ class FlightController extends Controller
             ];
         }
         $offer = DuffelAPI::getOffer($data->flight1);
-        return $offer;
         $data = [
             "selected_offer" => $data->flight1,
             "payment" => [
@@ -122,7 +121,7 @@ class FlightController extends Controller
         ];
         // return $data;
         $_response = DuffelAPI::DOBook($data);
-        // return $_response;
+        return $_response;
         $response =  $_response->data;
         $total = (int)$response->total_amount * $currentIDR;
         $newBook["status"] = true;
@@ -224,28 +223,5 @@ class FlightController extends Controller
         // ];
         // $jokulres = Jokul::doPayment($doku);
         // $response['payment'] = $jokulres;
-    }
-    public function booking(Request $request)
-    {
-        // foreach ($request->pass as $key ) {
-            $pass = [
-                "type"=> "adult",
-                "title"=> "mrs",
-                "phone_number"=> "+442080160509",
-                "infant_passenger_id"=> "pas_00009hj8USM8Ncg32aTGHL",
-                "id"=> "pas_00009hj8USM7Ncg31cBCLL",
-                "given_name"=> "Amelia",
-                "gender"=> "f",
-                "family_name"=> "Earhart",
-                "email"=> "amelia@duffel.com",
-                "born_on"=> "1987-07-24"
-            ];
-        // }
-        $data = [
-            'amount' => $request->amount,
-        ];
-        $res = DuffelAPI::DOBook($data);
-        // dd($res);
-        return $request->all();
     }
 }
