@@ -32,7 +32,7 @@
                                 <tr>
                                     <td class="text-center">{{ $loop->index + 1 }}</td>
                                     <td class="text-center">{{ $item->book_date }}</td>
-                                    <td class="text-center">{{ $item->customer->guest_name }}</td>
+                                    <td class="text-center">{{ $item->customer->first_name }} {{ $item->customer->middle_name }} {{ $item->customer->last_name }}</td>
                                     <td class="text-center">{{ $item->invoice }}</td>
                                     <td class="text-center">{{ $item->booking_code }}</td>
                                     <td class="text-right">{{ $item->city_route }}</td>

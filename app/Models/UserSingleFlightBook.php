@@ -18,7 +18,7 @@ class UserSingleFlightBook extends Model
     }
     public function customer()
     {
-        return $this->hasOne(Customer::class, "id", "order_by");
+        return $this->hasOne(User::class, "id", "order_by");
     }
     // public function Test()
     // {

@@ -15,6 +15,6 @@ class Customer extends Model
 
     public function passport()
     {
-        return $this->hasOne(passport::class, "id", "passport_id");
+        return $this->hasOne(Passport::class, "id", "passport_id");
     }
 }
