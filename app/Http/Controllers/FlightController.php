@@ -12,6 +12,7 @@ use App\Models\UserSingleFlightBook;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FlightController extends Controller
 {
@@ -67,7 +68,7 @@ class FlightController extends Controller
 
         $newBook = [
             "status" => false,
-            "order_by" => '',
+            "order_by" => Auth::guard('user')->user()->id,
             "book_date" => now(),
             'book_status' => 1,
             'payment_status' => 0,
@@ -121,7 +122,9 @@ class FlightController extends Controller
         ];
         // return $data;
         $_response = DuffelAPI::DOBook($data);
-        return $_response;
+        if(isset($_response->errors)){
+            return $_response->errors;
+        }
         $response =  $_response->data;
         $total = (int)$response->total_amount * $currentIDR;
         $newBook["status"] = true;

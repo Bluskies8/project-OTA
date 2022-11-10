@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div role="dialog" tabindex="-1" class="modal fade">
+<div role="dialog" tabindex="-1" class="modal fade" id = "payment">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -166,6 +166,7 @@
             </div>
             <div class="modal-body">
                 <p>The content of your modal.</p>
+                <iframe id = "frame" src=""></iframe>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>

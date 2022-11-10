@@ -29,8 +29,8 @@ class HomeController extends Controller
     public function setCookie(Request $request)
     {
         $data = $request->cookie($request->name);
-        if($data)Cookie::forget($request->name);
-        Cookie::queue($request->name, json_encode($request->data), '60');
+        if($data)Cookie::queue(Cookie::forget($request->name));
+        $temp = Cookie::queue($request->name, json_encode($request->data), '30');
         // return redirect('/Flight/searchFlight2')->withCookie(cookie($request->name, json_encode($request->data), '20'));
         return "success";
     }

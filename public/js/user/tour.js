@@ -264,6 +264,11 @@ $(document).ready(function() {
             },
             success: function(response){
                 console.log(response)
+
+                $('#frame').prop('src',"https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536");
+                $('#payment').modal('show');
+                // $('#payment .modal-body').innerHTML = "https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536";
+                // console.log($('#payment .modal-body').innerHTML = "https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536");
                 // window.location.href = "/";
                 // window.open(response);
             },
