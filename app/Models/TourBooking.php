@@ -19,7 +19,7 @@ class TourBooking extends Model
     }
     public function customer()
     {
-        return $this->hasOne(Customer::class, "id", "user_id");
+        return $this->hasOne(User::class, "id", "user_id");
     }
     public function tour()
     {

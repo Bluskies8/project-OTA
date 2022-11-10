@@ -26,6 +26,23 @@ $(document).ready(function() {
             }
         });
     });
+    var separatorInterval = setInterval(setThousandSeparator, 10);
+    function setThousandSeparator () {
+        let length = $('.thousand-separator').length;
+        if (length != 0) {
+            $('.thousand-separator').each(function(index, element) {
+                let val = $(element).text();
+                if (val != ''){
+                    while(val.indexOf('.') != -1){
+                        val = val.replace('.', '');
+                    }
+                    let number = parseInt(val);
+                    $(element).text(number.toLocaleString(['ban', 'id']));
+                }
+            });
+            clearInterval(separatorInterval);
+        }
+    };
     $('.data-date').on('change', function(){
         var date = $('option[value="'+$(this).val()+'"]').attr('id');
         $.ajax({
@@ -45,8 +62,8 @@ $(document).ready(function() {
                         "<tr id = '" + e.id+"'>" +
                             "<td>"+ (index+1)+"</td>"+
                             "<td>"+ e.bookingCode +"</td>"+
-                            "<td>"+ e.customer.guest_name +"</td>"+
-                            "<td>"+ e.total +"</td>"+
+                            "<td>"+ e.customer.first_name+ " " +e.customer.middle_name + " " +e.customer.last_name +"</td>"+
+                            "<td class = 'thousand-separator'>"+ e.total +"</td>"+
                             "<td>"+ e.payment_url +"</td>"+
                             "<td>"+ e.payment_status +"</td>"+
                             "<td><i class='fas fa-exclamation-circle text-primary detail-booking'></i> <i class='fas fa-link text-primary create-link'></i></td>"+

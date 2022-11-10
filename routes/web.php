@@ -106,7 +106,6 @@ Route::group(['middleware' => ['adminUser']], function () {
             Route::delete('/{id}',[TagController::class,'delete']);
         });
 
-
         Route::prefix('referral')->group(function () {
             Route::get('/',[KodeReferalController::class,'index']);
             Route::post('/create',[KodeReferalController::class,'store']);
