@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Duffel\DuffelAPI;
 use App\Http\PaymentAPI\JokulAPI;
 use App\Models\AdminRole;
 use App\Models\country;
@@ -14,6 +15,7 @@ use App\Models\Supplier;
 use App\Models\Tag;
 use App\Models\TourBooking;
 use App\Models\TourPassanger;
+use App\Models\User;
 use App\Models\UserAdmin;
 use App\Models\UserSingleFlightBook;
 use Carbon\Carbon;
@@ -43,14 +45,8 @@ class BackofficeController extends Controller
 
     public function logout()
     {
-
-        if(Auth::guard('admin')->user()){
-            Auth::guard('admin')->logout();
-            return redirect('adminlogin');
-        }else if(Auth::guard('user')->user()){
-            Auth::guard('user')->logout();
-            return redirect('/');
-        }
+        Auth::guard('admin')->logout();
+        return redirect('adminlogin');
     }
 
     public function Customers()
@@ -266,6 +262,34 @@ class BackofficeController extends Controller
         // dd($data);
         return view('pages.backoffice.flight_user',[
             'data' => $data,
+        ]);
+    }
+    public function user(Request $request)
+    {
+        $data = User::get();
+        return view('pages.backoffice.userReport',compact('data'));
+    }
+    public function history($id)
+    {
+        $tour = TourBooking::with('tour')->where('user_id',$id)->get();
+        foreach ($tour as $key ) {
+            $count = TourPassanger::where('tour_bookings_id',$key->id)->count();
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+            $key->trans_date = $date;
+            $key->biaya = $key->tour->downpayment * $count;
+        }
+        $flight = UserSingleFlightBook::where('order_by',$id)->get();
+        foreach ($flight as $key) {
+            $res = DuffelAPI::getOrder($key->transactionId);
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+            $key->trans_date = $date;
+            $key->detail = $res->data;
+            $key->cabin = $key->detail->slices[0]->segments[0]->passengers[0]->cabin_class;
+            // dd($key->detail->slices[0]->segments[0]->passengers[0]->cabin_class);
+        }
+        return view('pages.user.history',[
+            'tour' => $tour,
+            'flight' => $flight
         ]);
     }
 

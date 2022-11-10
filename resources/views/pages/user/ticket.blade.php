@@ -183,7 +183,7 @@
                                     </div>
                                     <div class="col-3 d-flex flex-column justify-content-center align-items-end">
                                         <p>{{$item->total_currency}}<span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->total_amount}}</span>/org</p>
-                                        <input type="hidden" name="auth" value = {{Auth::guard('user')->user()}}>
+
                                         <button id = "{{$item->id}}" class="btn btn-sm  btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Pencarian Tiket</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
+            <form action = "Flight/search" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-3">

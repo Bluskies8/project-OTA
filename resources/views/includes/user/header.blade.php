@@ -100,6 +100,12 @@
                                         <input type="text" name="email" class="form-control" placeholder="E-mail" email/>
                                     </div>
                                     <div class="col-12 mb-2">
+                                        <input type="text" name="phone" class="form-control" placeholder="Phone Number" required/>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <input type="date" name="dob" class="form-control" placeholder="Date of Birth" required/>
+                                    </div>
+                                    <div class="col-12 mb-2">
                                         <input type="password" id="password" class="form-control" name="password" placeholder="Password" required/>
                                     </div>
                                     <div class="col-12 mb-2">

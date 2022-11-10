@@ -42,7 +42,6 @@ Route::post('/logincek', [HomeController::class,'loginUser']);
 Route::post('/register', [HomeController::class,'registerUser']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
-    Route::get('/searchFlight2',[HomeController::class,'searchFlight2']);
     Route::get('/datadiri',[FlightController::class,'datadiri']);
     Route::post('/cp-submit',[FlightController::class,'datasubmit']);
 });
@@ -64,7 +63,7 @@ Route::prefix('tour')->group(function () {
 
 
 Route::group(['middleware' => ['endUser']], function () {
-    Route::get('/logout',[BackofficeController::class,'logout']);
+    Route::get('/logout',[HomeController::class,'logout']);
     Route::get('history',[HomeController::class, 'history']);
     Route::prefix('Flights')->group(function () {
         Route::get('/datadiri',[FlightController::class,'datadiri']);
@@ -133,6 +132,8 @@ Route::group(['middleware' => ['adminUser']], function () {
             });
         });
         Route::get('/customers', [BackofficeController::class,'Customers']);
+        Route::get('/user', [BackofficeController::class,'User']);
+        Route::get('/user/detail/{id}', [BackofficeController::class,'history']);
     });
     Route::prefix('cms')->group(function () {
         Route::prefix('content')->group(function () {

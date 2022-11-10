@@ -133,11 +133,7 @@ $(document).ready(function() {
             },
             success: function(res) {
                 if(res == 'success'){
-                    if($('input[name="auth"]').val()){
-                        window.location.href = "/Flights/datadiri";
-                    }else{
-                        $('#modal-login').modal('show');
-                    }
+                    window.location.href = "/Flights/datadiri";
                 }
                 console.log(res);
             },

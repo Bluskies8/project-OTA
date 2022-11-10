@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Duffel\DuffelAPI;
 use App\Http\PaymentAPI\JokulAPI;
 use App\Models\Customer;
+use App\Models\kodeReferal;
+use App\Models\kodeReferalDetail;
 use App\Models\Passport;
 use App\Models\ProductsConfig;
 use App\Models\UserFlightBookPassRecord;
@@ -38,25 +40,15 @@ class FlightController extends Controller
         ]);
     }
 
-    public function searchOrder(Request $req)
-    {
-        return view('pages.backoffice.report_tour_booking');
-        $data = json_decode($req->cookie('dataFlight1'));
-        $passid = explode(',', $data->passid1);
-        $res = DuffelAPI::SearchOrder();
-        foreach ($res->data as $key => $value) {
-            foreach ($value->passengers as $value2) {
-                if(in_array($value2->id,$passid)){
-                    $id = $value->id;
-                }
-            }
-        }
-        dd($id);
-    }
     public function datasubmit(Request $req)
     {
         $data = json_decode($req->cookie('dataFlight1'));
-
+        if($req->data['referal']){
+            $kode = kodeReferal::where('kode',$req->data['referal'])->where('tipe','flight')->first();
+            if(!$kode){
+                return "kode not found";
+            }
+        }
         $currency = DuffelAPI::getCurrency();
         $currentIDR = $currency->idr->rate;
         $ONEWAY = $data->type;
@@ -125,8 +117,17 @@ class FlightController extends Controller
         if(isset($_response->errors)){
             return $_response->errors;
         }
+
+        kodeReferalDetail::create([
+            'user_id' => Auth::guard('user')->user()->id,
+            'referal_id' => $kode->id
+        ]);
+        $limit = $kode->limit-1;
+        $kode->limit = $limit;
+        $kode->save();
         $response =  $_response->data;
-        $total = (int)($response->total_amount * $currentIDR);
+        $diskon = (int)($kode->discount * $response->total_amount * $currentIDR / 100);
+        $total = (int)($response->total_amount * $currentIDR) -$diskon;
         $newBook["status"] = true;
         $newBook["transactionId"] = $response->id;
         $newBook["booking_code"] = $response->booking_reference;
@@ -153,8 +154,8 @@ class FlightController extends Controller
                 //throw $th;
             }
         }
-        $customer = Customer::where('guest_name',$req->data['cp']['nama'])->first();
-        $newBook['order_by'] = $customer->id;
+        // $customer = Customer::where('guest_name',$req->data['cp']['nama'])->first();
+        $newBook['order_by'] = Auth::guard('user')->user()->id;
         if ($newBook['status']) {
             $passRecords = [];
             foreach ($req->data['passanger'] as $value) {
@@ -188,10 +189,10 @@ class FlightController extends Controller
                 "currency" => "IDR"
             ];
             $datajokul['customer'] = [
-                "id" => $customer->id,
-                "name" => $customer->guest_name,
-                "email" => $customer->email,
-                "phone" => $customer->phone_number
+                "id" => Auth::guard('user')->user()->id,
+                "name" => Auth::guard('user')->user()->first_name. ' '. Auth::guard('user')->user()->middle_name. ' '. Auth::guard('user')->user()->last_name,
+                "email" => Auth::guard('user')->user()->email,
+                "phone" => Auth::guard('user')->user()->phone_number
             ];
             $datajokul['callback_url'] = "/flight/checkout/$invoiceId";
             $JokulResponse = JokulAPI::DoJokulPayment($datajokul);

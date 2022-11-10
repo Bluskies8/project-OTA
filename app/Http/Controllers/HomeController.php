@@ -57,12 +57,6 @@ class HomeController extends Controller
 
     public function registerUser(Request $request)
     {
-        // dd($request->all());
-        // $request->validate([
-        //     'nama' => 'required',
-        //     'email' => 'required|email',
-        //     'password' => 'required"|confirmed|min:6',
-        // ]);
         $temp = explode(' ',$request->nama);
         if(count($temp) == 1) {
             $firstName = $temp[0];
@@ -101,9 +95,17 @@ class HomeController extends Controller
             'middle_name' => $middleName,
             'last_name' => $lastName,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'phone_number' => $request->phone,
+            'password' => Hash::make($request->password),
+            'DOB' => $request->dob
         ]);
         return redirect()->back();
+    }
+
+    public function logout()
+    {
+        Auth::guard('user')->logout();
+        return redirect('/');
     }
 
     public function loginAdmin(Request $request)
@@ -140,13 +142,14 @@ class HomeController extends Controller
             $key->biaya = $key->tour->downpayment * $count;
         }
         $flight = UserSingleFlightBook::where('order_by',Auth::guard('user')->user()->id)->get();
-        // foreach ($flight as $key) {
-        //     $res = DuffelAPI::getOrder($key->transactionId);
-        //     $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
-        //     $key->trans_date = $date;
-        //     $key->detail = $res->data;
-        // }
-        // dd($flight);
+        foreach ($flight as $key) {
+            $res = DuffelAPI::getOrder($key->transactionId);
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+            $key->trans_date = $date;
+            $key->detail = $res->data;
+            $key->cabin = $key->detail->slices[0]->segments[0]->passengers[0]->cabin_class;
+            // dd($key->detail->slices[0]->segments[0]->passengers[0]->cabin_class);
+        }
         return view('pages.user.history',[
             'tour' => $tour,
             'flight' => $flight
@@ -303,38 +306,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function searchFlight2(Request $request)
-    {
-        $flight1 = json_decode($request->cookie('dataFlight1'));
-        // dd($flight1);
-        for ($i=0; $i < $flight1->pass_count; $i++) {
-            $pass[$i] =[
-                'type' => 'adult'
-            ];
-        }
-        $data = [
-            'cabin' => $flight1->cabin,
-            'departure_date' => $flight1->return_date,
-            'origin' => $flight1->destination,
-            'destination' => $flight1->departure,
-            'pass' => $pass
-        ];
-        $day = Carbon::createFromFormat('Y-m-d', $flight1->return_date)->format('l');
-        // return $day;
-        $date = Carbon::createFromFormat('Y-m-d', $flight1->return_date)->format('d-m-Y');
-        $res = DuffelAPI::SearchFlight($data);
-        // dd($res->data);
-        // return $res->data;
-        return view('pages.user.ticket2',[
-            'data' => $res->data,
-            'pass_count' => $flight1->pass_count,
-            'cabin' => $flight1->cabin,
-            'days' => $day.", ".$date,
-            'date' => $date,
-            'type' => $flight1->type,
-        ]);
-    }
-
     public function home()
     {
         // return view('pages.user.index');
@@ -438,7 +409,12 @@ class HomeController extends Controller
             $middleName = "";
             $lastName = "";
         }
-
+        if($request->data['referal']){
+            $kode = kodeReferal::where('kode',$request->data['referal'])->where('tipe','tour')->first();
+            if(!$kode){
+                return "kode not found";
+            }
+        }
         $trans = TourBooking::create([
             'user_id' => Auth::guard('user')->user()->id,
             'bookingCode' => $bookingCode,
@@ -453,16 +429,13 @@ class HomeController extends Controller
             'payment_url' => $paymentUrl,
             'payment_status' => 0
         ]);
-        if($request->data['referal']){
-            $kode = kodeReferal::where('kode',$request->data['referal'])->where('tipe','tour')->first();
-            if(!$kode){
-                return "kode not found";
-            }
-            kodeReferalDetail::create([
-                'user_id' => Auth::guard('user')->user()->id,
-                'referal_id' => $kode->id
-            ]);
-        }
+        kodeReferalDetail::create([
+            'user_id' => Auth::guard('user')->user()->id,
+            'referal_id' => $kode->id
+        ]);
+        $limit = $kode->limit-1;
+        $kode->limit = $limit;
+        $kode->save();
         foreach ($request->data['room'] as $index => $key) {
             $paxtype = [];
             foreach ($key['data'] as $key2 => $value) {

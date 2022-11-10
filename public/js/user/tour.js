@@ -222,6 +222,7 @@ $(document).ready(function() {
         var cp_email = $('input[name="cp-email"]').val();
         var cp_nohp = $('input[name="cp-nohp"]').val();
         var cp_birth = $('input[name="cp-birth"]').val();
+        var referal = $('input[name="kode_referral"]').val();
         var passanger = [];
         for (let j = 0; j < $('#container-form-dewasa').children('div').children().length; j++) {
             console.log($('#title'+(j+1)).val())
@@ -240,6 +241,7 @@ $(document).ready(function() {
             });
         }
         var data = {
+            'referal' : referal,
             'cp':{
                 'title': $('#cp-title').val(),
                 'nama': cp_nama,
@@ -250,30 +252,39 @@ $(document).ready(function() {
             'passanger' :passanger
         };
         console.log(data)
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            },
-            url: "/Flight/cp-submit",
-            method: 'post',
-            data: {
-                'data': data,
-            },
-            beforeSend: function(){
-                console.log(data)
-            },
-            success: function(response){
-                console.log(response)
-                $('#frame').prop('src',response);
-                $('#payment').modal('show');
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                // JSON.parse(undefined);
-                console.log(xhr.status);
-                console.log(thrownError);
-                // console.log(ajaxOptions);
-            }
-        });
+        if($('input[name="auth"]').val()){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                url: "/Flight/cp-submit",
+                method: 'post',
+                data: {
+                    'data': data,
+                },
+                beforeSend: function(){
+                    console.log(data)
+                },
+                success: function(response){
+                    console.log(response)
+                    if(response == "kode not found"){
+                        $('#error-kode').show();
+                    }else{
+                        $('#frame').prop('src',response);
+                        $('#payment').modal('show');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // JSON.parse(undefined);
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    // console.log(ajaxOptions);
+                }
+            });
+        }else{
+            $('#modal-login').modal('show');
+        }
+
     });
 
     $('.close-modal').on('click', function() {

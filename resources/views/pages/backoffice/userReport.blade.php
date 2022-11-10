@@ -18,9 +18,7 @@
                                 <th>No.</th>
                                 <th>Title</th>
                                 <th>Customer Name</th>
-                                <th>NIK</th>
                                 <th>Nomor HP</th>
-                                <th>Tipe</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -29,11 +27,9 @@
                                 <tr id = "{{$item->id}}">
                                     <td class="text-center">{{$loop->index+1}}</td>
                                     <td class="text-center">{{$item->title}}</td>
-                                    <td class="text-center">{{$item->guest_name}}</td>
-                                    <td class="text-center">{{$item->nik}}</td>
+                                    <td class="text-center">{{$item->first_name}} {{$item->middle_name}} {{$item->last_name}}</td>
                                     <td class="text-center">{{$item->phone_number}}</td>
-                                    <td class="text-center">{{$item->paxtype}}</td>
-                                    <td class="cell-action text-right">
+                                    <td class="cell-action text-center">
                                         <i class="fas fa-exclamation-circle text-primary detail"></i>
                                     </td>
                                 </tr>

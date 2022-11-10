@@ -95,6 +95,12 @@
                     <p>Customers</p>
                 </a>
             </div>
+            <div class="py-2 ps-5 px-3 menu-item d-none">
+                <a href="/backoffice/user" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fas fa-smile-beam me-3"></i>
+                    <p>Users</p>
+                </a>
+            </div>
         </li>
         <li class="list-group-item p-0 h-100">
             <h4 class="color-main py-3 px-3 menu-header">CMS</h4>

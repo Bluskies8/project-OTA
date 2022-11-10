@@ -46,6 +46,7 @@
                                         <p>Kode Referral</p>
                                         <input class="form-control" name="kode_referral" type="text" />
                                     </div>
+                                    <div style="color:red; display:none" id = "error-kode">kode not found</div>
                                 </div>
                                 <!-- sampe sini -->
                             </div>
@@ -93,6 +94,7 @@
                         </div>
 
                         <div class="text-end">
+                            <input type="hidden" name="auth" value = {{Auth::guard('user')->user()}}>
                             <button class="btn btn-primary" type="button" id = "btn-submit-flight" style="color: #fff;background-color: rgb(75, 0, 118);">Submit</button>
                         </div>
                     </form>
