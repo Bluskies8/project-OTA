@@ -158,19 +158,20 @@
 </div>
 
 <div role="dialog" tabindex="-1" class="modal fade" id = "payment">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style = "height:80vh;">
             <div class="modal-header">
-                <h4 class="modal-title">Modal Title</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Payment</h4>
             </div>
             <div class="modal-body">
-                <p>The content of your modal.</p>
-                <iframe id = "frame" src=""></iframe>
+                <div class="container" style = "height: 100%;">
+                    {{-- <iframe style = "height: 60vh; width: 100%;" id = "frame" src=""></iframe> --}}
+                    <iframe style = "height: 100%; width: 100%;" id = "frame" src=""></iframe>
+                  </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary close-modal" type="button">Close</button>
+                {{-- <button class="btn btn-primary" type="button">Save</button> --}}
             </div>
         </div>
     </div>

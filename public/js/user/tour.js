@@ -264,13 +264,8 @@ $(document).ready(function() {
             },
             success: function(response){
                 console.log(response)
-
-                $('#frame').prop('src',"https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536");
+                $('#frame').prop('src',response);
                 $('#payment').modal('show');
-                // $('#payment .modal-body').innerHTML = "https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536";
-                // console.log($('#payment .modal-body').innerHTML = "https://sandbox.doku.com/checkout/link/347718e49ebf4c06abb97cd52e71e66120224210214249536");
-                // window.location.href = "/";
-                // window.open(response);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // JSON.parse(undefined);
@@ -281,7 +276,10 @@ $(document).ready(function() {
         });
     });
 
-    $('.btn-filter').on('click', function() {
+    $('.close-modal').on('click', function() {
+        window.location.href = "/";
+    });
+        $('.btn-filter').on('click', function() {
         if ($('#menu-filter').css('display') == 'none') {
             $('#menu-filter').show();
             $(this).find('i').addClass('fa-flip-vertical');

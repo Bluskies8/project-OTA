@@ -126,7 +126,7 @@ class FlightController extends Controller
             return $_response->errors;
         }
         $response =  $_response->data;
-        $total = (int)$response->total_amount * $currentIDR;
+        $total = (int)($response->total_amount * $currentIDR);
         $newBook["status"] = true;
         $newBook["transactionId"] = $response->id;
         $newBook["booking_code"] = $response->booking_reference;
@@ -195,7 +195,6 @@ class FlightController extends Controller
             ];
             $datajokul['callback_url'] = "/flight/checkout/$invoiceId";
             $JokulResponse = JokulAPI::DoJokulPayment($datajokul);
-            return $JokulResponse;
             if($JokulResponse->message[0] == "SUCCESS"){
                 $newBook['payment_url'] = $JokulResponse->response->payment->url;
             }
