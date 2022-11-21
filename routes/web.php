@@ -66,7 +66,7 @@ Route::group(['middleware' => ['endUser']], function () {
     Route::get('/logout',[HomeController::class,'logout']);
     Route::get('history',[HomeController::class, 'history']);
     Route::prefix('Flights')->group(function () {
-        Route::get('/datadiri',[FlightController::class,'datadiri']);
+        Route::get('/cancel/{id}',[FlightController::class,'cancel']);
         Route::post('/cp-submit',[FlightController::class,'datasubmit']);
     });
     Route::prefix('tours')->group(function () {

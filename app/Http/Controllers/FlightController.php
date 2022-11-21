@@ -43,6 +43,7 @@ class FlightController extends Controller
     public function datasubmit(Request $req)
     {
         $data = json_decode($req->cookie('dataFlight1'));
+        $kode = "";
         if($req->data['referal']){
             $kode = kodeReferal::where('kode',$req->data['referal'])->where('tipe','flight')->first();
             if(!$kode){
@@ -117,14 +118,15 @@ class FlightController extends Controller
         if(isset($_response->errors)){
             return $_response->errors;
         }
-
-        kodeReferalDetail::create([
-            'user_id' => Auth::guard('user')->user()->id,
-            'referal_id' => $kode->id
-        ]);
-        $limit = $kode->limit-1;
-        $kode->limit = $limit;
-        $kode->save();
+        if($kode){
+            kodeReferalDetail::create([
+                'user_id' => Auth::guard('user')->user()->id,
+                'referal_id' => $kode->id
+            ]);
+            $limit = $kode->limit-1;
+            $kode->limit = $limit;
+            $kode->save();
+        }
         $response =  $_response->data;
         $diskon = (int)($kode->discount * $response->total_amount * $currentIDR / 100);
         $total = (int)($response->total_amount * $currentIDR) -$diskon;
@@ -226,5 +228,11 @@ class FlightController extends Controller
         // ];
         // $jokulres = Jokul::doPayment($doku);
         // $response['payment'] = $jokulres;
+    }
+    public function cancel($id)
+    {
+        $data = DuffelAPI::cancelOrder($id);
+        $rescancel = DuffelAPI::confirmCancel($data->data->id);
+        return $rescancel;
     }
 }

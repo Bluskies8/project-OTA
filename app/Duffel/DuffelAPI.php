@@ -119,6 +119,41 @@ class DuffelAPI
         return $RESPONSE;
     }
 
+    public static function cancelOrder($data)
+    {
+        $targetPath = "/air/order_cancellations";
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+            "data"=> [
+                "order_id"=> $data,
+            ]
+        ]));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
+
+    public static function confirmCancel($id)
+    {
+        $targetPath = "/air/order_cancellations/".$id."/actions/confirm";
+        $curl = curl_init(self::$Endpoint.$targetPath);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: Bearer duffel_test_81LkbLZsP9ACTGn6Zb7E1hmSBwyxHywAeFTPkejJm7X',
+            'Duffel-Version: beta'
+        ));
+        $RESPONSE = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return $RESPONSE;
+    }
+
     public static function SearchFlight($data)
     {
         // $body = $REQUEST['data'];
@@ -143,7 +178,7 @@ class DuffelAPI
         curl_close($curl);
         return $RESPONSE;
     }
-    
+
     public static function DOBook($data){
         $targetPath = "/air/orders";
         $curl = curl_init(self::$Endpoint.$targetPath);

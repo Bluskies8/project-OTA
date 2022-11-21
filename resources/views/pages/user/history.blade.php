@@ -2,7 +2,7 @@
 
 @section('content')
 @include('includes.datatables')
-<?php $count = 0; $count2 = 0 ?>
+<?php $count = 0; $temp = 0; ?>
 <div class="container mt-5">
     <div class="card mb-5">
         <div class="card-body">
@@ -16,7 +16,7 @@
                         <h2>Tidak Ada Transaksi</h2>
                     @else
                         @foreach ($flight as $item)
-                        <div class="card-body">
+                        <div class="card-body" id = "{{$item->transactionId}}">
                             <div class="d-flex align-items-center mb-4">
                                 <p class="fw-bold me-2">Flight</p><span class="trans-date me-3">{{$item->trans_date}}</span>
                                 @if ($item->payment_status == 0)
@@ -41,8 +41,8 @@
                                                 $t1 = strtotime($item2->departing_at);
                                                 $t2 = strtotime($item2->arriving_at);
 
-                                                $temp[$count] = gmdate('H:i', $t2 - $t1);
-
+                                                // $temp[$count] = gmdate('H:i', $t2 - $t1);
+                                                $temp += ($t2 - $t1);
                                                 $count +=1;
 
                                             ?>
@@ -56,7 +56,7 @@
                                                 <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$slicess->origin->iata_code}}</button>
                                             </div>
                                             <div class="d-flex flex-column align-items-center justify-content-center mx-5">
-                                                <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
+                                                <p>{{gmdate('H:i', $temp)}}</p>
                                                 @if ($count>1)
                                                 <p>Transit</p>
                                                 @else
@@ -79,6 +79,7 @@
                                 </div>
                                 <div class="col-3 d-flex flex-column justify-content-center align-items-end">
                                     <button class="btn me-2 fw-bold btn-show-detail" type="button" style="color: rgb(75, 0, 118);">Lihat Detail</button>
+                                    <button class="btn me-2 fw-bold btn-cancel-order" type="button" style="color: rgb(75, 0, 118);">Cancel Order</button>
                                     <div class="text-center">
                                         <p>Total Biaya<br /></p><button class="btn btn-primary" type="button" style="pointer-events: none;"><strong class = "thousand-separator">{{$item->total}}</strong><br /></button>
                                     </div>
@@ -166,7 +167,8 @@
                                 @endforeach
                             </div>
                         </div>
-                        <?php $count = 0; $count2 = 0;?>
+                        <?php $count = 0; $temp = 0;?>
+                        <hr>
                         @endforeach
                     @endif
                 </div>

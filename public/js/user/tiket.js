@@ -133,7 +133,7 @@ $(document).ready(function() {
             },
             success: function(res) {
                 if(res == 'success'){
-                    window.location.href = "/Flights/datadiri";
+                    window.location.href = "/Flight/datadiri";
                 }
                 console.log(res);
             },

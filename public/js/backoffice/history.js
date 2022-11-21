@@ -19,4 +19,25 @@ $(document).ready(function() {
             clearInterval(separatorInterval);
         }
     };
+
+    $('.btn-cancel-order').on('click',function () {
+        // console.log($(this).closest('.card-body').attr('id'))
+        var id = $(this).closest('.card-body').attr('id');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "get",
+            url: "/Flights/cancel/"+id,
+            beforeSend: function(){
+            },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    });
 });
