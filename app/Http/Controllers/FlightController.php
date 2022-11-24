@@ -234,6 +234,7 @@ class FlightController extends Controller
     public function cancel($id)
     {
         $data = DuffelAPI::cancelOrder($id);
+        return $data;
         $rescancel = DuffelAPI::confirmCancel($data->data->id);
         return $rescancel;
     }
