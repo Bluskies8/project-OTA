@@ -228,6 +228,7 @@ class HomeController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($REQUESTdata);
         $offers = collect($res->data->offers);
+        dd($offers);
         foreach ($offers as $key) {
             $idr = $key->total_amount * $currentIDR;
             $key->total_currency = "IDR";
@@ -414,13 +415,20 @@ class HomeController extends Controller
             if(!$kode){
                 return "kode not found";
             }
+            kodeReferalDetail::create([
+                'user_id' => Auth::guard('user')->user()->id,
+                'referal_id' => $kode->id
+            ]);
+            $limit = $kode->limit-1;
+            $kode->limit = $limit;
+            $kode->save();
         }
         $trans = TourBooking::create([
             'user_id' => Auth::guard('user')->user()->id,
             'bookingCode' => $bookingCode,
             'product_tour_id' => $tour->id,
             'product_tour_date_id' => $date,
-            'title' => "mrs",
+            'title' => $request->data['cp']['title'],
             'firstName' => $firstName,
             'middleName' => $middleName,
             'lastName' => $lastName,
@@ -429,13 +437,6 @@ class HomeController extends Controller
             'payment_url' => $paymentUrl,
             'payment_status' => 0
         ]);
-        kodeReferalDetail::create([
-            'user_id' => Auth::guard('user')->user()->id,
-            'referal_id' => $kode->id
-        ]);
-        $limit = $kode->limit-1;
-        $kode->limit = $limit;
-        $kode->save();
         foreach ($request->data['room'] as $index => $key) {
             $paxtype = [];
             foreach ($key['data'] as $key2 => $value) {
