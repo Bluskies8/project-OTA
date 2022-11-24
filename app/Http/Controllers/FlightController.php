@@ -118,7 +118,8 @@ class FlightController extends Controller
         if(isset($_response->errors)){
             return $_response->errors;
         }
-        if($kode){
+        $response =  $_response->data;
+        if($req->data['referal']){
             kodeReferalDetail::create([
                 'user_id' => Auth::guard('user')->user()->id,
                 'referal_id' => $kode->id
@@ -126,10 +127,11 @@ class FlightController extends Controller
             $limit = $kode->limit-1;
             $kode->limit = $limit;
             $kode->save();
+            $diskon = (int)($kode->discount * $response->total_amount * $currentIDR / 100);
+            $total = (int)($response->total_amount * $currentIDR) - $diskon;
+        }else{
+            $total = (int)($response->total_amount * $currentIDR);
         }
-        $response =  $_response->data;
-        $diskon = (int)($kode->discount * $response->total_amount * $currentIDR / 100);
-        $total = (int)($response->total_amount * $currentIDR) -$diskon;
         $newBook["status"] = true;
         $newBook["transactionId"] = $response->id;
         $newBook["booking_code"] = $response->booking_reference;
