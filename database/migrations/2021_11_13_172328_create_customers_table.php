@@ -22,7 +22,6 @@ class CreateCustomersTable extends Migration
             $table->foreignId('passport_id')->nullable();
             $table->string('nik')->nullable();
             $table->string('phone_number');
-            $table->string('address')->nullable();
             $table->timestamps();
             $table->softdeletes();
         });

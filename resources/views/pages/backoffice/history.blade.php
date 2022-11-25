@@ -3,7 +3,10 @@
 @section('content')
 @include('includes.datatables')
 <div class="container">
-    <div class="my-5" style="font-size: 1.25rem;"><i class="fas fa-arrow-left color-main me-4"></i><a class="me-3" href="#">Back Office</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">History</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Booking</a></div>
+    <div class="my-5" style="font-size: 1.25rem;">
+        {{-- <i class="fas fa-arrow-left color-main me-4"></i><a class="me-3" href="#">Back Office</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">History</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Booking</a> --}}
+        <h3>History User {{$user->first_name}} {{$user->middle_name}} {{$user->last_name}}</h3>
+    </div>
     <div class="card mb-5">
         <div class="card-body">
             <header>
@@ -12,7 +15,7 @@
             <hr class="fill-width" />
             <div class="list-history">
                 <div class="card">
-                    @if (!$flight)
+                    @if (count($flight) == 0)
                         <h2>Tidak Ada Transaksi</h2>
                     @else
                         @foreach ($flight as $item)
@@ -181,6 +184,10 @@
             <hr class="fill-width" />
             <div class="list-history">
                 <div class="card">
+
+                @if (count($tour) == 0)
+                    <h2>Tidak Ada Transaksi</h2>
+                @else
                     @foreach ($tour as $item)
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-4">
@@ -219,6 +226,7 @@
                             </div>
                         </div>
                     @endforeach
+                    @endif
                 </div>
             </div>
         </div>

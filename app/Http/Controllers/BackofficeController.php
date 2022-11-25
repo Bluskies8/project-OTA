@@ -271,6 +271,7 @@ class BackofficeController extends Controller
     }
     public function history($id)
     {
+        $user = User::where('id',$id)->first();
         $tour = TourBooking::with('tour')->where('user_id',$id)->get();
         foreach ($tour as $key ) {
             $count = TourPassanger::where('tour_bookings_id',$key->id)->count();
@@ -279,6 +280,7 @@ class BackofficeController extends Controller
             $key->biaya = $key->tour->downpayment * $count;
         }
         $flight = UserSingleFlightBook::where('order_by',$id)->get();
+
         foreach ($flight as $key) {
             $res = DuffelAPI::getOrder($key->transactionId);
             $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
@@ -287,9 +289,10 @@ class BackofficeController extends Controller
             $key->cabin = $key->detail->slices[0]->segments[0]->passengers[0]->cabin_class;
             // dd($key->detail->slices[0]->segments[0]->passengers[0]->cabin_class);
         }
-        return view('pages.user.history',[
+        return view('pages.backoffice.history',[
             'tour' => $tour,
-            'flight' => $flight
+            'flight' => $flight,
+            'user' => $user
         ]);
     }
 

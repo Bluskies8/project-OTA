@@ -7,7 +7,7 @@
         <div class="card col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card-body">
                 <header>
-                    <h3>Customers</h3>
+                    <h3>Users</h3>
                 </header>
                 <hr style="margin: 1rem -1rem;" />
                 <div class="table-responsive">

@@ -17,11 +17,6 @@ class CreateProductTourItinenariesTable extends Migration
             $table->id();
             $table->foreignId('tour_id');
             $table->string('label');
-            $table->text('description')->nullable();
-            $table->boolean('breakfast')->default(false);
-            $table->boolean('lunch')->default(false);
-            $table->boolean('dinner')->default(false);
-            $table->string('transport')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
         });

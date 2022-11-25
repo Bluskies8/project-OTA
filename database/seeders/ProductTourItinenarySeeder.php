@@ -14,43 +14,43 @@ class ProductTourItinenarySeeder extends Seeder
      */
     public function run()
     {
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "BALI - OSAKA",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – NARA – OSAKA",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – KYOTO – OSAKA",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – KOBE SANDA PREMIUM OUTLETS – OSAKA",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA FREE TIME",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA CITY TOUR - BALI",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 1, 'label' => "TIBA DI BALI",'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "BALI - OSAKA"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – NARA – OSAKA"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – KYOTO – OSAKA"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA – KOBE SANDA PREMIUM OUTLETS – OSAKA"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA FREE TIME"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "OSAKA CITY TOUR - BALI"]);
+        ProductTourItinenary::create(['tour_id' => 1, 'label' => "TIBA DI BALI"]);
 
-        ProductTourItinenary::create(['tour_id' => 2, 'label' => "KETIBAAN DI BRISBANE - GOLD COAST",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 2, 'label' => "GOLD COAST",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 2, 'label' => "GOLD COAST- SYDNEY",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 2, 'label' => "SYDNEY + LUNCHEON CRUISE",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 2, 'label' => "KEBERANGKATAN",'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 2, 'label' => "KETIBAAN DI BRISBANE - GOLD COAST"]);
+        ProductTourItinenary::create(['tour_id' => 2, 'label' => "GOLD COAST"]);
+        ProductTourItinenary::create(['tour_id' => 2, 'label' => "GOLD COAST- SYDNEY"]);
+        ProductTourItinenary::create(['tour_id' => 2, 'label' => "SYDNEY + LUNCHEON CRUISE"]);
+        ProductTourItinenary::create(['tour_id' => 2, 'label' => "KEBERANGKATAN"]);
 
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "JAKARTA – ISTANBUL",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "TIBA DI ISTANBUL – BURSA - KUSADASI", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "KUSADASI - PAMUKKALE", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "PAMUKKALE - KONYA - CAPPADOCIA ", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "FULL DAY CAPPADOCIA ", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "CAPPADOCIA - ANKARA - ISTANBUL", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL FULLDAY CITY TOUR", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL DEPARTURE", 'breakfast' => true, 'lunch' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL – JAKARTA",'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "JAKARTA – ISTANBUL"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "TIBA DI ISTANBUL – BURSA - KUSADASI"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "KUSADASI - PAMUKKALE"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "PAMUKKALE - KONYA - CAPPADOCIA "]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "FULL DAY CAPPADOCIA "]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "CAPPADOCIA - ANKARA - ISTANBUL"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL FULLDAY CITY TOUR"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL DEPARTURE"]);
+        ProductTourItinenary::create(['tour_id' => 3, 'label' => "ISTANBUL – JAKARTA"]);
 
-        ProductTourItinenary::create(['tour_id' => 4, 'label' => "KEBERANGKATAN", 'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 4, 'label' => "SINGAPORE",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 4, 'label' => "KETIBAAN", 'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 4, 'label' => "KEBERANGKATAN"]);
+        ProductTourItinenary::create(['tour_id' => 4, 'label' => "SINGAPORE"]);
+        ProductTourItinenary::create(['tour_id' => 4, 'label' => "KETIBAAN"]);
 
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Tiba Delhi",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Delhi - Srinagar", 'breakfast' => true, 'lunch' => true, 'dinner' => true, 'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Srinagar - Gulmarg - Srinagar", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Srinagar - Delhi + Agra, 205 kms", 'breakfast' => true, 'lunch' => true, 'dinner' => true, 'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Agra - Jaipur, 245 kms", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Di Jaipur", 'breakfast' => true, 'lunch' => true, 'dinner' => true,'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Tiba Delhi"]);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Delhi - Srinagar"]);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Srinagar - Gulmarg - Srinagar"]);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Srinagar - Delhi + Agra, 205 kms"]);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Agra - Jaipur, 245 kms"]);
+        ProductTourItinenary::create(['tour_id' => 5, 'label' => "Di Jaipur"]);
 
-        ProductTourItinenary::create(['tour_id' => 6, 'label' => "KEBERANGKATAN", 'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 6, 'label' => "KETIBAAN DI GOLD COAST",'transport' => '']);
-        ProductTourItinenary::create(['tour_id' => 6, 'label' => "GOLD COAST",'transport' => '']);
+        ProductTourItinenary::create(['tour_id' => 6, 'label' => "KEBERANGKATAN"]);
+        ProductTourItinenary::create(['tour_id' => 6, 'label' => "KETIBAAN DI GOLD COAST"]);
+        ProductTourItinenary::create(['tour_id' => 6, 'label' => "GOLD COAST"]);
     }
 }

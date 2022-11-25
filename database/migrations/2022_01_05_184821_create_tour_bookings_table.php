@@ -19,7 +19,6 @@ class CreateTourBookingsTable extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreignId('product_tour_id')->constrained();
             $table->foreignId('product_tour_date_id')->constrained();
-            $table->foreignId('visa_id')->nullable()->constrained();
             $table->integer('payment_status');
             $table->text('payment_url')->nullable();
             $table->string('title');
