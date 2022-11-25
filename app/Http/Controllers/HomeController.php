@@ -228,7 +228,7 @@ class HomeController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $request->depart)->format('d-m-Y');
         $res = DuffelAPI::SearchFlight($REQUESTdata);
         $offers = collect($res->data->offers);
-        dd($offers);
+        // dd($offers);
         foreach ($offers as $key) {
             $idr = $key->total_amount * $currentIDR;
             $key->total_currency = "IDR";
