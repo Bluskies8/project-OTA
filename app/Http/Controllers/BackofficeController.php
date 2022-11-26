@@ -307,6 +307,7 @@ class BackofficeController extends Controller
             }else if(substr($request->order['invoice_number'],0,3)== "FGH"){
                 $data = UserSingleFlightBook::where('invoice',$request->order['invoice_number'])->first();
                 $data->payment_status = 1;
+                $data->book_status = 4;
                 $data->save();
             }
         }

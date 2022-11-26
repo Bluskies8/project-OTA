@@ -131,7 +131,7 @@
                         </div>
                         <div id="container-limit" class="col-12 position-relative mb-3">
                             <p class="position-absolute px-1" style="top: -10px;left: 1rem;font-size: 12px;background-color: white;">Limit</p>
-                            <input type="text" id="limit" class="form-control" name = "limit" placeholder="Limit" >
+                            <input type="number" id="limit" class="form-control" name = "limit" placeholder="Limit" >
                             @error('limit')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
