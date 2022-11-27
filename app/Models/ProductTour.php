@@ -20,7 +20,7 @@ class ProductTour extends Model
         return $data;
     }
     public static function wishlist(){
-        
+
     }
     public function tags()
     {
@@ -64,6 +64,6 @@ class ProductTour extends Model
     }
     public function thermsConds()
     {
-        return $this->hasOne(ProductTourThermcond::class, "tour_id", "id");
+        return $this->hasMany(ProductTourThermcond::class, "tour_id", "id");
     }
 }

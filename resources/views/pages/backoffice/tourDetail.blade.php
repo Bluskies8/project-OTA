@@ -479,13 +479,13 @@
                                         <button class="btn btn-sm text-danger" type="button"><i
                                                 class="fas fa-trash"></i></button></td>
                                 </tr>
-                                {{-- @foreach ($data['thermsConds'] as $item)
-                            <tr>
-                                <td class="text-center">{{$loop->index+1}}.</td>
-                                <td style="padding-top: 6px;padding-bottom: 6px;"><input value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
-                                <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                            @endforeach --}}
+                                @foreach ($data['thermsConds'] as $item)
+                                <tr>
+                                    <td class="text-center">{{$loop->index+1}}.</td>
+                                    <td style="padding-top: 6px;padding-bottom: 6px;"><input value = "{{$item->item}}" type="text" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" /></td>
+                                    <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;"><button class="btn btn-sm text-danger" type="button"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

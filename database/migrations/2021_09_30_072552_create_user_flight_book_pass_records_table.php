@@ -24,7 +24,6 @@ class CreateUserFlightBookPassRecordsTable extends Migration
             $table->string('passport')->nullable();
             $table->date('DOB');
             $table->string('nik')->nullable();
-            $table->integer('type');
             $table->timestamps();
             $table->softDeletes();
         });

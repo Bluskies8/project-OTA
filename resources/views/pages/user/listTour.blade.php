@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <p><span class="fs-4 fw-bold" style="color: #FF9142;">{{$item->start_price}}</span></p>
+                                <p><span class="fs-4 fw-bold thousand-separator" style="color: #FF9142;">{{$item->start_price}}</span></p>
                                 <button class="btn btn-sm btn-pilih" type="button" style="background-color: #FF9142;width: 200px;color: white;">Pilih</button>
                             </div>
                         </div>

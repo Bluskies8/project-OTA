@@ -75,7 +75,7 @@ class ProductTourController extends Controller
         $data['availableDates'] = $temp->availableDates;
         $data['cancelPolicies'] = $temp->cancelPolicies;
         $data['thermsConds'] = $temp->thermsConds;
-        // dd($data);
+        // dd($temp->thermsConds);
         return view('pages.user.tour',[
             'data' => $data,
         ]);
@@ -111,7 +111,7 @@ class ProductTourController extends Controller
 
     public function showbyId($id)
     {
-        $data = ProductTour::with('photos')->where('slug',$id)->first();
+        $data = ProductTour::with('photos','thermsConds')->where('slug',$id)->first();
         if(isset($data->photos)) {
             foreach ($data->photos as $key) {
                 $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;

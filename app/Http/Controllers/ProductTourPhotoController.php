@@ -69,7 +69,7 @@ class ProductTourPhotoController extends Controller
     public function show($id)
     {
         $data = ProductTourPhoto::where('id',$id)->first();
-        return response()->file(storage_path('/app/'.$data->img_url));
+        return response()->file(storage_path($data->img_url));
     }
     public function showAll($id)
     {
@@ -115,7 +115,7 @@ class ProductTourPhotoController extends Controller
             $path = $request->file('img')->storeAs('/Tour/Tour'.$data->tour_id, $saveFile);
             $data->img_url = $path;
         }
-        $data->title = $request->title;
+        if($request->has('title'))$data->title = $request->title;
         $data->save();
         return redirect()->back()->with('msg',"foto berhasil tersimpan");
     }

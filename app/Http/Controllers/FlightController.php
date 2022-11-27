@@ -208,7 +208,6 @@ class FlightController extends Controller
             $latestBook = UserSingleFlightBook::latest()->first();
             foreach ($passRecords as $rec) {
                 $rec['user_flight_book_id'] = $latestBook->id;
-                $rec['type'] = 1;
                 UserFlightBookPassRecord::create($rec);
             }
             // $response['newInvoice'] = $latestBook->invoice;

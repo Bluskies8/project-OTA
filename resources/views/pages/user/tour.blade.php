@@ -123,7 +123,7 @@
                     </div>
                 </div>
             </section>
-            <section id="section-cancellation" class="mb-4">
+            {{-- <section id="section-cancellation" class="mb-4">
                 <div class="card" style="box-shadow: -1px 2px 6px gray, 1px 2px 6px gray;">
                     <div class="card-body p-0">
                         <h2 class="card-title p-3" style="background-color: rgb(75, 0, 118);color: white;border-top-left-radius: .25rem;border-top-right-radius: .25rem;">Cancellation Policy</h2>
@@ -138,7 +138,7 @@
                         </ul>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </div>
         <div class="col-12 col-lg-4 order-1 order-lg-2">
             <section id="section-order" class="mb-4">
@@ -146,7 +146,7 @@
                     <div class="card-body p-0">
                         <header class="p-3" style="background-color: #FF9142;border-top-left-radius: .25rem;border-top-right-radius: .25rem;">
                             <p>Start from</p>
-                            <h2 style="color: white;">Rp {{$data['data']['start_price']}}</h2>
+                            <h2 style="color: white;">Rp <span class = "thousand-separator">{{$data['data']['start_price']}}</span></h2>
                         </header>
                         {{-- <form> --}}
                             <input type="hidden" name="id-tour" value="{{$data['data']['id']}}">

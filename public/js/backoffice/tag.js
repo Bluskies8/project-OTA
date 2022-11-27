@@ -2,7 +2,7 @@ $(document).ready(function() {
     if ($('#table-tag').length) {
         $('#table-tag').DataTable();
     }
-    $('#table-tours tbody').on('dblclick', '.tag-name', function() {
+    $('#table-tag tbody').on('dblclick', '.tag-name', function() {
         $(this).hide();
         $(this).next().show();
     });

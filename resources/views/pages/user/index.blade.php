@@ -146,7 +146,7 @@
                                                     <p>Starting from</p>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
-                                                    <h2>Rp {{$item->start_price}}</h2>
+                                                    <h2>Rp. <h2 class = "thousand-separator">{{$item->start_price}}</h2></h2>
                                                     <div style="font-size: 24px;"><i class="far fa-heart"></i><i class="fas fa-heart" style="display: none;"></i></div>
                                                 </div>
                                             </div>
@@ -172,7 +172,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h2 class="mb-3">Lila Travel &amp; Tour</h2>
+                    <h2 class="mb-3">Online Travel &amp; Tour</h2>
                     <div>
                         <p class="mb-1">About Us</p>
                         <p class="mb-1">Corporate</p>

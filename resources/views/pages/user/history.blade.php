@@ -12,7 +12,7 @@
             <hr class="fill-width" />
             <div class="list-history">
                 <div class="card">
-                    @if (!$flight)
+                    @if (count($flight)==0)
                         <h2>Tidak Ada Transaksi</h2>
                     @else
                         @foreach ($flight as $item)
@@ -183,44 +183,48 @@
             <hr class="fill-width" />
             <div class="list-history">
                 <div class="card">
-                    @foreach ($tour as $item)
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-4">
-                                <p class="fw-bold me-2">Tour</p>
-                                <span class="trans-date me-3">{{$item->trans_date}}</span>
-                                @if ($item->payment_status == 0)
-                                <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(217,164,6);background-color: rgba(217,164,6,.33);">UnderPaid</button>
-                                @elseif($item->payment_status == 1)
-                                <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(25,135,84);background-color: rgba(25,135,84,.33);">Paid</button>
-                                @elseif($item->payment_status == 2)
-                                <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(225,83,97);background-color: rgba(225,83,97,.33);">Expired</button>
-                                @endif
-                                <span class="ms-3 text-secondary">{{$item->bookingCode}}</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-4 d-flex align-items-center">
-                                    <p class="ms-3 fs-4 fw-bold">{{$item->tour->name}}</p>
+                    @if (count($tour)==0)
+                        <h2>Tidak Ada Transaksi</h2>
+                    @else
+                        @foreach ($tour as $item)
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <p class="fw-bold me-2">Tour</p>
+                                    <span class="trans-date me-3">{{$item->trans_date}}</span>
+                                    @if ($item->payment_status == 0)
+                                    <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(217,164,6);background-color: rgba(217,164,6,.33);">UnderPaid</button>
+                                    @elseif($item->payment_status == 1)
+                                    <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(25,135,84);background-color: rgba(25,135,84,.33);">Paid</button>
+                                    @elseif($item->payment_status == 2)
+                                    <button class="btn btn-sm fw-bold py-0" type="button" style="color: rgba(225,83,97);background-color: rgba(225,83,97,.33);">Expired</button>
+                                    @endif
+                                    <span class="ms-3 text-secondary">{{$item->bookingCode}}</span>
                                 </div>
-                                <div class="col-4 d-flex align-items-center justify-content-evenly">
-                                    <div class="text-center"><i class="fas fa-sun" style="font-size: 1.25rem;"></i>
-                                        <p>{{$item->tour->days_count}} hari</p>
-                                        <p class="text-secondary">21-06-2022</p>
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center">
+                                        <p class="ms-3 fs-4 fw-bold">{{$item->tour->name}}</p>
                                     </div>
-                                    <div class="text-center"><i class="fas fa-moon"></i>
-                                        <p>{{$item->tour->nights_count}} Malam</p>
-                                        <p class="text-secondary">25-06-2022</p>
+                                    <div class="col-4 d-flex align-items-center justify-content-evenly">
+                                        <div class="text-center"><i class="fas fa-sun" style="font-size: 1.25rem;"></i>
+                                            <p>{{$item->tour->days_count}} hari</p>
+                                            <p class="text-secondary">21-06-2022</p>
+                                        </div>
+                                        <div class="text-center"><i class="fas fa-moon"></i>
+                                            <p>{{$item->tour->nights_count}} Malam</p>
+                                            <p class="text-secondary">25-06-2022</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="h-100 d-flex justify-content-end align-items-end" style="border-left: 1px solid #6c757d;">
-                                        <div class="text-center">
-                                            <p>Total Biaya<br /></p><button class="btn btn-primary" type="button" style="pointer-events: none;"><strong class = "thousand-separator">{{$item->biaya}}</strong><br /></button>
+                                    <div class="col-4">
+                                        <div class="h-100 d-flex justify-content-end align-items-end" style="border-left: 1px solid #6c757d;">
+                                            <div class="text-center">
+                                                <p>Total Biaya<br /></p><button class="btn btn-primary" type="button" style="pointer-events: none;"><strong class = "thousand-separator">{{$item->biaya}}</strong><br /></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

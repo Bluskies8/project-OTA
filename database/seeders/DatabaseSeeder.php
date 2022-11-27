@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
             JokulPaymentConfigSeeder::class,
             AdminRoleSeeder::class,
             UserAdminSeeder::class,
+            KodeReferalSeeder::class,
         ]);
     }
 }

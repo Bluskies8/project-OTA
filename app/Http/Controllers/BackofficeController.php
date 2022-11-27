@@ -280,14 +280,15 @@ class BackofficeController extends Controller
             $key->biaya = $key->tour->downpayment * $count;
         }
         $flight = UserSingleFlightBook::where('order_by',$id)->get();
-
-        foreach ($flight as $key) {
-            $res = DuffelAPI::getOrder($key->transactionId);
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
-            $key->trans_date = $date;
-            $key->detail = $res->data;
-            $key->cabin = $key->detail->slices[0]->segments[0]->passengers[0]->cabin_class;
-            // dd($key->detail->slices[0]->segments[0]->passengers[0]->cabin_class);
+        if(count($flight)>0){
+            foreach ($flight as $key) {
+                $res = DuffelAPI::getOrder($key->transactionId);
+                $date = Carbon::createFromFormat('Y-m-d H:i:s', $key->created_at)->format('d M Y');
+                $key->trans_date = $date;
+                $key->detail = $res->data;
+                $key->cabin = $key->detail->slices[0]->segments[0]->passengers[0]->cabin_class;
+                // dd($key->detail->slices[0]->segments[0]->passengers[0]->cabin_class);
+            }
         }
         return view('pages.backoffice.history',[
             'tour' => $tour,
