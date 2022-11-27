@@ -17,7 +17,7 @@
                             <tr class="text-center">
                                 <th>No.</th>
                                 <th>Title</th>
-                                <th>Customer Name</th>
+                                <th>Name</th>
                                 <th>Nomor HP</th>
                                 <th>Action</th>
                             </tr>

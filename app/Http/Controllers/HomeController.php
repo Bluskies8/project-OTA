@@ -43,6 +43,7 @@ class HomeController extends Controller
             'password' => 'bail|required'
         ]);
         $user = User::where('email',$request->email)->first();
+        if(!$user) return redirect()->back()->with('error','email/password salah');
         $data = [
             'email' => $request->email,
             'password' => $request->password
@@ -52,7 +53,6 @@ class HomeController extends Controller
         }else{
             return redirect()->back()->with('pesan','email/password salah');
         }
-        if(!$user) return redirect()->back()->with('error','email/password salah');
     }
 
     public function registerUser(Request $request)
