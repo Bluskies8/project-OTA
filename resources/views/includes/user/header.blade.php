@@ -45,11 +45,10 @@
         @else
             <i class="fas fa-thin fa-user-group"></i>
             <button id="btn-login" class="btn" type="button" style="color: inherit">Login</button>
-            <button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5); color: inherit;">Register</button>
+            {{-- <button class="btn" type="button" style="border: 1px solid;border-radius: 25px;border-color: rgb(255,255,255,0.5); color: inherit;">Register</button> --}}
         @endif
         </div>
     </div>
-
     <div class="modal fade" role="dialog" tabindex="-1" id="modal-login">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -74,6 +73,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if(Session('pesan'))
+                                        <p>{{Session('pesan')}}</p>
+                                    @endif
                                     <div class="text-end modal-footer">
                                         <button class="btn btn-primary" type="submit">Login</button>
                                     </div>
@@ -106,7 +108,7 @@
                                         <input type="date" name="dob" class="form-control" placeholder="Date of Birth" required/>
                                     </div>
                                     <div class="col-12 mb-2">
-                                        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required/>
+                                        <input type="password" class="form-control" name="password" placeholder="Password" required/>
                                     </div>
                                     <div class="col-12 mb-2">
                                         <input type="password" id="confpass" class="form-control" name="confirm_password" placeholder="Confirm Password" required/>
