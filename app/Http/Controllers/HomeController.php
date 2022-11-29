@@ -164,7 +164,6 @@ public function loginUser(Request $request)
         ($request->has('sort'))?$sort = $request->sort:$sort = "";
         ($request->has('waktu'))?$waktu = $request->waktu:$waktu = "";
         ($request->has('transit'))?$transit = $request->transit:$transit = "";
-        // dd($request->all());
         $passid = '';
         for ($i=0; $i < $request->passanger; $i++) {
             $pass[$i] =[
@@ -466,9 +465,6 @@ public function loginUser(Request $request)
                         //throw $th;
                     }
                 }
-                $customer = Customer::where('guest_name',$key2['nama'])->first();
-                $trans->user_id = $customer->id;
-                $trans->save();
                 if(in_array('CHD',$paxtype)){
                     $extrabed = "cwb";
                 }else{

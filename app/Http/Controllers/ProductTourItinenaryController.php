@@ -88,17 +88,11 @@ class ProductTourItinenaryController extends Controller
             if($value['id'] != null){
                 $data = ProductTourItinenary::where('tour_id',$id)->where('id',$value['id'])->first();
                 $data->label = $value['value'];
-                $data->breakfast = 0;
-                $data->lunch = 0;
-                $data->dinner = 0;
                 $data->save();
             }else{
                 ProductTourItinenary::create([
                     'tour_id' => $id,
                     'label'=>  $value['value'],
-                    'breakfast'=> '0',
-                    'lunch'=> '0',
-                    'dinner'=> '0',
                 ]);
             }
         }
