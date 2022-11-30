@@ -111,29 +111,62 @@ class ProductTourController extends Controller
 
     public function showbyId($id)
     {
-        $data = ProductTour::with('photos','thermsConds')->where('slug',$id)->first();
-        if(isset($data->photos)) {
-            foreach ($data->photos as $key) {
-                $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
-            }
-        }
-        $start = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_start)->format('Y-m-d');
-        $end = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_end)->format('Y-m-d');
+        // $data = ProductTour::with('photos','thermsConds')->where('slug',$id)->first();
+        // if(isset($data->photos)) {
+        //     foreach ($data->photos as $key) {
+        //         $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+        //     }
+        // }
+        // $start = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_start)->format('Y-m-d');
+        // $end = Carbon::createFromFormat('Y-m-d H:i:s', $data->valid_date_end)->format('Y-m-d');
+        // $tempTags = [];
+        // foreach (explode(",", $data->tags) as $tag) {
+        //     $tempTags[] = Tag::find($tag);
+        // }
+        // $tempCountryTags = [];
+        // foreach (explode(",", $data->countrytag) as $tag) {
+        //     $tempCountryTags[] = country::find($tag);
+        // }
+        // $data->header_img_url = env('APP_URL').'/tour/imgh/'.$data->id;
+        // $data->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$data->id;
+        // $data->tagsObject = $tempTags;
+        // $data->countryTagsObject = $tempCountryTags;
+        // $data->valid_date_end = $end;
+        // $data->valid_date_start = $start;
+        $temp = ProductTour::where('slug',$id)->with(['highlights', 'itinenaries', 'photos', 'includes', 'excludes', 'availableDates', 'cancelPolicies', 'thermsConds'])->first();
+        $ori = $temp->getOriginal();
         $tempTags = [];
-        foreach (explode(",", $data->tags) as $tag) {
+        foreach (explode(",", $temp->tags) as $tag) {
             $tempTags[] = Tag::find($tag);
         }
         $tempCountryTags = [];
-        foreach (explode(",", $data->countrytag) as $tag) {
+        foreach (explode(",", $temp->countrytag) as $tag) {
             $tempCountryTags[] = country::find($tag);
         }
-        $data->header_img_url = env('APP_URL').'/tour/imgh/'.$data->id;
-        $data->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$data->id;
-        $data->tagsObject = $tempTags;
-        $data->countryTagsObject = $tempCountryTags;
-        $data->valid_date_end = $end;
-        $data->valid_date_start = $start;
-        // dd($data);
+        $start = Carbon::createFromFormat('Y-m-d H:i:s', $temp->valid_date_start)->format('Y-m-d');
+        $end = Carbon::createFromFormat('Y-m-d H:i:s', $temp->valid_date_end)->format('Y-m-d');
+        $ori['tagsObject'] = $tempTags;
+        $ori['countryTagsObject'] = $tempCountryTags;
+        $ori['valid_date_end'] = $end;
+        $ori['valid_date_start'] = $start;
+        $ori['header_img_url'] = env('APP_URL').'/tour/imgh/'.$ori['id'];
+        $ori['thumbnail_img_url'] = env('APP_URL').'/tour/imgt/'.$ori['id'];
+        $data['data'] = $ori;
+        $temp1 = 0;
+        $count = 0;
+        $data['highlights'] = $temp->highlights;
+        $data['itinenaries'] = $temp->itinenaries;
+        $photo = json_decode($temp->photos);
+        foreach ($photo as $key) {
+            $key->img_url = env('APP_URL').'/tour/Photo/getimg/'.$key->id;
+        }
+        $data['photos'] = $photo;
+        $data['includes'] = $temp->includes;
+        $data['excludes'] = $temp->excludes;
+        $data['availableDates'] = $temp->availableDates;
+        $data['cancelPolicies'] = $temp->cancelPolicies;
+        $data['thermsConds'] = $temp->thermsConds;
+        dd($data);
         return view('pages.backoffice.tourDetail',[
             'data' => $data,
             'tag' => tag::get(),

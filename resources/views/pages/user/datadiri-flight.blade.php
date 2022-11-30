@@ -19,32 +19,32 @@
                                     <div class="mb-2">
                                         <p>Nama Lengkap</p>
                                         <div class="form-control d-flex" >
-                                            <select style="outline: none; border: none;" id = "cp-title">
+                                            <select style="outline: none; border: none;" id = "cp-title" required>
                                                 <option value="mr">Mr</option>
                                                 <option value="mrs">Mrs</option>
                                                 <option value="ms">Ms</option>
                                             </select>
-                                            <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" />
+                                            <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" required />
                                         </div>
                                     </div>
                                     <div class="mb-2">
                                         <p>E-mail</p>
-                                        <input type="text" name = "cp-email" class="form-control" />
+                                        <input type="text" name = "cp-email" class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>No Telepon</p>
                                         <div class="form-control d-flex align-items-center">
                                             <strong>+62</strong>
-                                            <input class="w-100" style="outline:none; border:none; type="text" name = "cp-nohp" />
+                                            <input class="w-100" style="outline:none; border:none;" type="number" name = "cp-nohp" required />
                                         </div>
                                     </div>
                                     <div class="mb-2">
                                         <p>Tanggal Lahir</p>
-                                        <input class="form-control" name = "cp-birth" type="date" />
+                                        <input class="form-control" name = "cp-birth" type="date" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>Kode Referral</p>
-                                        <input class="form-control" name="kode_referral" type="text" />
+                                        <input class="form-control" name="kode_referral" type="text" required />
                                     </div>
                                     <div style="color:red; display:none" id = "error-kode">kode not found</div>
                                 </div>
@@ -54,7 +54,7 @@
                         <div id = "dataflight">
                             <hr style="margin: 1rem -1rem;" />
                             <div id="container-form-dewasa" class="mb-4">
-                                <h4>Dewasa</h4>
+                                <h4>Data Diri</h4>
                                 <hr />
                                 <div class="row">
                                 @for ($i = 0; $i < $count; $i++)
@@ -63,28 +63,28 @@
                                         <div class="mb-2">
                                             <p>Nama Lengkap</p>
                                             <div class="form-control d-flex" >
-                                                <select style="outline: none; border: none;" id = "title{{($i+1)}}">
+                                                <select style="outline: none; border: none;" id = "title{{($i+1)}}" required>
                                                     <option value="mr">Mr</option>
                                                     <option value="mrs">Mrs</option>
                                                     <option value="ms">Ms</option>
                                                 </select>
-                                                <input class="w-100" style="outline: none; border: none; type="text" id = "adult-nama{{($i+1)}}" name = "adult-nama{{($i+1)}}" />
+                                                <input class="w-100" style="outline: none; border: none;" type="text" id = "adult-nama{{($i+1)}}" name = "adult-nama{{($i+1)}}" required />
                                             </div>
                                         </div>
                                         <div class="mb-2">
                                             <p>E-mail</p>
-                                            <input type="text" id = "adult-email{{($i+1)}}" name = "adult-email{{($i+1)}}" class="form-control" />
+                                            <input type="text" id = "adult-email{{($i+1)}}" name = "adult-email{{($i+1)}}" class="form-control" required />
                                         </div>
                                         <div class="mb-2">
                                             <p>No Telepon</p>
                                             <div class="form-control d-flex align-items-center">
                                                 <strong>+62</strong>
-                                                <input class="w-100" style="outline:none; border:none;" type="text" id = "adult-nohp{{($i+1)}}" name = "adult-nohp{{($i+1)}}" />
+                                                <input class="w-100" style="outline:none; border:none;" type="number" id = "adult-nohp{{($i+1)}}" name = "adult-nohp{{($i+1)}}" required />
                                             </div>
                                         </div>
                                         <div class="mb-2">
                                             <p>Tanggal Lahir</p>
-                                            <input class="form-control" id = "adult-birth{{($i+1)}}" name = "adult-birth{{($i+1)}}" type="date" />
+                                            <input class="form-control" id = "adult-birth{{($i+1)}}" name = "adult-birth{{($i+1)}}" type="date" required />
                                         </div>
                                     </div>
                                     <!-- sampe sini -->

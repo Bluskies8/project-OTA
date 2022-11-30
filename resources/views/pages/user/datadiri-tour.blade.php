@@ -15,29 +15,29 @@
                             <div class="mb-2">
                                 <p>Nama Lengkap</p>
                                 <div class="form-control d-flex" >
-                                    <select style="outline: none; border: none; " id = "cp-title"">
+                                    <select style="outline: none; border: none; " id = "cp-title"" required>
                                         <option value="mr">Mr</option>
                                         <option value="mrs">Mrs</option>
                                         <option value="ms">Ms</option>
                                     </select>
-                                    <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" />
+                                    <input class="w-100" style="outline: none; border: none; type="text" id = "cp-nama" name = "cp-nama" required/>
                                 </div>
                             </div>
                             <div class="mb-2">
                                 <p>E-mail</p>
-                                <input type="text" name = "cp-email" class="form-control" />
+                                <input type="text" name = "cp-email" class="form-control" required />
                             </div>
                             <div class="mb-2">
                                 <p>No Telepon</p>
-                                <input type="text" name = "cp-nohp" class="form-control" />
+                                <input type="text" name = "cp-nohp" class="form-control" required />
                             </div>
                             <div class="mb-2">
                                 <p>Tanggal Lahir</p>
-                                <input class="form-control" name = "cp-birth" type="date" />
+                                <input class="form-control" name = "cp-birth" type="date" required />
                             </div>
                             <div class="mb-2">
                                 <p>Kode Referral</p>
-                                <input class="form-control" name="kode_referral" type="text" />
+                                <input class="form-control" name="kode_referral" type="text" required />
                             </div>
                             <div style="color:red; display:none" id = "error-kode">kode not found</div>
                         </div>
@@ -72,7 +72,7 @@
                                     <div class="mb-2">
                                         <p>Nama Lengkap</p>
                                         <div class="form-control d-flex" >
-                                            <select style="outline: none; border: none;" class = "adult-title">
+                                            <select style="outline: none; border: none;" class = "adult-title" required>
                                                 <option value="mr">Mr</option>
                                                 <option value="mrs">Mrs</option>
                                                 <option value="ms">Ms</option>
@@ -82,15 +82,15 @@
                                     </div>
                                     <div class="mb-2">
                                         <p>E-mail</p>
-                                        <input type="text" id = "adult-email{{($loop->index+1)}}" name = "adult-email{{($loop->index+1)}}" class="form-control" />
+                                        <input type="text" id = "adult-email{{($loop->index+1)}}" name = "adult-email{{($loop->index+1)}}" class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>No Telepon</p>
-                                        <input type="text" id = "adult-nohp{{($loop->index+1)}}" name = "adult-nohp{{($loop->index+1)}}" class="form-control" />
+                                        <input type="text" id = "adult-nohp{{($loop->index+1)}}" name = "adult-nohp{{($loop->index+1)}}" class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>Tanggal Lahir</p>
-                                        <input class="form-control" id = "adult-birth{{($loop->index+1)}}" name = "adult-birth{{($loop->index+1)}}" type="date" />
+                                        <input class="form-control" id = "adult-birth{{($loop->index+1)}}" name = "adult-birth{{($loop->index+1)}}" type="date" required />
                                     </div>
                                 </div>
                                 <!-- sampe sini -->
@@ -108,25 +108,25 @@
                                     <div class="mb-2">
                                         <p>Nama Lengkap</p>
                                         <div class="form-control d-flex" >
-                                            <select style="outline: none; border: none;" class = "adult-title">
+                                            <select style="outline: none; border: none;" class = "adult-title" required>
                                                 <option value="mr">Mr</option>
                                                 <option value="mrs">Mrs</option>
                                                 <option value="ms">Ms</option>
                                             </select>
-                                            <input class="w-100" style="outline: none; border: none; type=" type="text" id = "child-nama{{($loop->index+1)}}" name = "child-nama{{($loop->index+1)}}" />
+                                            <input class="w-100" style="outline: none; border: none; type=" type="text" id = "child-nama{{($loop->index+1)}}" name = "child-nama{{($loop->index+1)}}" required />
                                         </div>
                                     </div>
                                     <div class="mb-2">
                                         <p>E-mail</p>
-                                        <input type="text" id = "child-email{{($loop->index+1)}}" name = "child-email{{($loop->index+1)}}" class="form-control" />
+                                        <input type="text" id = "child-email{{($loop->index+1)}}" name = "child-email{{($loop->index+1)}}" class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>No Telepon</p>
-                                        <input type="text" id = "child-nohp{{($loop->index+1)}}" name = "child-nohp{{($loop->index+1)}}" class="form-control" />
+                                        <input type="text" id = "child-nohp{{($loop->index+1)}}" name = "child-nohp{{($loop->index+1)}}" class="form-control" required />
                                     </div>
                                     <div class="mb-2">
                                         <p>Tanggal Lahir</p>
-                                        <input class="form-control" id = "child-birth{{($loop->index+1)}}" name = "child-birth{{($loop->index+1)}}" type="date" />
+                                        <input class="form-control" id = "child-birth{{($loop->index+1)}}" name = "child-birth{{($loop->index+1)}}" type="date" required />
                                     </div>
                                 </div>
                                 <!-- sampe sini -->
