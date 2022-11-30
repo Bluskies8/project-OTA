@@ -166,7 +166,7 @@ class ProductTourController extends Controller
         $data['availableDates'] = $temp->availableDates;
         $data['cancelPolicies'] = $temp->cancelPolicies;
         $data['thermsConds'] = $temp->thermsConds;
-        dd($data);
+        // dd($data);
         return view('pages.backoffice.tourDetail',[
             'data' => $data,
             'tag' => tag::get(),

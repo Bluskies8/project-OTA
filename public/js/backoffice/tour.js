@@ -109,6 +109,49 @@ $(document).ready(function() {
         $('#countrytag').val(idcountryTags);
     });
 
+    $('#add-date').on('click', function() {
+        let temp = $('#date-clone').clone(true);
+        let count = $('#table-date tbody').children().length;
+        temp.children().eq(0).html(count + '.');
+        temp.appendTo($('#table-date tbody'));
+        temp.show();
+    });
+
+    $('.save-date').on('click', function() {
+        var data = [];
+        $('input[name="date"]').each(function(ctr) {
+            if(ctr>0){
+                data[ctr-1] = {
+                    'id': $(this).attr('id'),
+                    'value' : (this).value
+                }
+            }
+        });
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            type: "post",
+            url: "/cms/tour/Date/update/"+$('input[name="id"]').val(),
+            data:{
+                "data":data
+            },
+            beforeSend: function(){
+                // console.log(this.data);
+            },
+            success: function(res) {
+                console.log(res);
+                $('#table-date').children('tr').remove();
+                $("#table-date").load(path + " #table-date");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+        // console.log(data)
+    });
+
     var path = window.location.pathname;
     $('#add-highlight').on('click', function() {
         let temp = $('#highlight-clone').clone(true);
