@@ -133,6 +133,8 @@ Route::group(['middleware' => ['adminUser']], function () {
         Route::get('/customers', [BackofficeController::class,'Customers']);
         Route::get('/user', [BackofficeController::class,'User']);
         Route::get('/user/detail/{id}', [BackofficeController::class,'history']);
+        Route::get('/finance', [BackofficeController::class,'finance']);
+
     });
     Route::prefix('cms')->group(function () {
         Route::prefix('content')->group(function () {

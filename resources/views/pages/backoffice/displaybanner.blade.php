@@ -1,7 +1,7 @@
 @extends('layout.admins')
 
 @section('content')
-    @include('includes.datatables')
+@include('includes.datatables')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container mt-5">
         <div class="card">
@@ -148,5 +148,5 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/backoffice/endusercontent.js') }}"></script>
+<script src="{{ asset('js/backoffice/endusercontent.js') }}"></script>
 @endsection

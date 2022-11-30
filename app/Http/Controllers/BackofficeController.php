@@ -313,4 +313,9 @@ class BackofficeController extends Controller
             }
         }
     }
+
+    public function finance()
+    {
+        return view('pages.backoffice.finance');
+    }
 }
