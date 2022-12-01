@@ -101,17 +101,31 @@ class ProductTourDateController extends Controller
      * @param  \App\Models\ProductTourDate  $productTourDate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-        $data = ProductTourDate::where('id',$request->id)->first();
-        $data->date_start = $request->date_start;
-        $data->date_end = $request->date_end;
-        $data->single_suplement_price = $request->single_suplement_price;
-        $data->adult_twin_share_price = $request->adult_twin_share_price;
-        $data->child_with_bed_price = $request->child_with_bed_price;
-        $data->child_no_bed_price = $request->child_no_bed_price;
-        $data->save();
-        return response()->json($data,200);
+        foreach($request->data as $value){
+            if($value['id'] != null){
+                $data = ProductTourDate::where('tour_id',$id)->where('id',$value['id'])->first();
+                $data->date_start = $value['departure'];
+                $data->date_end = $value['return'];
+                $data->save();
+            }else{
+                ProductTourDate::create([
+                    'tour_id' => $id,
+                    'date_start' => $value['departure'],
+                    'date_end' => $value['return'],
+                ]);
+            }
+        }
+        // $data = ProductTourDate::where('id',$request->id)->first();
+        // $data->date_start = $request->date_start;
+        // $data->date_end = $request->date_end;
+        // $data->single_suplement_price = $request->single_suplement_price;
+        // $data->adult_twin_share_price = $request->adult_twin_share_price;
+        // $data->child_with_bed_price = $request->child_with_bed_price;
+        // $data->child_no_bed_price = $request->child_no_bed_price;
+        // $data->save();
+        // return response()->json($data,200);
     }
 
     /**
@@ -122,7 +136,7 @@ class ProductTourDateController extends Controller
      */
     public function destroy($id)
     {
-        ProductTourDate::where('id',$id)->first()->delete();
+        ProductTourDate::where('id',$id)->delete();
         return response()->json(['message' => 'Success'],200);
     }
     public function restore($id)

@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KodeReferalController;
 use App\Http\Controllers\ProductTourController;
 use App\Http\Controllers\ProductTourCountrytagController;
+use App\Http\Controllers\ProductTourDateController;
 use App\Http\Controllers\ProductTourExcludeController;
 use App\Http\Controllers\ProductTourHighlightController;
 use App\Http\Controllers\ProductTourIncludeController;
@@ -172,6 +173,10 @@ Route::group(['middleware' => ['adminUser']], function () {
             //     Route::delete('delete/{id}', [ProductTourCancelpolicyController::class, 'destroy']);
             //     Route::patch('restore/{id}', [ProductTourCancelpolicyController::class, 'restore']);
             // });
+            Route::prefix('Date')->group(function () {
+                Route::post('update/{id}', [ProductTourDateController::class, 'update']);
+                Route::delete('delete/{id}', [ProductTourDateController::class, 'destroy']);
+            });
             Route::prefix('CountryTag')->group(function () {
                 Route::post('create', [ProductTourCountrytagController::class, 'create']);
                 Route::get('/get/{id}', [ProductTourCountrytagController::class, 'show']);

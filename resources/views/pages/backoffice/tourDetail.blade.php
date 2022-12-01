@@ -274,6 +274,7 @@
             <h3 class="mb-3 d-flex justify-content-between align-items-center">Tour Date
                 <button class="btn btn-primary save-date" type="button"><i class="fas fa-save"></i> Save</button>
             </h3>
+
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -290,10 +291,10 @@
                                 <tr id="date-clone" style="display: none;">
                                     <td class="text-center">0.</td>
                                     <td style="padding-top: 6px;padding-bottom: 6px;">
-                                        <input type="text" name="date" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id="" value="" />
+                                        <input type="date" name="date" class="w-100" id = "depart_date" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id="" value="" />
                                     </td>
                                     <td style="padding-top: 6px;padding-bottom: 6px;">
-                                        <input type="text" name="date" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id="" value="" />
+                                        <input type="date" name="date" class="w-100" id = "return_date" style="outline: none;border: none;border-bottom: 1px solid lightgray;" id="" value="" />
                                     </td>
                                     <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;">
                                         <button class="btn btn-sm text-danger delete-date" type="button"><i class="fas fa-trash"></i></button>
@@ -303,10 +304,10 @@
                                 <tr id={{ $item->id }}>
                                     <td class="text-center">{{ $loop->index + 1 }}.</td>
                                     <td style="padding-top: 6px;padding-bottom: 6px;">
-                                        <input type="text" name="date" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value="{{ $item->date_start }}" />
+                                        <input type="date" name="date" class="w-100" id = "depart_date" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value="{{ $item->date_start }}" />
                                     </td>
                                     <td style="padding-top: 6px;padding-bottom: 6px;">
-                                        <input type="text" name="date" class="w-100" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value="{{ $item->date_end }}" />
+                                        <input type="date" name="date" class="w-100" id = "return_date" style="outline: none;border: none;border-bottom: 1px solid lightgray;" value="{{ $item->date_end }}" />
                                     </td>
                                     <td class="text-center" style="width: 50px;padding-top: 4px;padding-bottom: 4px;">
                                         <button class="btn btn-sm text-danger delete-date" type="button"><i class="fas fa-trash"></i></button>

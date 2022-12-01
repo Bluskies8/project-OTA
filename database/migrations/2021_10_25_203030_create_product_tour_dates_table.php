@@ -18,10 +18,10 @@ class CreateProductTourDatesTable extends Migration
             $table->foreignId('tour_id');
             $table->date('date_start');
             $table->date('date_end');
-            $table->bigInteger('adult_twin_share_price');
-            $table->bigInteger('single_suplement_price');
-            $table->bigInteger('child_with_bed_price');
-            $table->bigInteger('child_no_bed_price');
+            $table->bigInteger('adult_twin_share_price')->nullable();
+            $table->bigInteger('single_suplement_price')->nullable();
+            $table->bigInteger('child_with_bed_price')->nullable();
+            $table->bigInteger('child_no_bed_price')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -113,17 +113,19 @@ $(document).ready(function() {
         let temp = $('#date-clone').clone(true);
         let count = $('#table-date tbody').children().length;
         temp.children().eq(0).html(count + '.');
+        temp.attr('id',"")
         temp.appendTo($('#table-date tbody'));
         temp.show();
     });
 
     $('.save-date').on('click', function() {
         var data = [];
-        $('input[name="date"]').each(function(ctr) {
+        $('#table-date tbody').children().each(function(ctr) {
             if(ctr>0){
                 data[ctr-1] = {
                     'id': $(this).attr('id'),
-                    'value' : (this).value
+                    'departure' : $(this).find('#depart_date').val(),
+                    'return' : $(this).find('#return_date').val(),
                 }
             }
         });
@@ -150,6 +152,34 @@ $(document).ready(function() {
             }
         });
         // console.log(data)
+    });
+    $('.delete-date').on('click', function() {
+        var thiss = $(this);
+        var td = $(this).parent().parent().children();
+        var id = $(td).parent().attr('id');
+        console.log(id)
+        if(id == ''){
+            $(this).parent().parent().detach();
+        }else{
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "delete",
+                url: "/cms/tour/Date/delete/"+id,
+                beforeSend: function(){
+                    // console.log(this.data);
+                },
+                success: function(res) {
+                    console.log(res);
+                    thiss.parent().parent().detach();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
     });
 
     var path = window.location.pathname;
@@ -204,24 +234,24 @@ $(document).ready(function() {
         if(id == ''){
             $(this).parent().parent().detach();
         }else{
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                type: "delete",
-                url: "/cms/tour/Highlight/delete/"+id,
-                beforeSend: function(){
-                    // console.log(this.data);
-                },
-                success: function(res) {
-                    console.log(res);
-                    thiss.parent().parent().detach();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            });
+            // $.ajax({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            //     },
+            //     type: "delete",
+            //     url: "/cms/tour/Highlight/delete/"+id,
+            //     beforeSend: function(){
+            //         // console.log(this.data);
+            //     },
+            //     success: function(res) {
+            //         console.log(res);
+            //         thiss.parent().parent().detach();
+            //     },
+            //     error: function (xhr, ajaxOptions, thrownError) {
+            //         console.log(xhr.status);
+            //         console.log(thrownError);
+            //     }
+            // });
         }
     });
 
