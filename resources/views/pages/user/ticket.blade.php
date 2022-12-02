@@ -160,10 +160,11 @@
                                                     <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$data->slices[0]->origin->iata_code}}</button>
                                                 </div>
                                                 <div class="d-flex flex-column align-items-center justify-content-center mx-5">
-                                                    <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
                                                     @if ($count>1)
+                                                    <p>{{gmdate('H:i', strtotime($temp[0]) + strtotime($temp[1]))}}</p>
                                                     <p>Transit</p>
                                                     @else
+                                                    <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
                                                     <p>Direct</p>
                                                     @endif
                                                 </div>

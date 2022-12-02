@@ -129,25 +129,25 @@
                                     $temparriving = strtotime($item->arriving_at);
                                     $arrive = date('d M',$temparriving);
                                     $temp = gmdate('H:i', $temparriving - $tempdeparting);
-                                    $count = $key;
+                                    // $count = $key;
                                 ?>
                                     <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-column align-items-center justify-content-center">
-                                        <p>{{gmdate('H:i', $tempdeparting)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->origin->iata_code}}</button>
+                                        <p>{{gmdate('H:i', $tempdeparting)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$item->origin->iata_code}}</button>
                                     </div>
                                     <div class="d-flex flex-column align-items-center justify-content-center position-relative">
-                                        <p>{{$temp}}</p>
-                                        @if ($count == 1)
+                                        <p>{{$temp}}</p><br>
+                                        {{-- @if ($count == 1)
                                         <p> Transit</p>
                                         @else
                                         <p>Langsung</p>
-                                        @endif
+                                        @endif --}}
                                         <div class="position-absolute h-100 d-flex justify-content-between align-items-center pt-1" style="width: 130px;"><i class="far fa-circle text-secondary"></i>
                                             <hr class="w-100" /><i class="fas fa-dot-circle text-secondary"></i>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column align-items-center justify-content-center">
-                                        <p>{{gmdate('H:i', $temparriving)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$flight->slices[0]->destination->iata_code}}</button>
+                                        <p>{{gmdate('H:i', $temparriving)}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$item->destination->iata_code}}</button>
                                     </div>
                                     </div>
                             @endforeach

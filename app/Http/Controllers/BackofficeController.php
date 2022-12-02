@@ -196,7 +196,7 @@ class BackofficeController extends Controller
 
     public function detailBooking($id)
     {
-        $data = TourBooking::with('detail.customer')->where('BookingCode',$id)->first();
+        $data = TourBooking::with('detail.customer')->where('bookingCode',$id)->first();
         $room = [];
         $temp = TourPassanger::where('tour_bookings_id',$data->id)->distinct()->get(['room']);
         foreach ($temp as $rooms) {

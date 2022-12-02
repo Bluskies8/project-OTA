@@ -44,7 +44,6 @@ Route::post('/register', [HomeController::class,'registerUser']);
 Route::prefix('Flight')->group(function () {
     Route::post('/search',[HomeController::class,'searchFlight']);
     Route::get('/datadiri',[FlightController::class,'datadiri']);
-    Route::post('/cp-submit',[FlightController::class,'datasubmit']);
 });
 Route::prefix('tour')->group(function () {
     Route::post('/',[ProductTourController::class,'ShowAllTour']);

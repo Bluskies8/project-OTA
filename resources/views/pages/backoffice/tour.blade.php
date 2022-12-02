@@ -229,7 +229,7 @@
                             <td>{{date('d-m-Y', strtotime($item->created_at))}}</td>
                             <td>{{date('d-m-Y', strtotime($item->valid_date_start))}}</td>
                             <td>{{date('d-m-Y', strtotime($item->valid_date_end))}}</td>
-                            <td class="text-end">{{$item->start_price}}</td>
+                            <td class="text-end thousand-separator">{{$item->start_price}}</td>
                             <td class="cell-action"><button class="btn btn-primary btn-sm btn-show-action" type="button"><i class="fas fa-bars"></i></button></td>
                         </tr>
                         @endforeach
@@ -237,7 +237,7 @@
                 </table>
                 <ul class="list-unstyled form-control" id="list-action">
                     <li id="action-detail"><i class="fa-solid fa-circle-info"></i>&nbsp;Detail</li>
-                    <li id="action-duplicate"><i class="fa-solid fa-clone"></i>&nbsp;Duplicate</li>
+                    {{-- <li id="action-duplicate"><i class="fa-solid fa-clone"></i>&nbsp;Duplicate</li> --}}
                     <li id="action-delete"><i class="fa-solid fa-trash"></i>&nbsp;Delete</li>
                 </ul>
             </div>
