@@ -46,6 +46,7 @@ $(document).ready(function() {
             }
         });
     });
+
     $('.delete-tag').on('click', function(){
         var temp = $(this);
         console.log($(this).parent().parent());
@@ -67,4 +68,60 @@ $(document).ready(function() {
             }
         });
     });
+
+    if (getCookie('transaksi-intro_halaman') != 'done') {
+        introHalaman();
+    }
+    function introHalaman() {
+        introJs().setOptions({
+            showBullets: false,
+            showProgress: true,
+            disableInteraction: true,
+            steps: [
+                {
+                    title: "Tutorial",
+                    intro: "Berikut adalah tutorial cara menggunakan halaman ini"
+                }, {
+                    title: "Tutorial Tags",
+                    element: document.querySelector('#add-tag'),
+                    intro: "Bagian ini digunakan untuk membuat tag baru",
+                }, {
+                    title: "Tutorial Tags",
+                    element: document.querySelector('.table-responsive'),
+                    intro: "Bagian ini berisikan tag-tag yang ada",
+                }, {
+                    title: "Tutorial Tags",
+                    element: document.querySelector('.tag-name:nth-child(1)'),
+                    intro: "Klik pada bagian ini untuk merubah nama tag",
+                }, {
+                    title: "Tutorial Tags",
+                    element: document.querySelector('.save-tag:nth-child(1)'),
+                    intro: "Klik tombol ini untuk menyimpan perubahan",
+                },
+            ]
+        }).start();
+        setCookie('transaksi-intro_halaman', 'done', 7);
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 });

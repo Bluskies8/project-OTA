@@ -3,6 +3,9 @@
 @section('content')
 @include('includes.datatables')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
+<script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
 <div class="container my-5">
 
 	<div class="card col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
