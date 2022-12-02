@@ -19,6 +19,8 @@ $(document).ready(function() {
                     console.log(element.date_start)
                     date.append('<option value="'+element.date_start +' S/D '+element.date_end+'" id = "'+element.id+'">')
                 });
+                $('#container-departure').removeClass('text-muted');
+                $('#container-departure').find('div').show();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -26,6 +28,7 @@ $(document).ready(function() {
             }
         });
     });
+
     var separatorInterval = setInterval(setThousandSeparator, 10);
     function setThousandSeparator () {
         let length = $('.thousand-separator').length;
@@ -43,6 +46,7 @@ $(document).ready(function() {
             clearInterval(separatorInterval);
         }
     };
+
     $('.data-date').on('change', function(){
         var date = $('option[value="'+$(this).val()+'"]').attr('id');
         $.ajax({
@@ -70,6 +74,8 @@ $(document).ready(function() {
                         "</tr>"
                     );
                 });
+                $('#container-passanger').removeClass('text-muted');
+                $('#container-passanger').find('div').show();
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);

@@ -20,11 +20,14 @@
                             <option value="tour">Tour</option>
                         </select>
 					</div>
-					<div class="col-6 mb-2 d-flex">
+					<div class="col-6 mb-2">
 						<input type="number" min=0 max=999999999 class="form-control" name="limit" placeholder="Limit Penggunaan" required>
                     </div>
-					<div class="col-6 mb-2 d-flex">
-						<input type="number" min=0 max=100 class="form-control" name="diskon" placeholder="Besar Diskon" required>
+					<div class="col-6 mb-2">
+                        <div class="form-container d-flex justify-content-between align-items-center" style="border-bottom: 1px solid lightgray;">
+                            <input class="w-100 me-2" type="number" min=0 max=100 name="diskon" placeholder="Besar Diskon" required style="border-bottom: none; outline: none;" >
+                            <p class="fw-bold">%</p>
+                        </div>
                     </div>
 				</div>
 
