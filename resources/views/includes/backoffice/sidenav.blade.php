@@ -6,6 +6,12 @@
     <ul class="list-group" style="border-radius: 0; height: calc(100vh - 64px); overflow-y: auto;">
         <li class="list-group-item p-0">
             <h4 class="color-main py-3 px-3 menu-header">Back Office</h4>
+            <div class="py-2 px-3 menu-item">
+                <a href="/backoffice/Dasboard" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                    <i class="fa-solid fa-house-chimney me-3"></i>
+                    <p>Dashboard</p>
+                </a>
+            </div>
             <div class="py-2 px-3 menu-item disabled" data-open="false">
                 <div class="d-flex"><i class="fas fa-file-invoice me-3"></i>
                     <p>Transaction</p>

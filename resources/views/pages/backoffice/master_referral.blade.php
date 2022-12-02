@@ -3,8 +3,8 @@
 @section('content')
 @include('includes.datatables')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="container mt-5">
-	<div class="card col-12">
+<div class="container my-5">
+	<div class="card">
 		<div class="card-body">
 			<header>
 				<h3>Add New Referral Code</h3>
@@ -13,45 +13,36 @@
 			<form action="/backoffice/referral/create" method="post">
                 @csrf
 				<div class="row">
-					<div class="col-12 mt-2 d-flex">
+					<div class="col-12 mb-2 d-flex">
 						<input type="text" class="form-control" name="kode" placeholder="Kode" required>
                         <select name="tipe" required>
-                            {{-- <option value="" hidden selected>-</option> --}}
                             <option value="flight" selected>Flight</option>
                             <option value="tour">Tour</option>
                         </select>
 					</div>
-					<div class="col-6 mt-2 d-flex">
+					<div class="col-6 mb-2 d-flex">
 						<input type="number" min=0 max=999999999 class="form-control" name="limit" placeholder="Limit Penggunaan" required>
                     </div>
-					<div class="col-6 mt-2 d-flex">
+					<div class="col-6 mb-2 d-flex">
 						<input type="number" min=0 max=100 class="form-control" name="diskon" placeholder="Besar Diskon" required>
                     </div>
 				</div>
 
-                <div class="w-100 text-end mt-3">
+                <div class="w-100 text-end">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-save">&nbsp;</i>Create</button>
                 </div>
 			</form>
 			<hr style="margin: 1rem -1rem;" />
 			<div class="table-responsive">
 				<table class="table"  style="width: 100%" id = "table-referal">
-					<colgroup>
-					   <col span="1" style="width: 10%;">
-					   <col span="1" style="width: 15%;">
-					   <col span="1" style="width: 25%;">
-					   <col span="1" style="width: 20%;">
-					   <col span="1" style="width: 20%;">
-					   <col span="1" style="width: 10%;">
-					</colgroup>
 					<thead>
 						<tr>
-							<th>No.</th>
-							<th>Tipe </th>
-							<th>Kode</th>
-							<th>Amount</th>
-							<th>Limit</th>
-							<th>Action</th>
+							<th style="width: 10%;">No.</th>
+							<th style="width: 15%;">Tipe </th>
+							<th style="width: 25%;">Kode</th>
+							<th style="width: 20%;">Amount</th>
+							<th style="width: 20%;">Limit</th>
+							<th style="width: 10%;">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -62,8 +53,13 @@
 							<td>{{$item->kode}}</td>
 							<td>{{$item->discount}}</td>
 							<td>{{$item->limit}}</td>
-							<td><i class="fas fa-exclamation-circle text-primary detail-referal" ></i> &emsp;<i class="fas fa-pen-to-square text-primary edit-referal" ></i> &emsp;<i class="fas fa-trash text-danger delete-referal"></i></td>
-
+							<td>
+                                <div class="d-flex justify-content-around aling-items-center" style="font-size: 1.25rem; padding: 2px 0;">
+                                    <i class="fa-solid fa-circle-info text-info detail-referal"></i>
+                                    <i class="fa-solid fa-pen-to-square text-warning edit-referal"></i>
+                                    <i class="fas fa-trash text-danger delete-referal"></i>
+                                </div>
+                            </td>
 						</tr>
                         @endforeach
 					</tbody>
@@ -71,18 +67,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="card col-12" id = "table-detail" style="display: none;">
+
+	<div class="card my-5" id="table-detail" style="display: none;">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table"  style="width: 100%" id = "table-referal-detail">
-                    <colgroup>
-                    <col span="1" style="width: 10%;">
-                    <col span="1" style="width: 15%;">
-                    </colgroup>
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>nama </th>
+                            <th style="width: 10%;">No.</th>
+                            <th>Nama </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,6 +85,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-master">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

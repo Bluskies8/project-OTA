@@ -1,7 +1,17 @@
 $(document).ready(function() {
     if ($('#table-supplier').length) {
-        $('#table-supplier').DataTable();
+        $('#table-supplier').DataTable({
+            columns: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { orderable: false }
+            ],
+        });
     }
+
     $('.edit-supplier').on('click', function(){
         var temp = $(this).closest('tr').children();
         $('#id').val($(this).closest('tr').attr('id'));

@@ -1,6 +1,15 @@
 $(document).ready(function() {
     if ($('#table-referal').length) {
-        $('#table-referal').DataTable();
+        $('#table-referal').DataTable({
+            columns: [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { orderable: false }
+            ],
+        });
     }
 
     $('.edit-referal').on('click', function(){

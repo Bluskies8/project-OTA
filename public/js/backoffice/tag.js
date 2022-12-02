@@ -1,11 +1,25 @@
 $(document).ready(function() {
     if ($('#table-tag').length) {
-        $('#table-tag').DataTable();
+        $('#table-tag').DataTable({
+            columns: [
+                null,
+                null,
+                { orderable: false }
+            ],
+        });
     }
-    $('#table-tag tbody').on('dblclick', '.tag-name', function() {
+
+    $('#table-tag tbody').on('click', '.tag-name', function() {
         $(this).hide();
         $(this).next().show();
     });
+
+    $('#table-tag tbody').on('blur', '.input-tag-name', function() {
+        $(this).hide();
+        $(this).prev().text($(this).val());
+        $(this).prev().show();
+    });
+
     $('.save-tag').on('click', function(){
         console.log($(this).closest('tr').find('input').val());
         $.ajax({
