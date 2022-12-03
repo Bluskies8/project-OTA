@@ -7,18 +7,39 @@
     <div id="filter" class="px-3 mb-4 position-relative">
         <button class="btn btn-primary btn-filter" type="button">Filter<i class="fas fa-caret-down ms-2"></i></button>
         <div id="menu-filter" class="position-absolute mt-2 card card-body" style="background-color: white;z-index: 1; display: none;">
-            <div class="row">
-                <div class="col">
-                    <h4>Sort By :</h4>
-                    <div style="overflow-y: auto;">
-                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
-                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div>
-                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-shortest-day" /><label class="form-check-label" for="formCheck-shortest-day">Shortest Day Count</label></div>
-                        <div class="form-check"><input type="radio" class="form-check-input" id="formCheck-longest-day" /><label class="form-check-label" for="formCheck-longest-day">Longest Day Count</label></div>
+            <form action="/tour" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col">
+                        <h4>Sort By :</h4>
+                        <div style="overflow-y: auto;">
+                            <input type="hidden" name="keyword" value = "{{$search}}">
+                            @if ($sort == "1")
+                            <div class="form-check"><input type="radio" name = "sort" value = "1" class="form-check-input" id="formCheck-lowest-price" checked/><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
+                            @else
+                            <div class="form-check"><input type="radio" name = "sort" value = "1" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
+                            @endif
+                            @if ($sort = "2")
+                            <div class="form-check"><input type="radio" name = "sort" value = "2" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div
+
+                            @else
+                            <div class="form-check"><input type="radio" name = "sort" value = "2" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div>
+                            @endif
+                            @if ($sort = "3")
+                            <div class="form-check"><input type="radio" name = "sort" value = "3" class="form-check-input" id="formCheck-shortest-day" /><label class="form-check-label" for="formCheck-shortest-day">Shortest Day Count</label></div>
+                            @else
+                            <div class="form-check"><input type="radio" name = "sort" value = "3" class="form-check-input" id="formCheck-shortest-day" /><label class="form-check-label" for="formCheck-shortest-day">Shortest Day Count</label></div>
+                            @endif
+                            @if ($sort = "4")
+                            <div class="form-check"><input type="radio" name = "sort" value = "4" class="form-check-input" id="formCheck-longest-day" /><label class="form-check-label" for="formCheck-longest-day">Longest Day Count</label></div>
+                            @else
+                            <div class="form-check"><input type="radio" name = "sort" value = "4" class="form-check-input" id="formCheck-longest-day" /><label class="form-check-label" for="formCheck-longest-day">Longest Day Count</label></div>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-end"><button class="btn btn-primary" type="button">Apply</button></div>
+                <div class="text-end"><button class="btn btn-primary" type="submit">Apply</button></div>
+            </form>
         </div>
     </div>
     <div id="list" style="overflow-y: auto;">

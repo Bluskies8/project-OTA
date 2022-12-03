@@ -26,9 +26,16 @@ class ProductTourController extends Controller
 
     public function ShowAllTour(Request $request)
     {
-        $data = ProductTour::getAlive()->where('keyword','like','%'.strtolower($request->keyword).'%')->where('enabled',1)->get();
-        // ->orderBy('start_price',$pricesort)
-        // ->orderBy('days_count',$dayssort);
+        $data = ProductTour::getAlive()->where('keyword','like','%'.strtolower($request->keyword).'%')->where('enabled',1);
+        if($request->sort == "1"){
+            $data = $data->orderBy('start_price',"asc");
+        }else if($request->sort == "2"){
+            $data = $data->orderBy('start_price',"desc");
+        }else if($request->sort == "3"){
+            $data = $data->orderBy('days_count',"asc");
+        }else if($request->sort == "4"){
+            $data = $data->orderBy('days_count',"desc");
+        }
         // if($req->has('duration')) $data = $data->where('days_count','>=',$explodedduration[0])->where('days_count','<=',$explodedduration[1]);
         // if($req->has('include_hotel')) $data = $data->where('include_hotel',$req->include_hotel);
         // if($req->has('include_flight')) $data = $data->where('include_flight',$req->include_flight);
@@ -41,14 +48,16 @@ class ProductTourController extends Controller
         //         if($req->has('price')) $data = $data->orWhere('start_price','>=',$explodedprice[0])->where('start_price','<=',$explodedprice[1]);
         //     }
         // }
-        // $data = $data->paginate($paginate);
+        $data = $data->get();
         foreach ($data as $key) {
             $key->header_img_url = env('APP_URL').'/tour/imgh/'.$key->id;
             $key->thumbnail_img_url = env('APP_URL').'/tour/imgt/'.$key->id;
         }
-        // dd($data);
+        // dd($request->sort);
         return view('pages.user.listTour',[
             'data' => $data,
+            'search' => $request->keyword,
+            'sort' => ($request->has('sort')) ? $request->sort : ""
         ]);
     }
 
