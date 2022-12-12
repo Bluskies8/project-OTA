@@ -240,3 +240,7 @@ header i {
     color: #fff;
     background-color: rgb(75, 0, 118);
 }
+
+.text-large {
+    font-size: 1.5rem;
+}

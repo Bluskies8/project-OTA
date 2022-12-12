@@ -41,10 +41,10 @@
 				<table class="table" id="table-tours"  style="width: 100%">
 					<thead>
 						<tr>
-							<th >No.</th>
-							<th >Username </th>
-							<th >Role Name </th>
-							<th >Action</th>
+							<th>No.</th>
+							<th>Username </th>
+							<th>Role Name </th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
