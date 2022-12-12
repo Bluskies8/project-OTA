@@ -79,6 +79,9 @@ Route::group(['middleware' => ['adminUser']], function () {
     Route::prefix('admin')->group(function () {
         Route::get('/logout',[BackofficeController::class,'logout']);
         Route::get('/',[BackofficeController::class,'logout']);
+
+        Route::get('/testing', [BackofficeController::class,'testing']);
+
         Route::prefix('role')->group(function () {
             Route::get('/',[BackofficeController::class,'adminRole']);
             Route::post('/create',[adminRoleController::class,'create']);
