@@ -274,7 +274,7 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                url: "/Flight/cp-submit",
+                url: "/Flights/cp-submit",
                 method: 'post',
                 data: {
                     'data': data,

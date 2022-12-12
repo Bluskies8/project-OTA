@@ -84,12 +84,12 @@
                     <p>Enduser Content</p>
                 </div><i class="fas fa-angle-down"></i>
             </div>
-            <div class="py-2 ps-5 px-3 menu-item d-none">
+            {{-- <div class="py-2 ps-5 px-3 menu-item d-none">
                 <a href="/cms/content/staticimg" class="d-flex w-100" style="text-decoration: none; color:inherit;">
                     <i class="fas fa-box me-3"></i>
                     <p>Static Images</p>
                 </a>
-            </div>
+            </div> --}}
             <div class="py-2 ps-5 px-3 menu-item d-none">
                 <a href="/cms/content/carousel" class="d-flex w-100" style="text-decoration: none; color:inherit;">
                     <i class="fas fa-money-bill me-3"></i>

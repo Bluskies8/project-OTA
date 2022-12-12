@@ -20,8 +20,7 @@
                             <div class="form-check"><input type="radio" name = "sort" value = "1" class="form-check-input" id="formCheck-lowest-price" /><label class="form-check-label" for="formCheck-lowest-price">Lowest Price</label></div>
                             @endif
                             @if ($sort = "2")
-                            <div class="form-check"><input type="radio" name = "sort" value = "2" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div
-
+                            <div class="form-check"><input type="radio" name = "sort" value = "2" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div>
                             @else
                             <div class="form-check"><input type="radio" name = "sort" value = "2" class="form-check-input" id="formCheck-highest-price" /><label class="form-check-label" for="formCheck-highest-price">Highest Price</label></div>
                             @endif

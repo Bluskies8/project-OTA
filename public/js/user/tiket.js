@@ -18,7 +18,14 @@ $(document).ready(function() {
             $('#menu-kota-tujuan').hide();
         }
     });
-
+    $('.change').on('change', function() {
+        console.log(this)
+        if($(this).val() == 1){
+            $('#input-return').prop('disabled', true);
+        }else{
+            $('#input-return').prop('disabled', false);
+        }
+    });
     // $('#btn-filter-transit').on('click', function() {
     //     if ($('#menu-transit').css('display') == 'none') {
     //         $('#menu-transit').show();

@@ -290,6 +290,7 @@ public function loginUser(Request $request)
                 $passid .= ','.$value->id;
             }
         }
+        // dd($res->data);
         return view('pages.user.ticket',[
             'airport' => $airport->data,
             'data' => $res->data,
@@ -465,6 +466,7 @@ public function loginUser(Request $request)
                         //throw $th;
                     }
                 }
+                $customer = Customer::where('guest_name',$key2['nama'])->first();
                 if(in_array('CHD',$paxtype)){
                     $extrabed = "cwb";
                 }else{

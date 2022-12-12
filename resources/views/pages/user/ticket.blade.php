@@ -284,38 +284,51 @@
             <div class="modal-header">
                 <h4 class="modal-title">Pencarian Tiket</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action = "Flight/search" method="post">
+            <form action = "/Flight/search" method="post">
+                @csrf
                 <div class="modal-body">
                     <div class="row">
+                        <div class="d-flex align-items-center">
+                            {{-- <h3 class="text-uppercase color-main me-3 mb-3">book your flight</h3> --}}
+                            @if ($type == 2)
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "2" class="form-check-input change" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);" checked><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input change" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            @else
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "2" class="form-check-input change" type="radio" id="formCheck-1" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"><label class="form-check-label" for="formCheck-1">Round-Trip</label></div>
+                            <div class="form-check me-2 mb-0"><input name = "type" value = "1" class="form-check-input change" type="radio" id="formCheck-2" name="flight-type" style="filter: hue-rotate(180deg) saturate(160%);"checked><label class="form-check-label" for="formCheck-2">One-Way</label></div>
+                            @endif
+                        </div>
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div id="data-kota-asal" class="position-relative">
                                 <p>Kota Asal</p>
-                                <select class=" form-select" name = "departure">
+                                <input id="input-departure" name="departure" list="list-departure" class="form-control" value = "{{$data->slices[0]->origin->iata_code}}">
+                                <datalist id="list-departure" >
                                     @foreach ($airport as $item)
-                                    <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
+                                    <option value=" {{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                     @endforeach
-                                </select>
+                                </datalist>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div id="data-kota-tujuan" class="position-relative">
                                 <p>Kota Tujuan</p>
-                                <select class=" form-select" name = "departure">
+                                <input id="input-return" name="destination" list="list-destination" class="form-control" value = "{{$data->slices[0]->destination->iata_code}}">
+                                <datalist id="list-destination" >
                                     @foreach ($airport as $item)
-                                    <option value="{{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
+                                    <option value=" {{$item->iata_code}}" data-tokens="{{$item->name}} - {{$item->city_name}}">{{$item->name}} - {{$item->city_name}}</option>
                                     @endforeach
-                                </select>
+                                </datalist>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <p>Jumlah Penumpang</p><input class="form-control pass_count" type="text" value = "{{$pass_count}}">
+                            <p>Jumlah Penumpang</p><input class="form-control pass_count" name = "passanger" type="text" value = "{{$pass_count}}">
                         </div>
                         <div class="col-12 col-sm-6 col-lg-3">
-                            <p>Tanggal Pergi</p><input class="form-control" type="date" value = "{{$depart_date}}">
+                            <p>Tanggal Pergi</p><input class="form-control" type="date" name = "depart" value = "{{$depart_date}}">
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-3">
-                            <p>Tanggal Pulang</p><input class="form-control" type="date" value = "{{$return_date}}">
+                            <p>Tanggal Pulang</p><input class="form-control" type="date" name = "return" value = "{{$return_date}}">
                         </div>
                         <div class="col-12 col-lg-6">
                             <p>Kelas Penerbangan</p>
