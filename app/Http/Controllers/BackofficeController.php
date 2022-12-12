@@ -318,4 +318,9 @@ class BackofficeController extends Controller
     {
         return view('pages.backoffice.finance');
     }
+
+    public function dashboard()
+    {
+        return view('pages.backoffice.dashboard');
+    }
 }

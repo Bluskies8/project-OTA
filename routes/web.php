@@ -80,8 +80,6 @@ Route::group(['middleware' => ['adminUser']], function () {
         Route::get('/logout',[BackofficeController::class,'logout']);
         Route::get('/',[BackofficeController::class,'logout']);
 
-        Route::get('/testing', [BackofficeController::class,'testing']);
-
         Route::prefix('role')->group(function () {
             Route::get('/',[BackofficeController::class,'adminRole']);
             Route::post('/create',[adminRoleController::class,'create']);
@@ -137,7 +135,7 @@ Route::group(['middleware' => ['adminUser']], function () {
         Route::get('/user', [BackofficeController::class,'User']);
         Route::get('/user/detail/{id}', [BackofficeController::class,'history']);
         Route::get('/finance', [BackofficeController::class,'finance']);
-
+        Route::get('/dashboard', [BackofficeController::class,'dashboard']);
     });
     Route::prefix('cms')->group(function () {
         Route::prefix('content')->group(function () {
