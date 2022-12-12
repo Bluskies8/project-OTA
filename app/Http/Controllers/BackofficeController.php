@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BackofficeController extends Controller
 {
@@ -303,6 +304,11 @@ class BackofficeController extends Controller
         if($request->transaction['status'] == "SUCCESS"){
             if(substr($request->order['invoice_number'],0,3)== "TUR"){
                 $data = TourBooking::where('bookingCode',$request->order['invoice_number'])->first();
+                $tourPass = TourPassanger::where('tour_bookings_id',$data->id)->get();
+                foreach ($tourPass as $key) {
+                    $key->status = 1;
+                    $key->save();
+                }
                 $data->payment_status = 1;
                 $data->save();
             }else if(substr($request->order['invoice_number'],0,3)== "FGH"){
@@ -316,7 +322,32 @@ class BackofficeController extends Controller
 
     public function finance()
     {
-        return view('pages.backoffice.finance');
+        for ($i=0; $i < 7; $i++) {
+            $dateS = Carbon::now()->startOfMonth()->subMonth($i);
+            $dateE = Carbon::now()->endOfMonth()->subMonth($i);
+            $month = Carbon::now()->startOfMonth()->subMonth($i)->format('M');
+            $flight[$i] = [
+                'mon' => $month,
+                'data' => UserSingleFlightBook::whereBetween('created_at',[$dateS,$dateE])->where('payment_status',1)->sum('total'),
+                'count' => UserSingleFlightBook::whereBetween('created_at',[$dateS,$dateE])->where('payment_status',1)->count(),
+            ];
+            $tour[$i] = [
+                'mon' => $month,
+                'data' => TourPassanger::whereBetween('created_at',[$dateS,$dateE])->where('status',1)->count() *500000,
+                'count' => TourBooking::whereBetween('created_at',[$dateS,$dateE])->where('payment_status',1)->count(),
+            ];
+        }
+        $dateS = Carbon::now()->startOfMonth()->subMonth(6);
+        $dateE = Carbon::now()->endOfMonth();
+        $transflight = UserSingleFlightBook::with('customer')->select('order_by',DB::raw('count(*) as jumlah'), DB::raw('sum(total) as total'))->where('payment_status',1)->whereBetween('created_at',[$dateS,$dateE])->groupBy('order_by')->skip(0)->take(5)->get();
+        $transtour = TourBooking::with('customer')->select('user_id',DB::raw('count(*) as jumlah'), DB::raw('count(*) * 500000 as total'))->where('payment_status',1)->whereBetween('created_at',[$dateS,$dateE])->groupBy('user_id')->skip(0)->take(5)->get();
+        // dd($tour);
+        return view('pages.backoffice.finance',[
+            'flight' => $flight,
+            'flighttrans' => $transflight,
+            'tour' => $tour,
+            'transtour' => $transtour,
+        ]);
     }
 
     public function dashboard()

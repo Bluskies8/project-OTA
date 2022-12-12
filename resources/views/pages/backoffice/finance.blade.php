@@ -27,26 +27,19 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Transaksi Terakhir</th>
                                         <th>Total Transaksi</th>
                                         <th>Banyak Pembelian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($flighttrans as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Kevin</td>
-                                        <td>Kemaren</td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="harga-trans thousand-separator">6500000</span></div></td>
-                                        <td class="text-center">7</td>
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$item->customer->first_name}} {{$item->customer->middle_name}} {{$item->customer->last_name}}</td>
+                                        <td><div class="justify-content-between">Rp <span class="harga-trans thousand-separator">{{$item->total}}</span></div></td>
+                                        <td class="text-center">{{$item->jumlah}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Joko</td>
-                                        <td>Lusa</td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="harga-trans thousand-separator">3200000</span></div></td>
-                                        <td class="text-center">4</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -78,26 +71,19 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Transaksi Terakhir</th>
                                         <th>Total Transaksi</th>
                                         <th>Banyak Pembelian</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($transtour as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Kevin</td>
-                                        <td>Kemaren</td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="harga-trans thousand-separator">6500000</span></div></td>
-                                        <td class="text-center">7</td>
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$item->customer->first_name}} {{$item->customer->middle_name}} {{$item->customer->last_name}}</td>
+                                        <td><div class="justify-content-between">Rp <span class="harga-trans thousand-separator">{{$item->total}}</span></div></td>
+                                        <td class="text-center">{{$item->jumlah}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Joko</td>
-                                        <td>Lusa</td>
-                                        <td><div class="d-flex justify-content-between">Rp <span class="harga-trans thousand-separator">3200000</span></div></td>
-                                        <td class="text-center">4</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -112,13 +98,29 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 $(document).ready(function() {
-
+    var separatorInterval = setInterval(setThousandSeparator, 10);
+    function setThousandSeparator () {
+        let length = $('.thousand-separator').length;
+        if (length != 0) {
+            $('.thousand-separator').each(function(index, element) {
+                let val = $(element).text();
+                if (val != ''){
+                    while(val.indexOf('.') != -1){
+                        val = val.replace('.', '');
+                    }
+                    let number = parseInt(val);
+                    $(element).text(number.toLocaleString(['ban', 'id']));
+                }
+            });
+            clearInterval(separatorInterval);
+        }
+    };
     new Chart("chart-transaksi-tiket", {
         type: "bar",
         data: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'], // val bulan or val X
+            labels: ['{{$flight[6]["mon"]}}', '{{$flight[5]["mon"]}}', '{{$flight[4]["mon"]}}', '{{$flight[3]["mon"]}}', '{{$flight[2]["mon"]}}', '{{$flight[1]["mon"]}}','{{$flight[0]["mon"]}}'], // val bulan or val X
             datasets: [{
-                data: [3000000, 4000000, 4800000, 3600000, 4400000, 3600000], // val data or val Y
+                data: ['{{$flight[6]["data"]}}', '{{$flight[5]["data"]}}', '{{$flight[4]["data"]}}', '{{$flight[3]["data"]}}', '{{$flight[2]["data"]}}', '{{$flight[1]["data"]}}','{{$flight[0]["data"]}}'], // val data or val Y
                 fill: true,
                 borderColor: 'rgb(54, 162, 235)',
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
@@ -149,9 +151,9 @@ $(document).ready(function() {
     new Chart("chart-transaksi-tiket-qty", {
         type: "line",
         data: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'], // val bulan or val X
+            labels: ['{{$flight[6]["mon"]}}', '{{$flight[5]["mon"]}}', '{{$flight[4]["mon"]}}', '{{$flight[3]["mon"]}}', '{{$flight[2]["mon"]}}', '{{$flight[1]["mon"]}}','{{$flight[0]["mon"]}}'],  // val bulan or val X
             datasets: [{
-                data: [15, 20, 24, 18, 22, 18], // val data or val Y
+                data: ['{{$flight[6]["count"]}}', '{{$flight[5]["count"]}}', '{{$flight[4]["count"]}}', '{{$flight[3]["count"]}}', '{{$flight[2]["count"]}}', '{{$flight[1]["count"]}}','{{$flight[0]["count"]}}'],  // val data or val Y
                 fill: true,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -183,9 +185,9 @@ $(document).ready(function() {
     new Chart("chart-transaksi-tour", {
         type: "bar",
         data: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'], // val bulan or val X
+            labels: ['{{$tour[6]["mon"]}}', '{{$tour[5]["mon"]}}', '{{$tour[4]["mon"]}}', '{{$tour[3]["mon"]}}', '{{$tour[2]["mon"]}}', '{{$tour[1]["mon"]}}','{{$tour[0]["mon"]}}'],  // val bulan or val X
             datasets: [{
-                data: [3000000, 4000000, 4800000, 3600000, 4400000, 3600000], // val data or val Y
+                data: ['{{$tour[6]["data"]}}', '{{$tour[5]["data"]}}', '{{$tour[4]["data"]}}', '{{$tour[3]["data"]}}', '{{$tour[2]["data"]}}', '{{$tour[1]["data"]}}','{{$tour[0]["data"]}}'],  // val data or val Y
                 fill: true,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.5)',
@@ -204,7 +206,7 @@ $(document).ready(function() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Transaksi Tiket'
+                    text: 'Transaksi Tour'
                 },
                 legend: {
                     display: false
@@ -216,9 +218,9 @@ $(document).ready(function() {
     new Chart("chart-transaksi-tour-qty", {
         type: "line",
         data: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des'], // val bulan or val X
+            labels: ['{{$tour[6]["mon"]}}', '{{$tour[5]["mon"]}}', '{{$tour[4]["mon"]}}', '{{$tour[3]["mon"]}}', '{{$tour[2]["mon"]}}', '{{$tour[1]["mon"]}}','{{$tour[0]["mon"]}}'],  // val bulan or val X
             datasets: [{
-                data: [15, 20, 24, 18, 22, 18], // val data or val Y
+                data: ['{{$tour[6]["count"]}}', '{{$tour[5]["count"]}}', '{{$tour[4]["count"]}}', '{{$tour[3]["count"]}}', '{{$tour[2]["count"]}}', '{{$tour[1]["count"]}}','{{$tour[0]["count"]}}'], // val data or val Y
                 fill: true,
                 borderColor: 'rgb(255, 159, 64)',
                 backgroundColor: 'rgba(255, 159, 64, 0.5)',
