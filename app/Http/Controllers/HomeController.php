@@ -35,25 +35,25 @@ class HomeController extends Controller
         return "success";
     }
 
-public function loginUser(Request $request)
-{
-    // dd($request->all());
-    $request->validate([
-        'email' => 'bail|required|email',
-        'password' => 'bail|required'
-    ]);
-    $user = User::where('email',$request->email)->first();
-    if(!$user) return redirect()->back()->with('pesan','email/password salah');
-    $data = [
-        'email' => $request->email,
-        'password' => $request->password
-    ];
-    if(Auth::guard('user')->attempt($data)){
-        return redirect()->back();
-    }else{
-        return redirect()->back()->with('pesan','email/password salah');
+    public function loginUser(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'email' => 'bail|required|email',
+            'password' => 'bail|required'
+        ]);
+        $user = User::where('email',$request->email)->first();
+        if(!$user) return redirect()->back()->with('pesan','email/password salah');
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        if(Auth::guard('user')->attempt($data)){
+            return redirect()->back();
+        }else{
+            return redirect()->back()->with('pesan','email/password salah');
+        }
     }
-}
 
     public function registerUser(Request $request)
     {

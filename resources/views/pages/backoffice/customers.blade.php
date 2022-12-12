@@ -4,7 +4,7 @@
     @include('includes.datatables')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container">
-        <div class="card col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card mt-5">
             <div class="card-body">
                 <header>
                     <h3>Customers</h3>
