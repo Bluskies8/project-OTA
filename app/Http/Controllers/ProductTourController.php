@@ -305,6 +305,8 @@ class ProductTourController extends Controller
         if($request->has('tags'))$data->tags = $request->tags;
         if($request->has('countrytag'))$data->countrytag = $request->countrytag;
         if($request->has('enabled'))$data->enabled = $request->enabled;
+        if($request->has('valid_date_start'))$data->valid_date_start = $request->valid_date_start;
+        if($request->has('valid_date_end'))$data->valid_date_end = $request->valid_date_end;
         if($request->hasFile('himg')){
             // $filenameWithExt = $request->file('img')->getClientOriginalName();
             // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
