@@ -7,7 +7,7 @@
         <li class="list-group-item p-0">
             <h4 class="color-main py-3 px-3 menu-header">Back Office</h4>
             <div class="py-2 px-3 menu-item">
-                <a href="/backoffice/dasboard" class="d-flex w-100" style="text-decoration: none; color:inherit;">
+                <a href="/backoffice" class="d-flex w-100" style="text-decoration: none; color:inherit;">
                     <i class="fa-solid fa-house-chimney me-3"></i>
                     <p>Dashboard</p>
                 </a>

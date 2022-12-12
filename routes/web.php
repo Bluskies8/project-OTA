@@ -94,6 +94,8 @@ Route::group(['middleware' => ['adminUser']], function () {
         });
     });
     Route::prefix('backoffice')->group(function () {
+        // Route::get('dashboard', [BackofficeController::class,'dashboard']);
+        Route::get('/',[BackofficeController::class,'dashboard']);
         Route::prefix('supplier')->group(function () {
             Route::get('/',[BackofficeController::class,'Supplier']);
             Route::post('/create',[SupplierController::class,'create']);
@@ -135,7 +137,6 @@ Route::group(['middleware' => ['adminUser']], function () {
         Route::get('/user', [BackofficeController::class,'User']);
         Route::get('/user/detail/{id}', [BackofficeController::class,'history']);
         Route::get('/finance', [BackofficeController::class,'finance']);
-        Route::get('/dashboard', [BackofficeController::class,'dashboard']);
     });
     Route::prefix('cms')->group(function () {
         Route::prefix('content')->group(function () {

@@ -321,6 +321,7 @@ class BackofficeController extends Controller
 
     public function dashboard()
     {
+        // dd("masuk");
         return view('pages.backoffice.dashboard');
     }
 }
