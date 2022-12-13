@@ -130,6 +130,7 @@
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-end mb-4">
                                 <p class="tiny">Tags</p>
+                                <input type="hidden" id = "tag" name="tags" value="">
                                 <div class="d-flex align-items-center spesial position-relative"><input class="form-control spesial input-tags" type="text" id="input-tags" readonly="" style="background-color: inherit;">
                                     <button class="btn show-tags" type="button" style="color: #212529;font-size: 14px;"><i class="fas fa-chevron-down"></i></button>
                                     <div id="tag-list" class="position-absolute w-100 p-3 card" style="top: 38px;background-color: white;display: none;">

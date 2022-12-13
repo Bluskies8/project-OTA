@@ -73,7 +73,9 @@ $(document).ready(function() {
     $('#section-tour #action-detail').on('click', function() {
         window.location.href = "/cms/tour/" + btnId;
     });
-
+    $('#section-tour #action-delete').on('click', function() {
+        window.location.href = "/cms/tour/delete/" + btnId;
+    });
     // Tour Detail
     $('.show-tags').on('click', function() {
         if ($(this).hasClass('fa-rotate-180')) {
@@ -250,24 +252,24 @@ $(document).ready(function() {
         if(id == ''){
             $(this).parent().parent().detach();
         }else{
-            // $.ajax({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            //     },
-            //     type: "delete",
-            //     url: "/cms/tour/Highlight/delete/"+id,
-            //     beforeSend: function(){
-            //         // console.log(this.data);
-            //     },
-            //     success: function(res) {
-            //         console.log(res);
-            //         thiss.parent().parent().detach();
-            //     },
-            //     error: function (xhr, ajaxOptions, thrownError) {
-            //         console.log(xhr.status);
-            //         console.log(thrownError);
-            //     }
-            // });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                type: "delete",
+                url: "/cms/tour/Highlight/delete/"+id,
+                beforeSend: function(){
+                    // console.log(this.data);
+                },
+                success: function(res) {
+                    console.log(res);
+                    thiss.parent().parent().detach();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
     });
 
@@ -319,7 +321,7 @@ $(document).ready(function() {
         var thiss = $(this);
         var td = $(this).parent().parent().children()[1];
         var id = $(td).children().attr('id');
-        console.log(id)
+        console.log(thiss)
         if(id == ''){
             $(this).parent().parent().detach();
         }else{

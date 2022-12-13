@@ -310,11 +310,9 @@ class HomeController extends Controller
 
     public function home()
     {
-        // return view('pages.user.index');
         $display = DisplayBanner::where('enabled',1)->orderBy('index', 'ASC')->get();
         $tour = ProductTour::get();
         $airport = DuffelAPI::getAirport();
-        // foreach ($display as $tagg) {
         if ($display) {
             foreach ($display as $diplays) {
                 $temp = [];
@@ -344,7 +342,6 @@ class HomeController extends Controller
                 $diplays->products = $temp;
             }
         }
-        // }
         // dd($display);
         $carousel = Carousel::get();
         return view('pages.user.index',[

@@ -113,16 +113,31 @@
             </div>
         </div>
     </section>
-    <section id="section-carousel" class="mt-5">
+    <section id="section-carousel" class="mt-5" style = "background-color:rgb(192,192,192)">
         <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
             <div class="carousel-inner">
+                <div class="carousel-item active" >
+                    <a href="{{$carousel[0]->direct_link}}">
+                        <img class="w-100 d-block" src="{{url('/carousel/'.$carousel[0]->id)}}" alt="" style="max-height: 420px;object-fit: none;">
+                    </a>
+                </div>
                 @foreach ($carousel as $item)
-                <div class="carousel-item active"><a href="{{$item->direct_link}}"><img class="w-100 d-block" src="{{url('/carousel/'.$item->id)}}" alt="" style="max-height: 420px;object-fit: none;"></a></div>
+                <div class="carousel-item">
+                    <a href="{{$item->direct_link}}">
+                        <img class="w-100 d-block" src="{{url('/carousel/'.$item->id)}}" alt="" style="max-height: 420px;object-fit: none;">
+                    </a>
+                </div>
                 @endforeach
             </div>
-            <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev" style="width: 10%;"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next" style="width: 10%;"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
+            <div>
+                <a class="carousel-control-prev" data-bs-target="#carousel-1" role="button" data-bs-slide="prev" style="width: 10%;"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a>
+                <a class="carousel-control-next" data-bs-target="#carousel-1" role="button" data-bs-slide="next" style="width: 10%;"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a>
+            </div>
             <ol class="carousel-indicators color-main">
-                <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
+                @foreach ($carousel as $item)
+                <li data-bs-target="#carousel-1" data-bs-slide-to="{{$loop->index}}" class="active"></li>
+                @endforeach
+
             </ol>
         </div>
     </section>

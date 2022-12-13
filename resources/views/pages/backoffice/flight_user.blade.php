@@ -23,8 +23,8 @@
                                 <th>City Route</th>
                                 <th>Total (IDR)</th>
                                 <th>Booking Status</th>
-                                <th>Payment Status</th>
-                                <th>Action</th>
+                                {{-- <th>Payment Status</th> --}}
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -38,9 +38,8 @@
                                     <td class="text-right">{{ $item->city_route }}</td>
                                     <td class="text-right thousand-separator">{{ round($item->total); }}</td>
                                     <td class="text-right">{{ $item->book_status }}</td>
-                                    <td class="text-right">{{ $item->payment_xstatus }}</td>
-                                    <td class="cell-action text-right"><i
-                                            class="fas fa-exclamation-circle text-primary"></i></td>
+                                    {{-- <td class="text-right">{{ $item->payment_xstatus }}</td> --}}
+                                    {{-- <td class="cell-action text-right"><i class="fas fa-exclamation-circle text-primary"></i></td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

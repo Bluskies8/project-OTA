@@ -161,29 +161,27 @@
                                             </button></div>
                                         <div class="row" style="max-height: 200px;overflow-y: auto;">
                                             @foreach ($tag as $item)
-                                                @foreach (explode(',', $data['data']['tags']) as $item2)
-                                                    @if ($item->id == $item2)
-                                                        <input type="hidden" name="tags" id="tag" value="{{ $tagid }}">
-                                                        <div class="col-4 mb-1">
-                                                            <div class="form-check">
-                                                                <input checked class="form-check-input" type="checkbox"
-                                                                    id="tag-{{ $item->id }}"
-                                                                    value="{{ $item->name }}"><label
-                                                                    class="form-check-label"
-                                                                    for="tag-{{ $item->id }}">{{ $item->name }}</label>
-                                                            </div>
+                                                @if (in_array($item->id,explode(',', $data['data']['tags'])))
+                                                    <input type="hidden" name="tags" id="tag" value="{{ $tagid }}">
+                                                    <div class="col-4 mb-1">
+                                                        <div class="form-check">
+                                                            <input checked class="form-check-input" type="checkbox"
+                                                                id="tag-{{ $item->id }}"
+                                                                value="{{ $item->name }}"><label
+                                                                class="form-check-label"
+                                                                for="tag-{{ $item->id }}">{{ $item->name }}</label>
                                                         </div>
-                                                    @else
-                                                        <div class="col-4 mb-1">
-                                                            <div class="form-check"><input class="form-check-input"
-                                                                    type="checkbox" id="tag-{{ $item->id }}"
-                                                                    value="{{ $item->name }}"><label
-                                                                    class="form-check-label"
-                                                                    for="tag-{{ $item->id }}">{{ $item->name }}</label>
-                                                            </div>
+                                                    </div>
+                                                @else
+                                                    <div class="col-4 mb-1">
+                                                        <div class="form-check"><input class="form-check-input"
+                                                                type="checkbox" id="tag-{{ $item->id }}"
+                                                                value="{{ $item->name }}"><label
+                                                                class="form-check-label"
+                                                                for="tag-{{ $item->id }}">{{ $item->name }}</label>
                                                         </div>
-                                                    @endif
-                                                @endforeach
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>
@@ -633,11 +631,11 @@
                     <h4 class="modal-title">Notice</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cms/tour/Photo/update" method="post" enctype="multipart/form-data">
+                    <form action="/cms/tour/Photo/create" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="col-12 mb-3">
-                            <p class="tiny">Slug</p>
-                            <input class="form-control" type="text" placeholder="xyz.co.id/tours/" name="slug" value="{{ $data['data']['slug'] }}">
+                            <p class="tiny">Title</p>
+                            <input class="form-control" type="text" placeholder="" name="title" >
                         </div>
                         <div class="col-12 mb-3">
                             <input type="file" name="img" class="form-control" onchange="document.getElementById('preview-img').src = window.URL.createObjectURL(this.files[0])" />
@@ -650,7 +648,7 @@
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                         </div>
-                        <input type="hidden" name="id" value="{{ $item->id }}">
+                        <input type="hidden" name="tour_id" value="{{ $item->id }}">
                     </form>
                 </div>
             </div>

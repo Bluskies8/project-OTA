@@ -84,7 +84,7 @@ class ProductTourController extends Controller
         $data['availableDates'] = $temp->availableDates;
         $data['cancelPolicies'] = $temp->cancelPolicies;
         $data['thermsConds'] = $temp->thermsConds;
-        // dd($temp->thermsConds);
+        // dd($data);
         return view('pages.user.tour',[
             'data' => $data,
         ]);
@@ -98,7 +98,7 @@ class ProductTourController extends Controller
     public function showPhoto($id)
     {
         $data = ProductTourPhoto::where('id',$id)->first();
-        // return $data;
+        // dd($data);
         return response()->file(storage_path('/app/public/'.$data->img_url));
     }
     public function showAllPhoto($id)
@@ -313,7 +313,7 @@ class ProductTourController extends Controller
             // $extension = $request->file('img')->getClientOriginalExtension();
             $saveFile = 'tour'.$request->id.'.jpg';
             $path = $request->file('header_img')->storeAs('Tour/Tour'.$request->id.'/imgh', $saveFile);
-            dd($path);
+            // dd($path);
             $data->header_img_url = $path;
         }
         if($request->hasFile('thumbnail_img')){
@@ -327,5 +327,11 @@ class ProductTourController extends Controller
         $data->save();
         return redirect()->back();
         // return response()->json(['data' => $data],200);
+    }
+    public function destroy($id)
+    {
+        $data = ProductTour::where('slug',$id)->first();
+        $data->delete();
+        return redirect()->back();
     }
 }

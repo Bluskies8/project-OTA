@@ -166,6 +166,7 @@ Route::group(['middleware' => ['adminUser']], function () {
             Route::get('/{productTour:slug}', [ProductTourController::class, 'showbyId']);
             Route::post('/create',[ProductTourController::class,'create']);
             Route::post('/update',[ProductTourController::class,'update']);
+            Route::get('/delete/{id}',[ProductTourController::class,'destroy']);
             // Route::prefix('CancelPolicy')->group(function () {
             //     Route::post('create', [ProductTourCancelpolicyController::class, 'create']);
             //     Route::get('/get/{id}', [ProductTourCancelpolicyController::class, 'show']);

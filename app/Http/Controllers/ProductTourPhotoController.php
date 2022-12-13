@@ -27,7 +27,6 @@ class ProductTourPhotoController extends Controller
     {
         $request->validate([
             'img' => 'mimes:jpeg,jpg,png|required',
-            'tour_id' => 'required'
         ]);
         $temp = ProductTourPhoto::where('tour_id', $request->tour_id)->count();
         // dd($temp);
@@ -36,12 +35,7 @@ class ProductTourPhotoController extends Controller
             $saveFile = 'Tour'.$request->tour_id.'_photo_'.$count.'.jpg';
             $path = $request->file('img')->storeAs('public/Tour/Tour'.$request->tour_id, $saveFile);
         }
-        return ProductTourPhoto::create([
-            'id' => '',
-            'tour_id' => $request->tour_id,
-            'title' => $request->tittle,
-            'img_url' => $path
-        ]);
+        return redirect()->back();
     }
     // public function getImg($id)
     // {
@@ -69,6 +63,7 @@ class ProductTourPhotoController extends Controller
     public function show($id)
     {
         $data = ProductTourPhoto::where('id',$id)->first();
+        // dd($data);
         return response()->file(storage_path($data->img_url));
     }
     public function showAll($id)
@@ -80,7 +75,7 @@ class ProductTourPhotoController extends Controller
             $data[] = [
                 'id' => $key->id,
                 'title' => $key->title,
-                'img_url' => env('APP_URL').'/api/tour/Photo/getimg/'.$key->id
+                'img_url' => env('APP_URL').'/tour/Photo/getimg/'.$key->id
             ];
         }
         return response()->json($data,200);
@@ -105,14 +100,13 @@ class ProductTourPhotoController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'img' => 'mimes:jpeg,jpg,png'
-        ]);
+        // $request->validate([
+        //     'img' => 'mimes:jpeg,jpg,png'
+        // ]);
         $data = ProductTourPhoto::where('id', $request->id)->first();
         if($request->hasFile('img')){
             $saveFile = 'Tour'.$data->tour_id.'_photo_'.$data->id.'.jpg';
-            $path = $request->file('img')->storeAs('/Tour/Tour'.$data->tour_id, $saveFile);
+            $path = $request->file('img')->storeAs('/public/Tour/Tour'.$data->tour_id, $saveFile);
             $data->img_url = $path;
         }
         if($request->has('title'))$data->title = $request->title;
