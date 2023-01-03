@@ -241,7 +241,6 @@ class ProductTourController extends Controller
         }
         $keyword = $request->name.', '.$isdom.', '.$flight.', '.$hotel.', '.$visa.', '.$request->days_count.' days, '.$request->nights_count.' nights, limit '.$request->pass_limit.', '.$request->description;
         // dd($request->all());
-        // dd($vi);
         $data = ProductTour::create([
             'id' => '',
             'slug' => $request->slug,
@@ -267,7 +266,6 @@ class ProductTourController extends Controller
             'valid_date_end' => $request->valid_date_end,
             'gimmic_price' => $request->gimmic_price,
             'downpayment' => $request->downpayment,
-            'include_visa' => $request->include_visa,
             'supplier_id' => $request->supplier_id,
             'type' => 0,
             'countrytag' => $request->countrytag,
