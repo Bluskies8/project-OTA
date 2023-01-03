@@ -211,28 +211,28 @@ class ProductTourController extends Controller
             $saveFile = 'thumbnail_img_'.$temp.'.jpg';
             $path2 = $request->file('thumbnail_img')->storeAs('public/Tour/Tour'.$temp, $saveFile);
         }
-        if($request->is_domestic == 1){
+        if($request->has('is_domestic')){
             $isdom = 'is domestic';
             $dom = 1;
         }else{
             $isdom = 'is international';
             $dom = 0;
         }
-        if($request->include_hotel ==1){
+        if($request->has('include_hotel')){
             $hotel = 'include hotel';
             $ho = 1;
         }else{
             $hotel = 'not included hotel';
             $ho = 0;
         }
-        if($request->include_flight == 1){
+        if($request->has('include_flight')){
             $flight = 'include flight';
             $fl = 1;
         }else{
             $flight = 'not include flight';
             $fl = 0;
         }
-        if($request->include_visa == 1){
+        if($request->has('include_visa')){
             $visa = 'include visa';
             $vi = 1;
         }else{
@@ -240,7 +240,8 @@ class ProductTourController extends Controller
             $vi = 0;
         }
         $keyword = $request->name.', '.$isdom.', '.$flight.', '.$hotel.', '.$visa.', '.$request->days_count.' days, '.$request->nights_count.' nights, limit '.$request->pass_limit.', '.$request->description;
-
+        // dd($request->all());
+        // dd($vi);
         $data = ProductTour::create([
             'id' => '',
             'slug' => $request->slug,

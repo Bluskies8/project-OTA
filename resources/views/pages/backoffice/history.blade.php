@@ -2,6 +2,7 @@
 
 @section('content')
 @include('includes.datatables')
+<?php $count = 0; $temp = 0; ?>
 <div class="container">
     <div class="my-5" style="font-size: 1.25rem;">
         {{-- <i class="fas fa-arrow-left color-main me-4"></i><a class="me-3" href="#">Back Office</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">History</a><i class="fas fa-chevron-right me-3"></i><a class="me-3" href="#">Booking</a> --}}
@@ -44,7 +45,7 @@
                                                 $t1 = strtotime($item2->departing_at);
                                                 $t2 = strtotime($item2->arriving_at);
 
-                                                $temp[$count] = gmdate('H:i', $t2 - $t1);
+                                                $temp +=  ($t2 - $t1);
 
                                                 $count +=1;
 
@@ -59,7 +60,7 @@
                                                 <p>{{gmdate('H:i', strtotime($departing[0]));}}</p><button class="btn btn-secondary btn-sm" type="button" style="padding: 2px 4px;">{{$slicess->origin->iata_code}}</button>
                                             </div>
                                             <div class="d-flex flex-column align-items-center justify-content-center mx-5">
-                                                <p>{{gmdate('H:i', strtotime($temp[0]))}}</p>
+                                                <p>{{gmdate('H:i', $temp)}}</p>
                                                 @if ($count>1)
                                                 <p>Transit</p>
                                                 @else
